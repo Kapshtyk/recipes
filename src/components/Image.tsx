@@ -1,6 +1,6 @@
 import React from 'react'
 import { ImageType } from '../types/image'
-import cl from '../styles/RecipePreview.css'
+import cl from '../styles/RecipePreview.module.css'
 
 const Image = (data: ImageType) => {
   return (
@@ -8,8 +8,7 @@ const Image = (data: ImageType) => {
       <img
         src={data.source}
         alt={data.alt}
-        width={data.width ?? 400}
-        height={data.height ?? 300}
+        width={data.width ?? '100%'}
       />
     </div>
   )

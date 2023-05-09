@@ -2,11 +2,11 @@
   "recipes": [
     {
       "id": 1,
-      "title": "Borscht",
+      "title": "Borsch",
       "origin": "Ukraine",
       "description": "A hearty soup made with beets and other vegetables",
       "instruction": "Boil beets, carrots, potatoes, and cabbage until tender. Sauté onions and garlic, then add to the pot along with beef broth and tomato paste. Season with dill and vinegar.",
-      "image": "images/borscht.jpg",
+      "image": "images/borsch.jpg",
       "authorId": 1,
       "ingredients": [
         { "name": "beets", "quantity": 2, "units": "medium" },

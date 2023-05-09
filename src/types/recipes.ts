@@ -1,4 +1,4 @@
-export type ResipesType = {
+export type RecipesType = {
   recipes: RecipeType[]
 }
 
