@@ -1,8 +1,8 @@
-export type Users = {
-  users: User[]
+export type UsersType = {
+  users: UserType[]
 }
 
-export type User = {
+export type UserType = {
   id: number
   firstname: string
   lastname: string

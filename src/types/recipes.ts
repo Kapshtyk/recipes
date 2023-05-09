@@ -1,8 +1,8 @@
-export type Resipes = {
-  recipes: Recipe[]
+export type ResipesType = {
+  recipes: RecipeType[]
 }
 
-export type Recipe = {
+export type RecipeType = {
   id: number
   title: string
   origin: string
@@ -10,10 +10,10 @@ export type Recipe = {
   instruction: string
   image: string
   authorId: number
-  ingredients: Ingredient[]
+  ingredients: IngredientType[]
 }
 
-export type Ingredient = {
+export type IngredientType = {
   name: string
   quantity: number
   units: string

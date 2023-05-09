@@ -1,8 +1,8 @@
-export type Comments = {
-  comments: Comment[]
+export type CommentsType = {
+  comments: CommentType[]
 }
 
-export type Comment = {
+export type CommentType = {
   id: number
   authorID: number
   recipeID: number

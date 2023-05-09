@@ -1,12 +1,13 @@
 import React from 'react'
-import { Recipe } from '../types/recipes'
+import { RecipeType } from '../types/recipes'
+import Image from './Image'
 
-const RecipePreview = (data: Recipe) => {
+const RecipePreview = (data: RecipeType) => {
   return (
     <div>
       {data.id}
       {data.title}
-      <img src={data.image} alt={data.title} />
+      <Image source={data.image} alt={data.title}></Image>
     </div>
   )
 }
