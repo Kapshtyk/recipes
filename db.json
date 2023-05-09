@@ -1,0 +1,132 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Borscht",
+      "origin": "Ukraine",
+      "description": "A hearty soup made with beets and other vegetables",
+      "instruction": "Boil beets, carrots, potatoes, and cabbage until tender. Sauté onions and garlic, then add to the pot along with beef broth and tomato paste. Season with dill and vinegar.",
+      "image": "images/borscht.jpg",
+      "authorId": 1,
+      "ingredients": [
+        { "name": "beets", "quantity": 2, "units": "medium" },
+        { "name": "carrots", "quantity": 2, "units": "medium" },
+        { "name": "potatoes", "quantity": 2, "units": "medium" },
+        { "name": "cabbage", "quantity": 1, "units": "small" },
+        { "name": "onion", "quantity": 1, "units": "medium" },
+        { "name": "garlic", "quantity": 3, "units": "cloves" },
+        { "name": "beef broth", "quantity": 4, "units": "cups" },
+        { "name": "tomato paste", "quantity": 1, "units": "tablespoon" },
+        { "name": "dill", "quantity": 1, "units": "tablespoon" },
+        { "name": "vinegar", "quantity": 2, "units": "tablespoons" }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Tomato Soup",
+      "origin": "Italy",
+      "description": "A classic soup made with ripe tomatoes and fresh herbs",
+      "instruction": "Sauté onions and garlic until soft, then add tomatoes and broth. Simmer for 20 minutes, then purée until smooth. Return to pot and add cream, basil, and oregano. Heat until warm.",
+      "image": "images/tomato-soup.jpg",
+      "authorId": 2,
+      "ingredients": [
+        { "name": "tomatoes", "quantity": 6, "units": "medium" },
+        { "name": "onion", "quantity": 1, "units": "medium" },
+        { "name": "garlic", "quantity": 3, "units": "cloves" },
+        { "name": "vegetable broth", "quantity": 4, "units": "cups" },
+        { "name": "heavy cream", "quantity": 1, "units": "cup" },
+        { "name": "basil", "quantity": 2, "units": "tablespoons" },
+        { "name": "oregano", "quantity": 1, "units": "tablespoon" }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Pho Bo",
+      "origin": "Vietnam",
+      "description": "A fragrant beef noodle soup with herbs and spices",
+      "instruction": "Char onion and ginger over an open flame until slightly blackened. In a large pot, add beef bones, water, onion, ginger, star anise, cinnamon, and cloves. Bring to a boil, then reduce heat and simmer for several hours. Strain broth and season with fish sauce and sugar. Cook rice noodles according to package instructions. Serve broth over noodles, topped with sliced beef, scallions, cilantro, and lime wedges.",
+      "image": "images/pho-bo.jpg",
+      "authorId": 1,
+      "ingredients": [
+        { "name": "beef bones", "quantity": 2, "units": "pounds" },
+        { "name": "onion", "quantity": 1, "units": "medium" },
+        { "name": "ginger", "quantity": 3, "units": "slices" },
+        { "name": "star anise", "quantity": 3, "units": "pods" },
+        { "name": "cinnamon", "quantity": 1, "units": "stick" },
+        { "name": "cloves", "quantity": 3, "units": "whole" },
+        { "name": "fish sauce", "quantity": 2, "units": "tablespoons" },
+        { "name": "sugar", "quantity": 1, "units": "tablespoon" },
+        { "name": "rice noodles", "quantity": 8, "units": "ounces" },
+        { "name": "beef sirloin", "quantity": 1, "units": "pound" },
+        { "name": "scallions", "quantity": 2, "units": "stalks" },
+        { "name": "cilantro", "quantity": 1, "units": "handful" },
+        { "name": "lime wedges", "quantity": 2, "units": "pieces" }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Chicken Noodle Soup",
+      "origin": "United States",
+      "description": "A comforting soup made with chicken, vegetables, and egg noodles",
+      "instruction": "Sauté onion, carrot, and celery until soft, then add chicken broth and chicken breast. Simmer for 20 minutes, then remove chicken and shred. Return chicken to pot along with egg noodles, thyme, and parsley. Cook until noodles are tender.",
+      "image": "images/chicken-noodle-soup.jpg",
+      "authorId": 3,
+      "ingredients": [
+        { "name": "onion", "quantity": 1, "units": "medium" },
+        { "name": "carrot", "quantity": 1, "units": "medium" },
+        { "name": "celery", "quantity": 1, "units": "stalk" },
+        { "name": "chicken broth", "quantity": 4, "units": "cups" },
+        { "name": "chicken breast", "quantity": 1, "units": "large" },
+        { "name": "egg noodles", "quantity": 2, "units": "cups" },
+        { "name": "thyme", "quantity": 1, "units": "teaspoon" },
+        { "name": "parsley", "quantity": 1, "units": "tablespoon" }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Minestrone",
+      "origin": "Italy",
+      "description": "A hearty vegetable soup with pasta and beans",
+      "instruction": "Sauté onion, garlic, and carrot until soft, then add tomatoes, broth, and pasta. Simmer for 15 minutes, then add beans and spinach. Cook until spinach is wilted.",
+      "image": "images/minestrone.jpg",
+      "authorId": 3,
+      "ingredients": [
+        { "name": "onion", "quantity": 1, "units": "medium" },
+        { "name": "garlic", "quantity": 3, "units": "cloves" },
+        { "name": "carrot", "quantity": 1, "units": "medium" },
+        { "name": "tomatoes", "quantity": 2, "units": "medium" },
+        { "name": "vegetable broth", "quantity": 4, "units": "cups" },
+        { "name": "pasta", "quantity": 1, "units": "cup" },
+        { "name": "cannellini beans", "quantity": 1, "units": "can" },
+        { "name": "spinach", "quantity": 2, "units": "cups" }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "firstname": "Arseniiy",
+      "lastname": "Kapshtyk",
+      "email": "kapshtykas@gmail.com",
+      "password": "d8578edf8458ce06fbc5bb76a58c5ca4"
+    },
+    {
+      "id": 2,
+      "firstname": "Jamie",
+      "lastname": "Oliver",
+      "email": "jamie-oliver@gmail.com",
+      "password": "acae273a5a5c88b46b36d65a25f5f435"
+    },
+    {
+      "id": 3,
+      "firstname": "Gordon",
+      "lastname": "Ramsay",
+      "email": "gordon-ramsay@gmail.com",
+      "password": "395a31a0446bee33194b006111b087c6"
+    }
+  ],
+  "comments": [
+    { "id": 1, "authorId": 2, "recipeId": 1, "text": "some comments" },
+    { "id": 2, "authorId": 3, "recipeId": 1, "text": "some comments" }
+  ]
+}
