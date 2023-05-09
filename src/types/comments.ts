@@ -4,7 +4,9 @@ export type CommentsType = {
 
 export type CommentType = {
   id: number
-  authorID: number
-  recipeID: number
+  authorId: number
+  recipeId: number
   text: string
+  authorFirstname?: string
+  authorLastname?: string
 }

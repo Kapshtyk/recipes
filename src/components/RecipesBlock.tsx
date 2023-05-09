@@ -6,7 +6,7 @@ import cl from '../styles/RecipePreview.module.css'
 const RecipesBlock = (recipes: RecipesType) => {
   return (
     <div className={cl.recipes_container}>
-      {recipes.recipes.map(recipe => (
+      {recipes.recipes.map((recipe) => (
         <RecipePreview recipe={recipe} key={recipe.id} />
       ))}
     </div>
