@@ -9,7 +9,7 @@ export type Recipe = {
   description: string
   instruction: string
   image: string
-  authorID: number
+  authorId: number
   ingredients: Ingredient[]
 }
 
