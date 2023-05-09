@@ -120,6 +120,30 @@
         { "name": "salt", "quantity": 1, "units": "teaspoon" },
         { "name": "dill", "quantity": 1, "units": "tablespoon" }
       ]
+    },
+    {
+      "id": 7,
+      "title": "Mexican Bean Soup",
+      "origin": "Mexico",
+      "description": "A savory and hearty soup made with beans and spices",
+      "instruction": "Cook chopped onions, garlic, and diced peppers in olive oil until soft. Add cumin, chili powder, and oregano and stir until fragrant. Add chopped tomatoes, vegetable broth, and black beans. Bring to a boil and simmer until the beans are tender. Serve with sour cream and shredded cheese.",
+      "image": "images/mexican_bean_soup.jpg",
+      "authorId": 1,
+      "ingredients": [
+        { "name": "onion", "quantity": 1, "units": "medium" },
+        { "name": "garlic", "quantity": 3, "units": "cloves" },
+        { "name": "red bell pepper", "quantity": 1, "units": "medium" },
+        { "name": "green bell pepper", "quantity": 1, "units": "medium" },
+        { "name": "olive oil", "quantity": 2, "units": "tablespoons" },
+        { "name": "cumin", "quantity": 1, "units": "teaspoon" },
+        { "name": "chili powder", "quantity": 1, "units": "teaspoon" },
+        { "name": "dried oregano", "quantity": 1, "units": "teaspoon" },
+        { "name": "diced tomatoes", "quantity": 1, "units": "can" },
+        { "name": "vegetable broth", "quantity": 4, "units": "cups" },
+        { "name": "black beans", "quantity": 2, "units": "cans" },
+        { "name": "sour cream", "quantity": 1, "units": "cup" },
+        { "name": "shredded cheese", "quantity": 1, "units": "cup" }
+      ]
     }
   ],
   "users": [

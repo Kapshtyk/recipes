@@ -43,7 +43,10 @@ function App() {
           <RecipesContext.Provider value={[recipes, setRecipes]}>
             <Header />
             <Routes>
-              <Route path="/" element={<RecipesBlock recipes={recipes} />} />
+              <Route
+                path="/"
+                element={<RecipesBlock recipes={recipes} />}
+              />
               <Route path="/recipes/:recipe_id" element={<Recipe />} />
             </Routes>
           </RecipesContext.Provider>
