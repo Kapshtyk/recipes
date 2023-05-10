@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import cl from '../styles/Header.module.css'
 import { NavLink } from 'react-router-dom'
 import { CurrentUserContext } from '../utils/context'
-import { UserType } from '../types/users'
 
 const Header = () => {
-  const [currentUser, setCurrentUser] = useContext(CurrentUserContext)
+  const currentUser = useContext(CurrentUserContext)[0]
 
   return (
     <header className={cl.header}>
@@ -16,7 +15,7 @@ const Header = () => {
             <NavLink to="/">Home</NavLink>
           </li>
           <li className={cl.li}>
-            <NavLink className={cl.add} to="/">
+            <NavLink className={cl.add} to="/add-recipe">
               Add recipe
             </NavLink>
           </li>
@@ -27,6 +26,11 @@ const Header = () => {
           )}
         </ul>
       </nav>
+      {currentUser && (
+        <span>
+          Welclome, {currentUser.firstname} {currentUser.lastname}
+        </span>
+      )}
     </header>
   )
 }

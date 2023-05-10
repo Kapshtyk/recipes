@@ -15,6 +15,7 @@ import { RecipeType } from './types/recipes'
 import { CurrentUserType, UserType } from './types/users'
 import { ProtectedRouteProps } from './types/protecredRoute'
 import Login from './components/Login'
+import AddRecipe from './components/AddRecipe'
 
 function App() {
   const [recipes, setRecipes] = useState<RecipeType[]>([])
@@ -40,6 +41,12 @@ function App() {
     })
   }, [])
 
+  const fetchRecipes = () => {
+    getRecipes().then((data) => {
+      setRecipes(data)
+    })
+  }
+
   if (recipes.length === 0) {
     return <div></div>
   }
@@ -56,12 +63,13 @@ function App() {
       <UsersContext.Provider value={[users, setUsers]}>
         <CommentsContext.Provider value={[comments, setComments]}>
           <RecipesContext.Provider value={[recipes, setRecipes]}>
-            <Header />
             <CurrentUserContext.Provider value={[currentUser, setCurrentUser]}>
+              <Header />
               <Routes>
                 <Route path="/" element={<RecipesBlock recipes={recipes} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/recipes/:recipe_id" element={<Recipe />} />
+                <Route path="/add-recipe" element={<AddRecipe fetchRecipes={fetchRecipes}/>} />
               </Routes>
             </CurrentUserContext.Provider>
           </RecipesContext.Provider>

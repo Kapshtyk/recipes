@@ -3,7 +3,7 @@ export type RecipesType = {
 }
 
 export type RecipeType = {
-  id: number
+  id?: number
   title: string
   origin: string
   description: string
