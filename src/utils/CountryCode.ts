@@ -1,7 +1,6 @@
 import { iso31661 } from 'iso-3166'
 
 export function getCountryCode(countryName: string) {
-  console.log(iso31661)
   const result = iso31661.find(
     (country) =>
       country.name.toLocaleLowerCase() === countryName.toLocaleLowerCase()

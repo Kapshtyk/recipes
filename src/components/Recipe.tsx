@@ -8,11 +8,11 @@ import cl from '../styles/Recipe.module.css'
 
 const Recipe = () => {
   const [recipe, setRecipe] = useState<RecipeType>()
-  const [recipes, setRecipes] = useContext(RecipesContext)
+  const recipes = useContext(RecipesContext)[0]
   const [author, setAuthor] = useState<UserType>()
-  const [users, setUsers] = useContext(UsersContext)
+  const users = useContext(UsersContext)[0]
   const [recipeComments, setRecipeComments] = useState<CommentType[]>([])
-  const [comments, setComments] = useContext(CommentsContext)
+  const comments = useContext(CommentsContext)[0]
   const { recipe_id } = useParams<{ recipe_id: string }>()
 
   useEffect(() => {

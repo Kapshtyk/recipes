@@ -418,62 +418,30 @@
       ]
     },
     {
-      "author": 1,
-      "description": "qweqe",
-      "image": "sdad",
+      "title": "Beef soup",
+      "description": "Beef soup",
+      "instruction": "Boil beef",
+      "origin": "Spain",
+      "authorId": 1,
+      "image": "s",
       "ingredients": [
         {
+          "name": "beef",
+          "quantity": "1",
+          "units": "kg"
+        },
+        {
           "name": "potato",
-          "quantity": "2",
-          "units": "rewre"
+          "quantity": "1",
+          "units": "kg"
         },
         {
           "name": "carrot",
-          "quantity": "5",
-          "units": "ewe"
-        }
-      ],
-      "instructions": "qweqeq",
-      "origin": "Russian Federation",
-      "title": "Soup",
-      "id": 8
-    },
-    {
-      "title": "Pumpkin",
-      "description": "qwe",
-      "instruction": "qeq",
-      "origin": "Zambia",
-      "authorId": 1,
-      "image": "qeqe",
-      "ingredients": [
-        {
-          "name": "pumpkin",
           "quantity": "2",
-          "units": "were"
-        },
-        {
-          "name": "Potato",
-          "quantity": "5",
-          "units": "owe"
+          "units": "kg"
         }
       ],
-      "id": 9
-    },
-    {
-      "title": "qweqe",
-      "description": "qweqew",
-      "instruction": "qweqwe",
-      "origin": "Belarus",
-      "authorId": 1,
-      "image": "qwe",
-      "ingredients": [
-        {
-          "name": "potato",
-          "quantity": "3",
-          "units": "weqwe"
-        }
-      ],
-      "id": 10
+      "id": 8
     }
   ],
   "users": [

@@ -8,7 +8,7 @@ import { JSX } from 'react/jsx-runtime'
 import { addRecipe } from '../api/APIrecipes'
 
 interface RecipeData {
-  [key: string]: string | number | IngredientType[] | undefined;
+  [key: string]: string | number | IngredientType[] | undefined
 }
 interface AddRecipeProps {
   fetchRecipes: () => void
@@ -112,7 +112,15 @@ const AddRecipe: React.FC<AddRecipeProps> = ({ fetchRecipes }) => {
 
   return (
     <div className={cl.form_container}>
-      <form className={cl.form} onSubmit={onSubmit}>
+      <form
+        className={cl.form}
+        onSubmit={onSubmit}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault()
+          }
+        }}
+      >
         <input
           className={cl.form_input}
           type="text"

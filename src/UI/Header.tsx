@@ -12,16 +12,20 @@ const Header = () => {
       <nav className={cl.nav}>
         <ul className={cl.ul}>
           <li className={cl.li}>
-            <NavLink to="/">Home</NavLink>
+            <NavLink className={cl.header_anchor} to="/">
+              Home
+            </NavLink>
           </li>
           <li className={cl.li}>
-            <NavLink className={cl.add} to="/add-recipe">
+            <NavLink className={cl.header_anchor} to="/add-recipe">
               Add recipe
             </NavLink>
           </li>
           {!currentUser && (
             <li className={cl.li}>
-              <NavLink to="/login">Login</NavLink>
+              <NavLink className={cl.header_anchor} to="/login">
+                Login
+              </NavLink>
             </li>
           )}
         </ul>

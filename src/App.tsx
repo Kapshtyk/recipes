@@ -69,7 +69,10 @@ function App() {
                 <Route path="/" element={<RecipesBlock recipes={recipes} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/recipes/:recipe_id" element={<Recipe />} />
-                <Route path="/add-recipe" element={<AddRecipe fetchRecipes={fetchRecipes}/>} />
+                <Route
+                  path="/add-recipe"
+                  element={<AddRecipe fetchRecipes={fetchRecipes} />}
+                />
               </Routes>
             </CurrentUserContext.Provider>
           </RecipesContext.Provider>

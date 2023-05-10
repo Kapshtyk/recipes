@@ -14,7 +14,9 @@ const Login = () => {
     password: ''
   })
   const users = useContext(UsersContext)[0]
-  const [currentUser, setCurrentUser] = useContext(CurrentUserContext)
+  const setCurrentUser = useContext(CurrentUserContext)[1]
+  const navigate = useNavigate()
+  const [error, setError] = useState('')
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setUserData({
@@ -32,8 +34,10 @@ const Login = () => {
         }
       })
       if (data) {
-        console.log(data)
         setCurrentUser(data)
+        navigate('/')
+      } else {
+        setError('There are no users with credentials that have been provided.')
       }
     }
   }
@@ -55,6 +59,7 @@ const Login = () => {
           <button className="{classes.button_form}">Login</button>
         </form>
       </div>
+      {error && <span>{error}</span>}
     </div>
   )
 }
