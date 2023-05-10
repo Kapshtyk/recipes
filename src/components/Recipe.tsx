@@ -4,13 +4,12 @@ import { useParams } from 'react-router-dom'
 import { UserType } from '../types/users'
 import { CommentType } from '../types/comments'
 import { CommentsContext, RecipesContext, UsersContext } from '../utils/context'
-import Image from './Image'
 import cl from '../styles/Recipe.module.css'
 
 const Recipe = () => {
-  const [recipe, setRecipe] = useState<RecipeType | undefined>()
+  const [recipe, setRecipe] = useState<RecipeType>()
   const [recipes, setRecipes] = useContext(RecipesContext)
-  const [author, setAuthor] = useState<UserType | undefined>()
+  const [author, setAuthor] = useState<UserType>()
   const [users, setUsers] = useContext(UsersContext)
   const [recipeComments, setRecipeComments] = useState<CommentType[]>([])
   const [comments, setComments] = useContext(CommentsContext)

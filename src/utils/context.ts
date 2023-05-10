@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { createContext } from 'react'
-import { UserType } from '../types/users'
+import { CurrentUserType, UserType } from '../types/users'
 import { CommentType } from '../types/comments'
 import { RecipeType } from '../types/recipes'
 
@@ -18,20 +18,34 @@ export type RecipesContextType = [
   React.Dispatch<React.SetStateAction<RecipeType[]>>
 ]
 
+export type CurrentUserContextType = [
+  CurrentUserType | undefined,
+  React.Dispatch<React.SetStateAction<CurrentUserType | undefined>>
+]
+
 export const UsersContext = createContext<UsersContextType>([
   [],
   () => {
     /* This function intentionally left empty */
   }
 ])
+
 export const CommentsContext = createContext<CommentsContextType>([
   [],
   () => {
     /* This function intentionally left empty */
   }
 ])
+
 export const RecipesContext = createContext<RecipesContextType>([
   [],
+  () => {
+    /* This function intentionally left empty */
+  }
+])
+
+export const CurrentUserContext = createContext<CurrentUserContextType>([
+  undefined,
   () => {
     /* This function intentionally left empty */
   }

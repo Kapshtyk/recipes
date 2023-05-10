@@ -12,7 +12,10 @@ const RecipesBlock = (recipes: RecipesType) => {
 
   return (
     <>
-      <input type="text" onChange={(event) => setSearch(event.target.value)}></input>
+      <input
+        type="text"
+        onChange={(event) => setSearch(event.target.value)}
+      ></input>
       <div className={cl.recipes_container}>
         {filteredRecipes.map((recipe) => (
           <RecipePreview recipe={recipe} key={recipe.id} />

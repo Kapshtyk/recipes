@@ -1,6 +1,6 @@
 import React from 'react'
 import { RecipeType } from '../types/recipes'
-import Image from './Image'
+import Image from '../UI/Image'
 import cl from '../styles/RecipePreview.module.css'
 import { getCountryCode } from '../utils/CountryCode'
 import { Link } from 'react-router-dom'
@@ -20,7 +20,7 @@ const RecipePreview = ({ recipe }: { recipe: RecipeType }) => {
         <div className={cl.recipe_flag_container}>
           <img
             className={cl.recipe_flag}
-            src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${countryCode}.svg`}
+            src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${countryCode}.svg`}
             alt={recipe.origin}
           />
         </div>
