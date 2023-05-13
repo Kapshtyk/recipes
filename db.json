@@ -416,74 +416,6 @@
           "units": "cup"
         }
       ]
-    },
-    {
-      "title": "Beef soup",
-      "description": "Beef soup",
-      "instruction": "Boil beef",
-      "origin": "Spain",
-      "authorId": 1,
-      "image": "s",
-      "ingredients": [
-        {
-          "name": "beef",
-          "quantity": "1",
-          "units": "kg"
-        },
-        {
-          "name": "potato",
-          "quantity": "1",
-          "units": "kg"
-        },
-        {
-          "name": "carrot",
-          "quantity": "2",
-          "units": "kg"
-        }
-      ],
-      "id": 8
-    },
-    {
-      "title": "Beautiful soup",
-      "description": "Beautiful soup",
-      "instruction": "Boil",
-      "origin": "Nigeria",
-      "authorId": 1,
-      "image": "ewq",
-      "ingredients": [
-        {
-          "name": "cucumber",
-          "quantity": "1",
-          "units": "piece"
-        },
-        {
-          "name": "potato",
-          "quantity": "2",
-          "units": "kg"
-        }
-      ],
-      "id": 9
-    },
-    {
-      "title": "Meat soup",
-      "description": "Cow meat",
-      "instruction": "boil it",
-      "origin": "Chile",
-      "authorId": 1,
-      "image": "qeq",
-      "ingredients": [
-        {
-          "name": "cow",
-          "quantity": "1",
-          "units": "teaspoon"
-        },
-        {
-          "name": "potato",
-          "quantity": "2",
-          "units": "kg"
-        }
-      ],
-      "id": 10
     }
   ],
   "users": [
@@ -544,6 +476,13 @@
       "text": "Nice soup!",
       "createdAt": "2023-05-13T10:30:49.187Z",
       "id": 5
+    },
+    {
+      "authorId": 1,
+      "recipeId": 2,
+      "text": "Nice soup",
+      "createdAt": "2023-05-13T18:31:12.649Z",
+      "id": 6
     }
   ]
 }

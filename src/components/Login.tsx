@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { CurrentUserContext, UsersContext } from '../utils/context'
 import { useNavigate } from 'react-router-dom'
 import md5 from 'md5'
+import cl from '../styles/Login.module.css'
 
 type UserDataType = {
   email: string
@@ -51,22 +52,21 @@ const Login = () => {
 
 
   return (
-    <div className="Login">
-      <div className="area">
-        <h2>Login</h2>
-        <form className="" onSubmit={handleSubmit}>
-          <label htmlFor="email">Email:</label>
-          <input type="email" name="email" onChange={onChangeInput} required />
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            name="password"
-            onChange={onChangeInput}
-            required
-          />
-          <button className="{classes.button_form}">Login</button>
-        </form>
-      </div>
+    <div className={cl.login_container}>
+      <h2 className={cl.login_title}>Login</h2>
+      <form className={cl.login_form} onSubmit={handleSubmit}>
+        <label className={cl.login_lable} htmlFor="email">Email:</label>
+        <input className={cl.login_input} type="email" name="email" onChange={onChangeInput} required />
+        <label className={cl.login_lable} htmlFor="password">Password:</label>
+        <input
+          className={cl.login_input}
+          type="password"
+          name="password"
+          onChange={onChangeInput}
+          required
+        />
+        <button className={cl.login_submit}>Login</button>
+      </form>
       {error && <span>{error}</span>}
     </div>
   )

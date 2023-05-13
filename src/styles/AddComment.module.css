@@ -1,11 +1,14 @@
 .form_container {
   margin: 0.5rem 0rem;
- 
 }
 
 .form {
   display: flex;
   flex-direction: column;
+}
+
+.form_input {
+  font-family: -apple-system, 'Arial', sans-serif;
 }
 
 .form_submit {

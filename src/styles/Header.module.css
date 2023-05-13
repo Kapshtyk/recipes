@@ -1,20 +1,33 @@
 .header {
   padding: 0 1rem;
   height: 80px;
-  background-color: lightblue;
-  width: 100%;
+  background-color: #ffd24d;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.ul {
-  margin-right: 1rem;
-  width: 500px;
+.header_logo {
+  width: 400px;
+  font-family: 'Sigmar', cursive;
+  font-size: 36px;
+}
+
+.nav {
+  width: 400px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+}
+
+.ul {
+  font-family: 'Sigmar', cursive;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .ul .li {
@@ -25,4 +38,28 @@
 .header_anchor {
   text-decoration: none;
   font-size: 24px;
+  color: black;
+}
+
+.header_login_section {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 400px;
+}
+
+.login_div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.login_span, .logout_span {
+  font-size: 24px;
+  font-family: 'Sigmar', cursive;
+}
+
+.logout_span {
+  cursor: pointer;
+  text-decoration: underline;
 }

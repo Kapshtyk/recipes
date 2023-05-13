@@ -76,7 +76,7 @@ const Recipe = () => {
             recipe.ingredients.map((ingredient) => {
               return (
                 <li key={ingredient.name} className={cl.recipe_li}>
-                  {ingredient.name}: {ingredient.quantity} {ingredient.units}
+                  <span className={cl.recipe_ingredient_name}>{ingredient.name}:</span> {ingredient.quantity} {ingredient.units}
                 </li>
               )
             })}

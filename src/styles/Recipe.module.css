@@ -50,11 +50,12 @@
   display: inline-block;
   font-size: 1.2rem;
   margin-right: 0.5rem;
+  transform: rotate(90deg);
   transition: transform 0.2s ease-in-out;
 }
 
 .recipe_details[open] .recipe_summary:before {
-  transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 
 .recipe_ul {
@@ -70,10 +71,14 @@
 .recipe_li {
   color: #333;
   width: 200px;
-  margin: 0 1rem;
+  margin-right: 1rem;
   font-size: 1rem;
   font-weight: 300;
   margin-bottom: 1rem;
+}
+
+.recipe_ingredient_name {
+  font-weight: normal;
 }
 
 .recipe_author {

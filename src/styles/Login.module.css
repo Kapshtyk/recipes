@@ -1,0 +1,38 @@
+.login_container {
+  max-width: 400px;
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1.5rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 1rem;
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.1),
+    0px 3px 1px -2px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.02);
+}
+
+.login_title {
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login_lable {
+  margin-bottom: 0.3rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+.login_input {
+  margin-bottom: 0.5rem;
+}
+
+.login_submit {
+  width: 110px;
+  margin-top: 1rem;
+  border-radius: 5px;
+  border: solid 0.3px #d7d7d7;
+}

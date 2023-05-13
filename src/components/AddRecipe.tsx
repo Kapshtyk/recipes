@@ -78,28 +78,28 @@ const AddRecipe = () => {
 
   for (let i = 0; i < ingredientsCounter; i++) {
     ingredientsList.push(
-      <div key={i}>
+      <div className={cl.form_ingredients_row} key={i}>
         <input
-          className={cl.form_input}
+          className={cl.form_input_ingredient}
           type="text"
+          placeholder='name'
           name={`name${i}`}
-          placeholder="name"
           onChange={onChangeInput}
           required
         />
         <input
-          className={cl.form_input}
+          className={cl.form_input_ingredient}
           type="number"
+          placeholder='quantity'
           name={`quantity${i}`}
-          placeholder="quantity"
           onChange={onChangeInput}
           required
         />
         <input
-          className={cl.form_input}
+          className={cl.form_input_ingredient}
           type="text"
+          placeholder='units'
           name={`units${i}`}
-          placeholder="units"
           onChange={onChangeInput}
           required
         />
@@ -118,49 +118,55 @@ const AddRecipe = () => {
           }
         }}
       >
+        <label className={cl.form_lable} htmlFor="title">Title</label>
         <input
           className={cl.form_input}
           type="text"
           name="title"
-          placeholder="title"
           onChange={onChangeInput}
           required
         />
-        <select name="origin" onChange={onChangeInput}>
+        <label className={cl.form_lable} htmlFor="origin">Origin</label>
+        <select className={cl.form_input_select} name="origin" onChange={onChangeInput}>
           {getCountries().map((country) => (
             <option key={country.code} value={country.name}>
               {country.name}
             </option>
           ))}
         </select>
+        <label className={cl.form_lable} htmlFor="description">Description</label>
         <textarea
+          rows={4}
           className={cl.form_input}
           name="description"
-          placeholder="description"
           onChange={onChangeInput}
           required
         />
+        <label className={cl.form_lable} htmlFor="instructions">Instructions</label>
         <textarea
+          rows={10}
           className={cl.form_input}
           name="instruction"
-          placeholder="instruction"
           onChange={onChangeInput}
           required
         />
+        <label className={cl.form_lable} htmlFor="image">Image</label>
         <input
           className={cl.form_input}
           type="text"
           name="image"
-          placeholder="image"
           onChange={onChangeInput}
           required
         />
+        <label className={cl.form_lable}>Ingredients</label>
         {ingredientsList}
-        <button onClick={addIngredient}>Add ingredient</button>
-        {ingredientsCounter > 1 && (
-          <button onClick={removeIngredient}>Remove ingredient</button>
-        )}
-        <button type="submit">Add</button>
+        <div className={cl.form_buttons}>
+          <button className={cl.form_button} onClick={addIngredient}>Add ingredient</button>
+          {ingredientsCounter > 1 && (
+            <button className={cl.form_button} onClick={removeIngredient}>Remove ingredient</button>
+          )}
+        </div>
+        <button className={cl.form_button_add} type="submit">Add recipe</button>
       </form>
     </div>
   )
