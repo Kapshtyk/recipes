@@ -10,4 +10,4 @@ export type UserType = {
   password: string
 }
 
-export type CurrentUserType = UserType
+export type CurrentUserType = UserType | undefined

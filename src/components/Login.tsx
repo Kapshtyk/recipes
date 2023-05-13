@@ -35,12 +35,20 @@ const Login = () => {
       })
       if (data) {
         setCurrentUser(data)
-        navigate('/')
+        const redirectPath = localStorage.getItem('redirectPath')
+        if (redirectPath) {
+          console.log(redirectPath)
+          localStorage.removeItem('redirectPath')
+          navigate(JSON.parse(redirectPath).pathname)
+        } else {
+          navigate('/')
+        }
       } else {
         setError('There are no users with credentials that have been provided.')
       }
     }
   }
+
 
   return (
     <div className="Login">

@@ -1,9 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { RecipeType } from '../types/recipes'
-import { useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { UserType } from '../types/users'
 import { CommentType } from '../types/comments'
-import { CommentsContext, CurrentUserContext, RecipesContext, UsersContext } from '../utils/context'
+import {
+  CommentsContext,
+  CurrentUserContext,
+  RecipesContext,
+  UsersContext
+} from '../utils/context'
 import cl from '../styles/Recipe.module.css'
 import AddComment from './AddComment'
 
@@ -16,6 +21,7 @@ const Recipe = () => {
   const comments = useContext(CommentsContext)[0]
   const currentUser = useContext(CurrentUserContext)[0]
   const { recipe_id } = useParams<{ recipe_id: string }>()
+  const location = useLocation()
 
   useEffect(() => {
     if (recipe_id) {
@@ -54,9 +60,13 @@ const Recipe = () => {
     return <div>Loading...</div>
   }
 
+  const onClick = () => {
+    localStorage.setItem('redirectPath', JSON.stringify(location))
+  }
+
   return (
     <div className={cl.recipe_container}>
-      <h1 className={cl.recipe_title}>{recipe.title}</h1>
+      <h1 className={cl.recipe_title}>{recipe.title} from {recipe.origin}</h1>
       <h2 className={cl.recipe_description}>{recipe.description}</h2>
       <h3 className={cl.recipe_instructions}>{recipe.instruction}</h3>
       <details className={cl.recipe_details}>
@@ -87,9 +97,16 @@ const Recipe = () => {
               </div>
             )
           })}
+          {currentUser && recipe.id && <AddComment recipe={recipe} />}
+          {!currentUser && recipe.id && <div className={cl.recipe_login}>Please <Link onClick={onClick} className={cl.login_link} to='/login'>log in</Link> if you want to leave a comment</div>}
         </div>
       )}
-      {currentUser && recipe.id && <AddComment recipe={recipe}/>}
+      {recipeComments.length == 0 && (
+        <div className={cl.recipe_comments}>
+          {currentUser && recipe.id && <AddComment recipe={recipe} />}
+          {!currentUser && recipe.id && <div className={cl.recipe_login}>Please <Link onClick={onClick} className={cl.login_link} to='/login'>log in</Link> if you want to leave a comment</div>}
+        </div>
+      )}
     </div>
   )
 }

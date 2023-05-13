@@ -7,7 +7,7 @@ import { RecipeType } from '../types/recipes'
 
 export type UsersContextType = [
   UserType[],
-  React.Dispatch<React.SetStateAction<UserType[]>>
+  Dispatch<SetStateAction<UserType[]>>
 ]
 
 export type CommentsContextType = [
@@ -28,7 +28,10 @@ export type RecipesContextType = [
 
 export type CurrentUserContextType = [
   CurrentUserType | undefined,
-  React.Dispatch<React.SetStateAction<CurrentUserType | undefined>>
+  Dispatch<SetStateAction<CurrentUserType | undefined>>,
+  {
+    logout: () => void
+  }
 ]
 
 export const UsersContext = createContext<UsersContextType>([
@@ -44,9 +47,10 @@ export const CommentsContext = createContext<CommentsContextType>([
     /* This function intentionally left empty */
   },
   {
-    fetchComments: () => {/* This function intentionally left empty */}
+    fetchComments: () => {
+      /* This function intentionally left empty */
+    }
   }
-
 ])
 
 export const RecipesContext = createContext<RecipesContextType>([
@@ -55,7 +59,9 @@ export const RecipesContext = createContext<RecipesContextType>([
     /* This function intentionally left empty */
   },
   {
-    fetchRecipes: () => {/* This function intentionally left empty */}
+    fetchRecipes: () => {
+      /* This function intentionally left empty */
+    }
   }
 ])
 
@@ -63,5 +69,10 @@ export const CurrentUserContext = createContext<CurrentUserContextType>([
   undefined,
   () => {
     /* This function intentionally left empty */
+  },
+  {
+    logout: () => {
+      /* This function intentionally left empty */
+    }
   }
 ])

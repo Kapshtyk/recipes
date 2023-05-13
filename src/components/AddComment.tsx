@@ -1,14 +1,16 @@
 import React, { useContext, useState } from 'react'
-import cl from '../styles/AddRecipe.module.css'
-import { CurrentUserContext, RecipesContext, CommentsContext } from '../utils/context'
+import cl from '../styles/AddComment.module.css'
+import {
+  CurrentUserContext,
+  CommentsContext
+} from '../utils/context'
 import { RecipeType } from '../types/recipes'
 import { addComment } from '../api/APIrecipes'
 
 const AddComment = ({ recipe }: { recipe: RecipeType }) => {
-  const recipes = useContext(RecipesContext)[0]
-  const {fetchComments} = useContext(CommentsContext)[2]
+  const { fetchComments } = useContext(CommentsContext)[2]
   const currentUser = useContext(CurrentUserContext)[0]
-  const [comment, setComment] = useState({})
+  const [comment, setComment] = useState('')
 
   const onChangeInput = (
     event: React.ChangeEvent<
@@ -22,16 +24,16 @@ const AddComment = ({ recipe }: { recipe: RecipeType }) => {
     event.preventDefault()
     if (currentUser && recipe) {
       const commentData = {
-        authorId: recipe.authorId,
+        authorId: currentUser.id,
         recipeId: recipe.id,
         text: comment,
         createdAt: new Date()
       }
       if (await addComment(commentData)) {
         fetchComments()
+        setComment('')
       }
     }
-
   }
 
   return (
@@ -45,15 +47,15 @@ const AddComment = ({ recipe }: { recipe: RecipeType }) => {
           }
         }}
       >
-        <input
+        <textarea
           className={cl.form_input}
-          type="text"
           name="text"
-          placeholder="text"
+          placeholder="Add comment"
           onChange={onChangeInput}
           required
+          value={comment}
         />
-        <button type="submit">Add</button>
+        <button className={cl.form_submit} type="submit">Add</button>
       </form>
     </div>
   )

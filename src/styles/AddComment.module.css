@@ -1,0 +1,16 @@
+.form_container {
+  margin: 0.5rem 0rem;
+ 
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form_submit {
+  width: 110px;
+  margin-top: 1rem;
+  border-radius: 5px;
+  border: solid 0.3px #d7d7d7;
+}

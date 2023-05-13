@@ -1,11 +1,15 @@
 import React, { useContext } from 'react'
 import cl from '../styles/Header.module.css'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { CurrentUserContext } from '../utils/context'
 
 const Header = () => {
-  const currentUser = useContext(CurrentUserContext)[0]
+  const [currentUser, setCurrentUser, {logout}] = useContext(CurrentUserContext)
+  const location = useLocation()
 
+  const onClick = () => {
+    localStorage.setItem('redirectPath', JSON.stringify(location))
+  }
   return (
     <header className={cl.header}>
       <div className="logo">Recipes</div>
@@ -23,7 +27,7 @@ const Header = () => {
           </li>
           {!currentUser && (
             <li className={cl.li}>
-              <NavLink className={cl.header_anchor} to="/login">
+              <NavLink onClick={onClick} className={cl.header_anchor} to="/login">
                 Login
               </NavLink>
             </li>
@@ -31,9 +35,12 @@ const Header = () => {
         </ul>
       </nav>
       {currentUser && (
-        <span>
-          Welclome, {currentUser.firstname} {currentUser.lastname}
-        </span>
+        <>
+          <span>
+            Welclome, {currentUser.firstname} {currentUser.lastname}
+          </span>
+          <button onClick={logout}>Logount</button>
+        </>
       )}
     </header>
   )

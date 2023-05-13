@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation
+} from 'react-router-dom'
 import { getRecipes, getUsers, getAllComments } from './api/APIrecipes'
 import RecipesBlock from './components/RecipesBlock'
 import Recipe from './components/Recipe'
@@ -22,7 +28,7 @@ function App() {
   const [users, setUsers] = useState<UserType[]>([])
   const [comments, setComments] = useState<CommentType[]>([])
   const [currentUser, setCurrentUser] = useState<CurrentUserType>()
-
+ 
   useEffect(() => {
     getRecipes().then((data) => {
       setRecipes(data)
@@ -46,30 +52,50 @@ function App() {
       setComments(data)
     })
   }
-  
+
   const fetchRecipes = () => {
     getRecipes().then((data) => {
       setRecipes(data)
     })
   }
 
+  const logout = () => {
+    setCurrentUser(undefined)
+  }
+ 
+
   if (recipes.length === 0) {
     return <div></div>
   }
 
   const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+    const location = useLocation()
+
     if (!currentUser) {
-      return <Navigate to="/login" replace />
+      localStorage.setItem('redirectPath', JSON.stringify(location))
+      return (
+        <Navigate
+          to={{
+            pathname: '/login',
+          }}
+          replace
+        />
+      )
     }
-    return children
+
+    return <>{children}</>
   }
 
   return (
     <BrowserRouter>
       <UsersContext.Provider value={[users, setUsers]}>
-        <CommentsContext.Provider value={[comments, setComments, {fetchComments}]}>
-          <RecipesContext.Provider value={[recipes, setRecipes, {fetchRecipes}]}>
-            <CurrentUserContext.Provider value={[currentUser, setCurrentUser]}>
+        <CommentsContext.Provider
+          value={[comments, setComments, { fetchComments }]}
+        >
+          <RecipesContext.Provider
+            value={[recipes, setRecipes, { fetchRecipes }]}
+          >
+            <CurrentUserContext.Provider value={[currentUser, setCurrentUser, {logout}]}>
               <Header />
               <Routes>
                 <Route path="/" element={<RecipesBlock recipes={recipes} />} />
@@ -77,7 +103,11 @@ function App() {
                 <Route path="/recipes/:recipe_id" element={<Recipe />} />
                 <Route
                   path="/add-recipe"
-                  element={<AddRecipe />}
+                  element={
+                    <ProtectedRoute>
+                      <AddRecipe />
+                    </ProtectedRoute>
+                  }
                 />
               </Routes>
             </CurrentUserContext.Provider>

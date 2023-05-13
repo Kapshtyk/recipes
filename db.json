@@ -540,9 +540,9 @@
     },
     {
       "authorId": 1,
-      "recipeId": 10,
-      "text": "Nice, but where I can buy one teaspoon of cow meat?",
-      "createdAt": "2023-05-13T08:14:34.603Z",
+      "recipeId": 5,
+      "text": "Nice soup!",
+      "createdAt": "2023-05-13T10:30:49.187Z",
       "id": 5
     }
   ]
