@@ -1,8 +1,7 @@
-import React, { MouseEventHandler, useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import cl from '../styles/AddRecipe.module.css'
-import { RecipeType } from '../types/recipes'
 import { IngredientType } from '../types/recipes'
-import { CurrentUserContext } from '../utils/context'
+import { CurrentUserContext, RecipesContext } from '../utils/context'
 import { getCountries } from '../utils/CountryCode'
 import { JSX } from 'react/jsx-runtime'
 import { addRecipe } from '../api/APIrecipes'
@@ -10,11 +9,9 @@ import { addRecipe } from '../api/APIrecipes'
 interface RecipeData {
   [key: string]: string | number | IngredientType[] | undefined
 }
-interface AddRecipeProps {
-  fetchRecipes: () => void
-}
 
-const AddRecipe: React.FC<AddRecipeProps> = ({ fetchRecipes }) => {
+const AddRecipe = () => {
+  const {fetchRecipes} = useContext(RecipesContext)[2]
   const currentUser = useContext(CurrentUserContext)[0]
   const [ingredientsCounter, setIngredientsCounter] = useState(1)
   const [recipeData, setRecipeData] = useState<RecipeData>({

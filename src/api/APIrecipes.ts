@@ -1,4 +1,3 @@
-import { RecipeType } from '../types/recipes'
 import { BASE_URL } from '../utils/constants'
 import axios from 'axios'
 
@@ -22,6 +21,22 @@ export const addRecipe = async (recipe: any) => {
       authorId: recipe.authorId,
       image: recipe.image,
       ingredients: recipe.ingredients
+    })
+    if (response.status === 201) {
+      return true
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const addComment = async (comment: any) => {
+  try {
+    const response = await axios.post(BASE_URL + 'comments', {
+      authorId: comment.authorId,
+      recipeId: comment.recipeId,
+      text: comment.text,
+      createdAt: comment.createdAt
     })
     if (response.status === 201) {
       return true

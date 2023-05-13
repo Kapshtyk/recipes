@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 
 import { createContext } from 'react'
 import { CurrentUserType, UserType } from '../types/users'
@@ -9,13 +9,21 @@ export type UsersContextType = [
   UserType[],
   React.Dispatch<React.SetStateAction<UserType[]>>
 ]
+
 export type CommentsContextType = [
   CommentType[],
-  React.Dispatch<React.SetStateAction<CommentType[]>>
+  Dispatch<SetStateAction<CommentType[]>>,
+  {
+    fetchComments: () => void
+  }
 ]
+
 export type RecipesContextType = [
   RecipeType[],
-  React.Dispatch<React.SetStateAction<RecipeType[]>>
+  Dispatch<SetStateAction<RecipeType[]>>,
+  {
+    fetchRecipes: () => void
+  }
 ]
 
 export type CurrentUserContextType = [
@@ -34,13 +42,20 @@ export const CommentsContext = createContext<CommentsContextType>([
   [],
   () => {
     /* This function intentionally left empty */
+  },
+  {
+    fetchComments: () => {/* This function intentionally left empty */}
   }
+
 ])
 
 export const RecipesContext = createContext<RecipesContextType>([
   [],
   () => {
     /* This function intentionally left empty */
+  },
+  {
+    fetchRecipes: () => {/* This function intentionally left empty */}
   }
 ])
 

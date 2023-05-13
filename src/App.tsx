@@ -41,6 +41,12 @@ function App() {
     })
   }, [])
 
+  const fetchComments = () => {
+    getAllComments().then((data) => {
+      setComments(data)
+    })
+  }
+  
   const fetchRecipes = () => {
     getRecipes().then((data) => {
       setRecipes(data)
@@ -51,8 +57,8 @@ function App() {
     return <div></div>
   }
 
-  const ProtectedRoute = ({ isLogged, children }: ProtectedRouteProps) => {
-    if (!isLogged) {
+  const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+    if (!currentUser) {
       return <Navigate to="/login" replace />
     }
     return children
@@ -61,8 +67,8 @@ function App() {
   return (
     <BrowserRouter>
       <UsersContext.Provider value={[users, setUsers]}>
-        <CommentsContext.Provider value={[comments, setComments]}>
-          <RecipesContext.Provider value={[recipes, setRecipes]}>
+        <CommentsContext.Provider value={[comments, setComments, {fetchComments}]}>
+          <RecipesContext.Provider value={[recipes, setRecipes, {fetchRecipes}]}>
             <CurrentUserContext.Provider value={[currentUser, setCurrentUser]}>
               <Header />
               <Routes>
@@ -71,7 +77,7 @@ function App() {
                 <Route path="/recipes/:recipe_id" element={<Recipe />} />
                 <Route
                   path="/add-recipe"
-                  element={<AddRecipe fetchRecipes={fetchRecipes} />}
+                  element={<AddRecipe />}
                 />
               </Routes>
             </CurrentUserContext.Provider>

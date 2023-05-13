@@ -442,6 +442,48 @@
         }
       ],
       "id": 8
+    },
+    {
+      "title": "Beautiful soup",
+      "description": "Beautiful soup",
+      "instruction": "Boil",
+      "origin": "Nigeria",
+      "authorId": 1,
+      "image": "ewq",
+      "ingredients": [
+        {
+          "name": "cucumber",
+          "quantity": "1",
+          "units": "piece"
+        },
+        {
+          "name": "potato",
+          "quantity": "2",
+          "units": "kg"
+        }
+      ],
+      "id": 9
+    },
+    {
+      "title": "Meat soup",
+      "description": "Cow meat",
+      "instruction": "boil it",
+      "origin": "Chile",
+      "authorId": 1,
+      "image": "qeq",
+      "ingredients": [
+        {
+          "name": "cow",
+          "quantity": "1",
+          "units": "teaspoon"
+        },
+        {
+          "name": "potato",
+          "quantity": "2",
+          "units": "kg"
+        }
+      ],
+      "id": 10
     }
   ],
   "users": [
@@ -472,19 +514,36 @@
       "id": 1,
       "authorId": 2,
       "recipeId": 1,
-      "text": "some comments on Borsch"
+      "text": "some comments on Borsch",
+      "createdAt": "2023-05-11T07:49:11.285Z"
     },
     {
       "id": 2,
       "authorId": 3,
       "recipeId": 1,
-      "text": "some comments on Borsch"
+      "text": "some comments on Borsch",
+      "createdAt": "2023-05-12T07:49:11.285Z"
     },
     {
       "id": 3,
       "authorId": 1,
       "recipeId": 3,
-      "text": "some comments on Pho Bo"
+      "text": "some comments on Pho Bo",
+      "createdAt": "2023-05-13T07:49:11.285Z"
+    },
+    {
+      "authorId": 1,
+      "recipeId": 1,
+      "text": "Some comments on Borsch",
+      "createdAt": "2023-05-13T08:11:36.759Z",
+      "id": 4
+    },
+    {
+      "authorId": 1,
+      "recipeId": 10,
+      "text": "Nice, but where I can buy one teaspoon of cow meat?",
+      "createdAt": "2023-05-13T08:14:34.603Z",
+      "id": 5
     }
   ]
 }

@@ -3,8 +3,9 @@ import { RecipeType } from '../types/recipes'
 import { useParams } from 'react-router-dom'
 import { UserType } from '../types/users'
 import { CommentType } from '../types/comments'
-import { CommentsContext, RecipesContext, UsersContext } from '../utils/context'
+import { CommentsContext, CurrentUserContext, RecipesContext, UsersContext } from '../utils/context'
 import cl from '../styles/Recipe.module.css'
+import AddComment from './AddComment'
 
 const Recipe = () => {
   const [recipe, setRecipe] = useState<RecipeType>()
@@ -13,6 +14,7 @@ const Recipe = () => {
   const users = useContext(UsersContext)[0]
   const [recipeComments, setRecipeComments] = useState<CommentType[]>([])
   const comments = useContext(CommentsContext)[0]
+  const currentUser = useContext(CurrentUserContext)[0]
   const { recipe_id } = useParams<{ recipe_id: string }>()
 
   useEffect(() => {
@@ -87,6 +89,7 @@ const Recipe = () => {
           })}
         </div>
       )}
+      {currentUser && recipe.id && <AddComment recipe={recipe}/>}
     </div>
   )
 }

@@ -3,10 +3,11 @@ export type CommentsType = {
 }
 
 export type CommentType = {
-  id: number
+  id?: number
   authorId: number
   recipeId: number
   text: string
   authorFirstname?: string
   authorLastname?: string
+  createdAt: Date
 }
