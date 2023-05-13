@@ -14,8 +14,8 @@ const RecipePreview = ({ recipe }: { recipe: RecipeType }) => {
           <Image source={recipe.image} alt={recipe.title} />
         </div>
         <div className={cl.recipe_overlay}></div>
-        <div className={cl.recipe_rating_container}>
-          <h1 className={cl.recipe_rating}>{recipe.title}</h1>
+        <div className={cl.recipe_title_container}>
+          <h1 className={cl.recipe_title}>{recipe.title}</h1>
         </div>
         <div className={cl.recipe_flag_container}>
           <img
