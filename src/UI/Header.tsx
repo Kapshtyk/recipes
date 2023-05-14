@@ -4,7 +4,8 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { CurrentUserContext } from '../utils/context'
 
 const Header = () => {
-  const [currentUser, setCurrentUser, {logout}] = useContext(CurrentUserContext)
+  const [currentUser, setCurrentUser, { logout }] =
+    useContext(CurrentUserContext)
   const location = useLocation()
 
   const onClick = () => {
@@ -38,7 +39,9 @@ const Header = () => {
             <span className={cl.login_span}>
               Welcome, {currentUser.firstname}!
             </span>
-            <span className={cl.logout_span} onClick={logout}>Logout</span>
+            <span className={cl.logout_span} onClick={logout}>
+              Logout
+            </span>
           </div>
         )}
       </div>

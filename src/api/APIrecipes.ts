@@ -1,3 +1,5 @@
+import { CommentType } from '../types/comments'
+import { RecipeType } from '../types/recipes'
 import { BASE_URL } from '../utils/constants'
 import axios from 'axios'
 
@@ -11,7 +13,7 @@ export const getRecipes = async () => {
   }
 }
 
-export const addRecipe = async (recipe: any) => {
+export const addRecipe = async (recipe: RecipeType) => {
   try {
     const response = await axios.post(BASE_URL + 'recipes', {
       title: recipe.title,
@@ -23,14 +25,14 @@ export const addRecipe = async (recipe: any) => {
       ingredients: recipe.ingredients
     })
     if (response.status === 201) {
-      return true
+      return response.data
     }
   } catch (error) {
     console.log(error)
   }
 }
 
-export const addComment = async (comment: any) => {
+export const addComment = async (comment: CommentType) => {
   try {
     const response = await axios.post(BASE_URL + 'comments', {
       authorId: comment.authorId,
@@ -58,7 +60,9 @@ export const getUsers = async () => {
 
 export const getAllComments = async () => {
   try {
-    const response = await axios.get(BASE_URL + 'comments?_sort=createdAt&_order=desc')
+    const response = await axios.get(
+      BASE_URL + 'comments?_sort=createdAt&_order=desc'
+    )
     const data = response.data
     return data
   } catch (error) {

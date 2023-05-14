@@ -416,6 +416,118 @@
           "units": "cup"
         }
       ]
+    },
+    {
+      "id": 8,
+      "title": "Potato Leek Soup",
+      "origin": "France",
+      "description": "A classic French soup made with potatoes and leeks",
+      "instruction": "Melt butter in a pot over medium heat. Add chopped leeks and sauté until softened. Add diced potatoes, chicken broth, and thyme. Bring to a boil and reduce heat to a simmer. Cook until potatoes are tender. Use an immersion blender to puree the soup until smooth. Stir in heavy cream and salt and pepper to taste.",
+      "image": "images/potato_leek_soup.jpg",
+      "authorId": 1,
+      "ingredients": [
+        {
+          "name": "butter",
+          "quantity": 4,
+          "units": "tablespoons"
+        },
+        {
+          "name": "leeks",
+          "quantity": 4,
+          "units": "large"
+        },
+        {
+          "name": "potatoes",
+          "quantity": 3,
+          "units": "medium"
+        },
+        {
+          "name": "chicken broth",
+          "quantity": 4,
+          "units": "cups"
+        },
+        {
+          "name": "fresh thyme",
+          "quantity": 1,
+          "units": "tablespoon"
+        },
+        {
+          "name": "heavy cream",
+          "quantity": 1,
+          "units": "cup"
+        },
+        {
+          "name": "salt",
+          "quantity": 1,
+          "units": "teaspoon"
+        },
+        {
+          "name": "black pepper",
+          "quantity": 1,
+          "units": "teaspoon"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Tom Yum Soup",
+      "origin": "Thailand",
+      "description": "A sour and spicy soup with fragrant herbs and seafood",
+      "instruction": "Bring the chicken or seafood broth to a boil, then add lemongrass, kaffir lime leaves, galangal, and chili peppers. Let it simmer for 10 minutes, then add mushrooms, shrimp, and fish sauce. Simmer for another 5 minutes, then add lime juice and cilantro. Serve hot.",
+      "image": "images/tom-yum-soup.jpg",
+      "authorId": 3,
+      "ingredients": [
+        {
+          "name": "chicken or seafood broth",
+          "quantity": 4,
+          "units": "cups"
+        },
+        {
+          "name": "lemongrass",
+          "quantity": 2,
+          "units": "stalks"
+        },
+        {
+          "name": "kaffir lime leaves",
+          "quantity": 4,
+          "units": "leaves"
+        },
+        {
+          "name": "galangal",
+          "quantity": 2,
+          "units": "slices"
+        },
+        {
+          "name": "chili peppers",
+          "quantity": 2,
+          "units": ""
+        },
+        {
+          "name": "mushrooms",
+          "quantity": 1,
+          "units": "cup"
+        },
+        {
+          "name": "shrimp",
+          "quantity": 1,
+          "units": "cup"
+        },
+        {
+          "name": "fish sauce",
+          "quantity": 2,
+          "units": "tablespoons"
+        },
+        {
+          "name": "lime juice",
+          "quantity": 2,
+          "units": "tablespoons"
+        },
+        {
+          "name": "cilantro",
+          "quantity": 1,
+          "units": "tablespoon"
+        }
+      ]
     }
   ],
   "users": [
@@ -483,6 +595,13 @@
       "text": "Nice soup",
       "createdAt": "2023-05-13T18:31:12.649Z",
       "id": 6
+    },
+    {
+      "authorId": 1,
+      "recipeId": 8,
+      "text": "Nice soup!",
+      "createdAt": "2023-05-14T19:38:34.353Z",
+      "id": 7
     }
   ]
 }

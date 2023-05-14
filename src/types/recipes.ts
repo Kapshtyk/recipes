@@ -11,6 +11,7 @@ export type RecipeType = {
   image: string
   authorId: number
   ingredients: IngredientType[]
+  [key: string]: string | number | IngredientType[] | undefined
 }
 
 export type IngredientType = {

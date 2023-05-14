@@ -1,9 +1,6 @@
 import React, { useContext, useState } from 'react'
 import cl from '../styles/AddComment.module.css'
-import {
-  CurrentUserContext,
-  CommentsContext
-} from '../utils/context'
+import { CurrentUserContext, CommentsContext } from '../utils/context'
 import { RecipeType } from '../types/recipes'
 import { addComment } from '../api/APIrecipes'
 
@@ -24,8 +21,8 @@ const AddComment = ({ recipe }: { recipe: RecipeType }) => {
     event.preventDefault()
     if (currentUser && recipe) {
       const commentData = {
-        authorId: currentUser.id,
-        recipeId: recipe.id,
+        authorId: currentUser.id as number,
+        recipeId: recipe.id as number,
         text: comment,
         createdAt: new Date()
       }
@@ -55,7 +52,9 @@ const AddComment = ({ recipe }: { recipe: RecipeType }) => {
           required
           value={comment}
         />
-        <button className={cl.form_submit} type="submit">Add</button>
+        <button className={cl.form_submit} type="submit">
+          Add
+        </button>
       </form>
     </div>
   )

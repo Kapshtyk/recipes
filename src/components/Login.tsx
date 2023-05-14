@@ -38,7 +38,6 @@ const Login = () => {
         setCurrentUser(data)
         const redirectPath = localStorage.getItem('redirectPath')
         if (redirectPath) {
-          console.log(redirectPath)
           localStorage.removeItem('redirectPath')
           navigate(JSON.parse(redirectPath).pathname)
         } else {
@@ -50,14 +49,23 @@ const Login = () => {
     }
   }
 
-
   return (
     <div className={cl.login_container}>
       <h2 className={cl.login_title}>Login</h2>
       <form className={cl.login_form} onSubmit={handleSubmit}>
-        <label className={cl.login_lable} htmlFor="email">Email:</label>
-        <input className={cl.login_input} type="email" name="email" onChange={onChangeInput} required />
-        <label className={cl.login_lable} htmlFor="password">Password:</label>
+        <label className={cl.login_lable} htmlFor="email">
+          Email:
+        </label>
+        <input
+          className={cl.login_input}
+          type="email"
+          name="email"
+          onChange={onChangeInput}
+          required
+        />
+        <label className={cl.login_lable} htmlFor="password">
+          Password:
+        </label>
         <input
           className={cl.login_input}
           type="password"

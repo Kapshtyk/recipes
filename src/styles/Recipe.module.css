@@ -1,7 +1,7 @@
 .recipe_container {
   max-width: 700px;
   margin: auto;
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
   padding: 1.5rem;
   border: 1px solid #e5e5e5;
@@ -66,7 +66,7 @@
   margin-top: 1rem;
   padding: 0;
   list-style: none;
-} 
+}
 
 .recipe_li {
   color: #333;
@@ -116,3 +116,14 @@
 .login_link {
   color: #333;
 }
+
+.plug {
+  width: 550px;
+  margin: auto; 
+  text-align: center;
+  margin-top: 2rem;
+  font-family: 'Sigmar', cursive;
+  letter-spacing: 1px;
+  font-size: 24px;
+  color: rgb(50, 50, 50)
+ }

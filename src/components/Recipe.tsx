@@ -22,17 +22,24 @@ const Recipe = () => {
   const currentUser = useContext(CurrentUserContext)[0]
   const { recipe_id } = useParams<{ recipe_id: string }>()
   const location = useLocation()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    if (recipe_id) {
-      const data = recipes.filter((recipe) => {
-        if (recipe.id === +recipe_id) {
-          return recipe
+    async function fetchData() {
+      if (recipe_id) {
+        const data = recipes.filter((recipe) => {
+          if (recipe.id === +recipe_id) {
+            return recipe
+          }
+        })
+        if (data.length > 0) {
+          setRecipe(data[0])
         }
-      })
-      setRecipe(data[0])
+        setIsLoading(false)
+      }
     }
-  }, [])
+    fetchData()
+  }, [recipe_id, recipes])
 
   useEffect(() => {
     if (recipe) {
@@ -56,27 +63,37 @@ const Recipe = () => {
     }
   }, [recipe, comments, users])
 
-  if (!recipe) {
-    return <div>Loading...</div>
-  }
-
+  
   const onClick = () => {
     localStorage.setItem('redirectPath', JSON.stringify(location))
   }
+  
+  if (isLoading) {
+    return <div className={cl.plug}>Loading...</div>
+  }
 
+  if (!recipe) {
+    return <div className={cl.plug}>Recipe not found</div>
+  }
+  
   return (
     <div className={cl.recipe_container}>
-      <h1 className={cl.recipe_title}>{recipe.title} from {recipe.origin}</h1>
+      <h1 className={cl.recipe_title}>
+        {recipe.title} from {recipe.origin}
+      </h1>
       <h2 className={cl.recipe_description}>{recipe.description}</h2>
       <h3 className={cl.recipe_instructions}>{recipe.instruction}</h3>
       <details className={cl.recipe_details}>
         <summary className={cl.recipe_summary}>Ingredients</summary>
         <ul className={cl.recipe_ul}>
-          {recipe.ingredients.length > 0 &&
+          {recipe && recipe.ingredients.length > 0 &&
             recipe.ingredients.map((ingredient) => {
               return (
                 <li key={ingredient.name} className={cl.recipe_li}>
-                  <span className={cl.recipe_ingredient_name}>{ingredient.name}:</span> {ingredient.quantity} {ingredient.units}
+                  <span className={cl.recipe_ingredient_name}>
+                    {ingredient.name}:
+                  </span>{' '}
+                  {ingredient.quantity} {ingredient.units}
                 </li>
               )
             })}
@@ -98,13 +115,29 @@ const Recipe = () => {
             )
           })}
           {currentUser && recipe.id && <AddComment recipe={recipe} />}
-          {!currentUser && recipe.id && <div className={cl.recipe_login}>Please <Link onClick={onClick} className={cl.login_link} to='/login'>log in</Link> if you want to leave a comment</div>}
+          {!currentUser && recipe.id && (
+            <div className={cl.recipe_login}>
+              Please{' '}
+              <Link onClick={onClick} className={cl.login_link} to="/login">
+                log in
+              </Link>{' '}
+              if you want to leave a comment
+            </div>
+          )}
         </div>
       )}
       {recipeComments.length == 0 && (
         <div className={cl.recipe_comments}>
           {currentUser && recipe.id && <AddComment recipe={recipe} />}
-          {!currentUser && recipe.id && <div className={cl.recipe_login}>Please <Link onClick={onClick} className={cl.login_link} to='/login'>log in</Link> if you want to leave a comment</div>}
+          {!currentUser && recipe.id && (
+            <div className={cl.recipe_login}>
+              Please{' '}
+              <Link onClick={onClick} className={cl.login_link} to="/login">
+                log in
+              </Link>{' '}
+              if you want to leave a comment
+            </div>
+          )}
         </div>
       )}
     </div>

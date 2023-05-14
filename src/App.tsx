@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation
-} from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { getRecipes, getUsers, getAllComments } from './api/APIrecipes'
 import RecipesBlock from './components/RecipesBlock'
 import Recipe from './components/Recipe'
@@ -19,32 +13,27 @@ import {
 import { CommentType } from './types/comments'
 import { RecipeType } from './types/recipes'
 import { CurrentUserType, UserType } from './types/users'
-import { ProtectedRouteProps } from './types/protecredRoute'
 import Login from './components/Login'
 import AddRecipe from './components/AddRecipe'
+import ProtectedRoute from './components/ProtectedRoute'
+import cl from './styles/App.module.css'
 
 function App() {
   const [recipes, setRecipes] = useState<RecipeType[]>([])
   const [users, setUsers] = useState<UserType[]>([])
   const [comments, setComments] = useState<CommentType[]>([])
   const [currentUser, setCurrentUser] = useState<CurrentUserType>()
- 
-  useEffect(() => {
-    getRecipes().then((data) => {
-      setRecipes(data)
-    })
-  }, [])
+  const [recipesLoaded, setRecipesLoaded] = useState(false)
 
   useEffect(() => {
-    getUsers().then((data) => {
-      setUsers(data)
-    })
-  }, [])
-
-  useEffect(() => {
-    getAllComments().then((data) => {
-      setComments(data)
-    })
+    Promise.all([getRecipes(), getUsers(), getAllComments()]).then(
+      ([recipes, users, comments]) => {
+        setRecipes(recipes)
+        setUsers(users)
+        setComments(comments)
+        setRecipesLoaded(true)
+      }
+    )
   }, [])
 
   const fetchComments = () => {
@@ -62,28 +51,23 @@ function App() {
   const logout = () => {
     setCurrentUser(undefined)
   }
- 
 
-  if (recipes.length === 0) {
-    return <div></div>
+  if (!recipesLoaded) {
+    return (
+      <BrowserRouter>
+        <Header />
+        <div className={cl.plug}>Loading...</div>
+      </BrowserRouter>
+    )
   }
 
-  const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-    const location = useLocation()
-
-    if (!currentUser) {
-      localStorage.setItem('redirectPath', JSON.stringify(location))
-      return (
-        <Navigate
-          to={{
-            pathname: '/login',
-          }}
-          replace
-        />
-      )
-    }
-
-    return <>{children}</>
+  if (recipesLoaded && recipes.length === 0) {
+    return (
+      <BrowserRouter>
+        <Header />
+        <div className={cl.plug}>No recipe yet! Your soup could be the first!</div>
+      </BrowserRouter>
+    )
   }
 
   return (
@@ -95,7 +79,9 @@ function App() {
           <RecipesContext.Provider
             value={[recipes, setRecipes, { fetchRecipes }]}
           >
-            <CurrentUserContext.Provider value={[currentUser, setCurrentUser, {logout}]}>
+            <CurrentUserContext.Provider
+              value={[currentUser, setCurrentUser, { logout }]}
+            >
               <Header />
               <Routes>
                 <Route path="/" element={<RecipesBlock recipes={recipes} />} />

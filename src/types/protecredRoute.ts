@@ -1,5 +1,5 @@
 import React from 'react'
 
-export interface ProtectedRouteProps {
+export type ProtectedRouteType = {
   children: React.ReactNode
 }

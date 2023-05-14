@@ -1,20 +1,17 @@
 import React, { useContext, useState } from 'react'
 import cl from '../styles/AddRecipe.module.css'
-import { IngredientType } from '../types/recipes'
+import { RecipeType } from '../types/recipes'
 import { CurrentUserContext, RecipesContext } from '../utils/context'
 import { getCountries } from '../utils/CountryCode'
 import { JSX } from 'react/jsx-runtime'
 import { addRecipe } from '../api/APIrecipes'
-
-interface RecipeData {
-  [key: string]: string | number | IngredientType[] | undefined
-}
+import { useNavigate } from 'react-router-dom'
 
 const AddRecipe = () => {
-  const { fetchRecipes } = useContext(RecipesContext)[2]
+  const [recipes, setRecipes, { fetchRecipes }] = useContext(RecipesContext)
   const currentUser = useContext(CurrentUserContext)[0]
   const [ingredientsCounter, setIngredientsCounter] = useState(1)
-  const [recipeData, setRecipeData] = useState<RecipeData>({
+  const [recipeData, setRecipeData] = useState<RecipeType>({
     title: '',
     origin: '',
     description: '',
@@ -23,6 +20,8 @@ const AddRecipe = () => {
     authorId: 0,
     ingredients: []
   })
+  const navigate = useNavigate()
+  const ingredientsList: JSX.Element[] = []
 
   const addIngredient = () => {
     setIngredientsCounter(ingredientsCounter + 1)
@@ -52,11 +51,20 @@ const AddRecipe = () => {
       const [name, quantity, units] = Object.keys(recipeData).filter((key) => {
         return key.includes('' + i)
       })
-      ingredients.push({
-        name: recipeData[name],
-        quantity: recipeData[quantity],
-        units: recipeData[units]
-      })
+      const ingredientName = recipeData[name]
+      const ingredientQuantity = recipeData[quantity]
+      const ingredientUnits = recipeData[units]
+      if (
+        typeof ingredientName === 'string' &&
+        typeof ingredientQuantity === 'number' &&
+        typeof ingredientUnits === 'string'
+      ) {
+        ingredients.push({
+          name: ingredientName.toLowerCase(),
+          quantity: ingredientQuantity,
+          units: ingredientUnits.toLowerCase()
+        })
+      }
     }
     if (currentUser) {
       const recipe = {
@@ -68,13 +76,16 @@ const AddRecipe = () => {
         authorId: currentUser.id,
         ingredients: ingredients
       }
-      if (await addRecipe(recipe)) {
-        fetchRecipes()
+      try {
+        const data = await addRecipe(recipe)
+        await Promise.resolve(fetchRecipes())
+        navigate(`/recipes/${data.id}`)
+      }
+      catch(err) {
+        console.log(err)
       }
     }
   }
-
-  const ingredientsList: JSX.Element[] = []
 
   for (let i = 0; i < ingredientsCounter; i++) {
     ingredientsList.push(
@@ -82,7 +93,7 @@ const AddRecipe = () => {
         <input
           className={cl.form_input_ingredient}
           type="text"
-          placeholder='name'
+          placeholder="name"
           name={`name${i}`}
           onChange={onChangeInput}
           required
@@ -90,7 +101,7 @@ const AddRecipe = () => {
         <input
           className={cl.form_input_ingredient}
           type="number"
-          placeholder='quantity'
+          placeholder="quantity"
           name={`quantity${i}`}
           onChange={onChangeInput}
           required
@@ -98,7 +109,7 @@ const AddRecipe = () => {
         <input
           className={cl.form_input_ingredient}
           type="text"
-          placeholder='units'
+          placeholder="units"
           name={`units${i}`}
           onChange={onChangeInput}
           required
@@ -109,6 +120,7 @@ const AddRecipe = () => {
 
   return (
     <div className={cl.form_container}>
+      <h2 className={cl.form_title}>Add recipe</h2>
       <form
         className={cl.form}
         onSubmit={onSubmit}
@@ -118,7 +130,9 @@ const AddRecipe = () => {
           }
         }}
       >
-        <label className={cl.form_lable} htmlFor="title">Title</label>
+        <label className={cl.form_lable} htmlFor="title">
+          Title
+        </label>
         <input
           className={cl.form_input}
           type="text"
@@ -126,15 +140,23 @@ const AddRecipe = () => {
           onChange={onChangeInput}
           required
         />
-        <label className={cl.form_lable} htmlFor="origin">Origin</label>
-        <select className={cl.form_input_select} name="origin" onChange={onChangeInput}>
+        <label className={cl.form_lable} htmlFor="origin">
+          Origin
+        </label>
+        <select
+          className={cl.form_input_select}
+          name="origin"
+          onChange={onChangeInput}
+        >
           {getCountries().map((country) => (
             <option key={country.code} value={country.name}>
               {country.name}
             </option>
           ))}
         </select>
-        <label className={cl.form_lable} htmlFor="description">Description</label>
+        <label className={cl.form_lable} htmlFor="description">
+          Description
+        </label>
         <textarea
           rows={4}
           className={cl.form_input}
@@ -142,7 +164,9 @@ const AddRecipe = () => {
           onChange={onChangeInput}
           required
         />
-        <label className={cl.form_lable} htmlFor="instructions">Instructions</label>
+        <label className={cl.form_lable} htmlFor="instructions">
+          Instructions
+        </label>
         <textarea
           rows={10}
           className={cl.form_input}
@@ -150,7 +174,9 @@ const AddRecipe = () => {
           onChange={onChangeInput}
           required
         />
-        <label className={cl.form_lable} htmlFor="image">Image</label>
+        <label className={cl.form_lable} htmlFor="image">
+          Image
+        </label>
         <input
           className={cl.form_input}
           type="text"
@@ -161,12 +187,18 @@ const AddRecipe = () => {
         <label className={cl.form_lable}>Ingredients</label>
         {ingredientsList}
         <div className={cl.form_buttons}>
-          <button className={cl.form_button} onClick={addIngredient}>Add ingredient</button>
+          <button className={cl.form_button} onClick={addIngredient}>
+            Add ingredient
+          </button>
           {ingredientsCounter > 1 && (
-            <button className={cl.form_button} onClick={removeIngredient}>Remove ingredient</button>
+            <button className={cl.form_button} onClick={removeIngredient}>
+              Remove ingredient
+            </button>
           )}
         </div>
-        <button className={cl.form_button_add} type="submit">Add recipe</button>
+        <button className={cl.form_button_add} type="submit">
+          Add recipe
+        </button>
       </form>
     </div>
   )
