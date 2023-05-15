@@ -1,5 +1,6 @@
 import { CommentType } from '../types/comments'
 import { RecipeType } from '../types/recipes'
+import { UserType } from '../types/users'
 import { BASE_URL } from '../utils/constants'
 import axios from 'axios'
 
@@ -41,8 +42,20 @@ export const addComment = async (comment: CommentType) => {
       createdAt: comment.createdAt
     })
     if (response.status === 201) {
-      return true
+      return response.data
     }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getAllComments = async () => {
+  try {
+    const response = await axios.get(
+      BASE_URL + 'comments?_sort=createdAt&_order=desc'
+    )
+    const data = response.data
+    return data
   } catch (error) {
     console.log(error)
   }
@@ -58,11 +71,14 @@ export const getUsers = async () => {
   }
 }
 
-export const getAllComments = async () => {
+export const addUser = async (user: UserType) => {
   try {
-    const response = await axios.get(
-      BASE_URL + 'comments?_sort=createdAt&_order=desc'
-    )
+    const response = await axios.post(BASE_URL + 'users', {
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      password: user.password
+    })
     const data = response.data
     return data
   } catch (error) {

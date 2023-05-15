@@ -602,6 +602,20 @@
       "text": "Nice soup!",
       "createdAt": "2023-05-14T19:38:34.353Z",
       "id": 7
+    },
+    {
+      "authorId": 1,
+      "recipeId": 1,
+      "text": "Nice soup!",
+      "createdAt": "2023-05-15T08:09:20.493Z",
+      "id": 8
+    },
+    {
+      "authorId": 1,
+      "recipeId": 1,
+      "text": "Yummy!",
+      "createdAt": "2023-05-15T08:09:30.908Z",
+      "id": 9
     }
   ]
 }

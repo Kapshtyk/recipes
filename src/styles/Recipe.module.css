@@ -119,11 +119,11 @@
 
 .plug {
   width: 550px;
-  margin: auto; 
+  margin: auto;
   text-align: center;
   margin-top: 2rem;
   font-family: 'Sigmar', cursive;
   letter-spacing: 1px;
   font-size: 24px;
-  color: rgb(50, 50, 50)
- }
+  color: rgb(50, 50, 50);
+}

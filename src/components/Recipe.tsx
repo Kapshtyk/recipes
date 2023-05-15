@@ -63,11 +63,10 @@ const Recipe = () => {
     }
   }, [recipe, comments, users])
 
-  
   const onClick = () => {
     localStorage.setItem('redirectPath', JSON.stringify(location))
   }
-  
+
   if (isLoading) {
     return <div className={cl.plug}>Loading...</div>
   }
@@ -75,7 +74,7 @@ const Recipe = () => {
   if (!recipe) {
     return <div className={cl.plug}>Recipe not found</div>
   }
-  
+
   return (
     <div className={cl.recipe_container}>
       <h1 className={cl.recipe_title}>
@@ -86,7 +85,8 @@ const Recipe = () => {
       <details className={cl.recipe_details}>
         <summary className={cl.recipe_summary}>Ingredients</summary>
         <ul className={cl.recipe_ul}>
-          {recipe && recipe.ingredients.length > 0 &&
+          {recipe &&
+            recipe.ingredients.length > 0 &&
             recipe.ingredients.map((ingredient) => {
               return (
                 <li key={ingredient.name} className={cl.recipe_li}>

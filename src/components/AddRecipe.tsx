@@ -73,15 +73,14 @@ const AddRecipe = () => {
         description: recipeData.description,
         instruction: recipeData.instruction,
         image: recipeData.image,
-        authorId: currentUser.id,
+        authorId: currentUser.id as number,
         ingredients: ingredients
       }
       try {
         const data = await addRecipe(recipe)
         await Promise.resolve(fetchRecipes())
         navigate(`/recipes/${data.id}`)
-      }
-      catch(err) {
+      } catch (err) {
         console.log(err)
       }
     }

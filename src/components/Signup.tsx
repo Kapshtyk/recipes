@@ -1,16 +1,21 @@
 import React, { useContext, useState } from 'react'
 import { CurrentUserContext, UsersContext } from '../utils/context'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import md5 from 'md5'
 import cl from '../styles/Login.module.css'
+import { addUser } from '../api/APIrecipes'
 
 type UserDataType = {
+  firstname: string
+  lastname: string
   email: string
   password: string
 }
 
-const Login = () => {
+const Signup = () => {
   const [userData, setUserData] = useState<UserDataType>({
+    firstname: '',
+    lastname: '',
     email: '',
     password: ''
   })
@@ -28,31 +33,53 @@ const Login = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (users) {
-      const data = users.find((user) => {
-        if (user.password === md5(userData.password)) {
-          return user
-        }
-      })
-      if (data) {
+    try {
+      const redirectPath = localStorage.getItem('redirectPath')
+      await addUser({
+        firstname: userData.firstname,
+        lastname: userData.lastname,
+        email: userData.email,
+        password: md5(userData.password)
+      }).then((data) => {
         setCurrentUser(data)
-        const redirectPath = localStorage.getItem('redirectPath')
         if (redirectPath) {
           localStorage.removeItem('redirectPath')
           navigate(JSON.parse(redirectPath).pathname)
         } else {
           navigate('/')
         }
-      } else {
-        setError('There are no users with credentials that have been provided.')
+      })
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message)
       }
     }
   }
 
   return (
     <div className={cl.login_container}>
-      <h2 className={cl.login_title}>Login</h2>
+      <h2 className={cl.login_title}>Sign up</h2>
       <form className={cl.login_form} onSubmit={handleSubmit}>
+        <label className={cl.login_lable} htmlFor="email">
+          Firstname:
+        </label>
+        <input
+          className={cl.login_input}
+          type="text"
+          name="firstname"
+          onChange={onChangeInput}
+          required
+        />
+        <label className={cl.login_lable} htmlFor="email">
+          Lastname:
+        </label>
+        <input
+          className={cl.login_input}
+          type="text"
+          name="lastname"
+          onChange={onChangeInput}
+          required
+        />
         <label className={cl.login_lable} htmlFor="email">
           Email:
         </label>
@@ -73,17 +100,11 @@ const Login = () => {
           onChange={onChangeInput}
           required
         />
-        <button className={cl.login_submit}>Login</button>
+        <button className={cl.login_submit}>Sign up</button>
       </form>
       {error && <span>{error}</span>}
-      <div className={cl.login_signup}>
-        If you do not have an account, you can{' '}
-        <Link className={cl.login_signup_link} to="/signup">
-          sign up here
-        </Link>
-      </div>
     </div>
   )
 }
 
-export default Login
+export default Signup

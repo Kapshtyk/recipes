@@ -17,6 +17,8 @@ import Login from './components/Login'
 import AddRecipe from './components/AddRecipe'
 import ProtectedRoute from './components/ProtectedRoute'
 import cl from './styles/App.module.css'
+import Signup from './components/Signup'
+import Layout from './UI/Layout'
 
 function App() {
   const [recipes, setRecipes] = useState<RecipeType[]>([])
@@ -55,8 +57,9 @@ function App() {
   if (!recipesLoaded) {
     return (
       <BrowserRouter>
-        <Header />
-        <div className={cl.plug}>Loading...</div>
+        <Layout>
+          <div className={cl.plug}>Loading...</div>
+        </Layout>
       </BrowserRouter>
     )
   }
@@ -64,8 +67,11 @@ function App() {
   if (recipesLoaded && recipes.length === 0) {
     return (
       <BrowserRouter>
-        <Header />
-        <div className={cl.plug}>No recipe yet! Your soup could be the first!</div>
+        <Layout>
+          <div className={cl.plug}>
+            No recipe yet! Your soup could be the first!
+          </div>
+        </Layout>
       </BrowserRouter>
     )
   }
@@ -82,20 +88,25 @@ function App() {
             <CurrentUserContext.Provider
               value={[currentUser, setCurrentUser, { logout }]}
             >
-              <Header />
-              <Routes>
-                <Route path="/" element={<RecipesBlock recipes={recipes} />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/recipes/:recipe_id" element={<Recipe />} />
-                <Route
-                  path="/add-recipe"
-                  element={
-                    <ProtectedRoute>
-                      <AddRecipe />
-                    </ProtectedRoute>
-                  }
-                />
-              </Routes>
+              <Layout>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={<RecipesBlock recipes={recipes} />}
+                  />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/recipes/:recipe_id" element={<Recipe />} />
+                  <Route
+                    path="/add-recipe"
+                    element={
+                      <ProtectedRoute>
+                        <AddRecipe />
+                      </ProtectedRoute>
+                    }
+                  />
+                </Routes>
+              </Layout>
             </CurrentUserContext.Provider>
           </RecipesContext.Provider>
         </CommentsContext.Provider>

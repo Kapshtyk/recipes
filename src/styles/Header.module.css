@@ -1,14 +1,19 @@
 .header {
-  padding: 0 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 80px;
+  width: 100vw;
   background-color: #ffd24d;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  z-index: 1;
 }
 
 .header_logo {
+  margin-left: 1rem;
   width: 400px;
   font-family: 'Sigmar', cursive;
   letter-spacing: 1px;
@@ -44,6 +49,7 @@
 }
 
 .header_login_section {
+  margin-right: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

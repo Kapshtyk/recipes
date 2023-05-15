@@ -3,7 +3,7 @@ export type UsersType = {
 }
 
 export type UserType = {
-  id: number
+  id?: number
   firstname: string
   lastname: string
   email: string
