@@ -25,7 +25,7 @@ Once the dependencies are installed, you can start the application and the JSON 
 npm run dev
 ```
 
-This command will start both the React application and the JSON server at the same time. The React application will be served at [http://localhost:3000](http://localhost:3000) and the JSON Server will be served at [http://localhost:3001](http://localhost:3001). 
+This command will start both the React application and the JSON server at the same time. The React application will be served at [http://localhost:3000](http://localhost:3000) and the JSON server will be served at [http://localhost:3001](http://localhost:3001). 
 
 ## Usage
 
