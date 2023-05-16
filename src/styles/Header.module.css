@@ -13,6 +13,8 @@
 }
 
 .header_logo {
+  text-decoration: none;
+  color: black;
   margin-left: 1rem;
   width: 400px;
   font-family: 'Sigmar', cursive;

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import cl from '../styles/Header.module.css'
-import { NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { CurrentUserContext } from '../utils/context'
 
 const Header = () => {
-  const [currentUser, setCurrentUser, { logout }] =
-    useContext(CurrentUserContext)
+  const currentUser = useContext(CurrentUserContext)[0]
+  const {logout} = useContext(CurrentUserContext)[2]
   const location = useLocation()
 
   const onClick = () => {
@@ -13,7 +13,9 @@ const Header = () => {
   }
   return (
     <header className={cl.header}>
-      <div className={cl.header_logo}>Broth & Ladle 🥕</div>
+      <Link className={cl.header_logo} to='/'>
+        Broth & Ladle 🥕
+      </Link>
       <nav className={cl.nav}>
         <ul className={cl.ul}>
           <li className={cl.li}>

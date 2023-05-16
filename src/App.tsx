@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { getRecipes, getUsers, getAllComments } from './api/APIrecipes'
 import RecipesBlock from './components/RecipesBlock'
 import Recipe from './components/Recipe'
-import Header from './UI/Header'
 import {
   UsersContext,
   CommentsContext,
