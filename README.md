@@ -25,11 +25,11 @@ Once the dependencies are installed, you can start the application and the JSON 
 npm run dev
 ```
 
-This command will start both the React application and the JSON server at the same time. The React application will be served at [http://localhost:3000](http://localhost:3000) and the JSON server will be served at [http://localhost:3001](http://localhost:3001). 
+This command will start both the React application and the JSON server at the same time. The React application will be served at [http://localhost:3000](http://localhost:3000) and the JSON server will be served at [http://localhost:3001](http://localhost:3001).
 
 ## Usage
 
-Once the application is running, you can start browsing soup recipes. You can use the search bar to search for specific recipes by name or by ingredient, or you can browse through the list of all recipes. Click on a recipe to see its details, including a list of ingredients and instructions for preparing the soup. 
+Once the application is running, you can start browsing soup recipes. You can use the search bar to search for specific recipes by name or by ingredient, or you can browse through the list of all recipes. Click on a recipe to see its details, including a list of ingredients and instructions for preparing the soup.
 
 ## Credits
 
@@ -41,8 +41,8 @@ Once the application is running, you can start browsing soup recipes. You can us
 
 ## Screenshot
 
-![desktop screenshot recipes](<https://github.com/Kapshtak/recipes/blob/main/screenshots/recipes.png>)
-![desktop screenshot recipe](<https://github.com/Kapshtak/recipes/blob/main/screenshots/recipe.png>)
+![desktop screenshot recipes](https://github.com/Kapshtak/recipes/blob/main/screenshots/recipes.png)
+![desktop screenshot recipe](https://github.com/Kapshtak/recipes/blob/main/screenshots/recipe.png)
 
 ## Author
 

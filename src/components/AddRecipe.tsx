@@ -8,7 +8,7 @@ import { addRecipe } from '../api/APIrecipes'
 import { useNavigate } from 'react-router-dom'
 
 const AddRecipe = () => {
-  const {fetchRecipes} = useContext(RecipesContext)[2]
+  const { fetchRecipes } = useContext(RecipesContext)[2]
   const currentUser = useContext(CurrentUserContext)[0]
   const [ingredientsCounter, setIngredientsCounter] = useState(1)
   const [recipeData, setRecipeData] = useState<RecipeType>({

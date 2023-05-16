@@ -1,4 +1,5 @@
 .main_content {
+  margin: auto;
   min-height: calc(100vh - 180px);
   padding-top: 80px;
 }

@@ -18,6 +18,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import cl from './styles/App.module.css'
 import Signup from './components/Signup'
 import Layout from './UI/Layout'
+import Home from './components/Home'
 
 function App() {
   const [recipes, setRecipes] = useState<RecipeType[]>([])
@@ -89,10 +90,8 @@ function App() {
             >
               <Layout>
                 <Routes>
-                  <Route
-                    path="/"
-                    element={<RecipesBlock />}
-                  />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/recipes" element={<RecipesBlock />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/recipes/:recipe_id" element={<Recipe />} />

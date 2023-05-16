@@ -25,7 +25,7 @@ const RecipesBlock = () => {
     }
   })
 
-  console.log(country)  
+  console.log(country)
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value)
@@ -35,26 +35,35 @@ const RecipesBlock = () => {
     setCountry(event.target.value)
   }
 
-  const countries = Array.from(new Set(recipes.map(recipe => {
-    return recipe.origin
-  }))).sort((a, b) => a.localeCompare(b))
+  const countries = Array.from(
+    new Set(
+      recipes.map((recipe) => {
+        return recipe.origin
+      })
+    )
+  ).sort((a, b) => a.localeCompare(b))
 
   return (
     <>
       <div className={cl.recipes_main_container}>
-        <div className={cl.recipes_input_container}>
+        <div>
           <input
             className={cl.recipes_input}
             type="text"
             placeholder="search soup by name or by ingredient"
             onChange={handleSearch}
           ></input>
-          <select 
+          <select
             className={cl.recipes_input_select}
-            onChange={handleCountries}>
-            <option value=''>All countries</option>
-            {countries.map(country => {
-              return <option key={country} value={country}>{country}</option>
+            onChange={handleCountries}
+          >
+            <option value="">All countries</option>
+            {countries.map((country) => {
+              return (
+                <option key={country} value={country}>
+                  {country}
+                </option>
+              )
             })}
           </select>
         </div>
