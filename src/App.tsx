@@ -92,7 +92,7 @@ function App() {
                 <Routes>
                   <Route
                     path="/"
-                    element={<RecipesBlock recipes={recipes} />}
+                    element={<RecipesBlock />}
                   />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
