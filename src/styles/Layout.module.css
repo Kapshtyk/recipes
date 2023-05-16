@@ -1,5 +1,4 @@
 .main_content {
-  min-height: calc(100vh - 160px);
+  min-height: calc(100vh - 180px);
   padding-top: 80px;
-  padding-bottom: 80px;
 }

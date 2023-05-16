@@ -30,6 +30,7 @@
 
 .login_input {
   margin-bottom: 0.5rem;
+  height: 20px;
   border: 1px solid #e5e5e5;
   border-radius: 3px;
 }
@@ -37,6 +38,7 @@
 .login_submit {
   font-size: 0.9rem;
   width: 110px;
+  height: 30px;
   margin-top: 1rem;
   border-radius: 5px;
   border: solid 0.3px #d7d7d7;
@@ -48,6 +50,11 @@
 .login_submit:hover {
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.05),
     0px 3px 1px -2px rgba(0, 0, 0, 0.02), 0px 2px 1px rgba(0, 0, 0, 0.01);
+}
+
+.login_submit:active {
+  box-shadow: 0px 3px 3px 0.1px rgba(0, 0, 0, 0.15),
+    0px 3px 1px -2px rgba(0, 0, 0, 0.06), 0px 2px 1px rgba(0, 0, 0, 0.03);
 }
 
 .login_signup {

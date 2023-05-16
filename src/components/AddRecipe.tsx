@@ -8,7 +8,7 @@ import { addRecipe } from '../api/APIrecipes'
 import { useNavigate } from 'react-router-dom'
 
 const AddRecipe = () => {
-  const [recipes, setRecipes, { fetchRecipes }] = useContext(RecipesContext)
+  const {fetchRecipes} = useContext(RecipesContext)[2]
   const currentUser = useContext(CurrentUserContext)[0]
   const [ingredientsCounter, setIngredientsCounter] = useState(1)
   const [recipeData, setRecipeData] = useState<RecipeType>({
@@ -142,17 +142,20 @@ const AddRecipe = () => {
         <label className={cl.form_lable} htmlFor="origin">
           Origin
         </label>
-        <select
-          className={cl.form_input_select}
+        <input
+          className={cl.form_input}
+          type="text"
           name="origin"
           onChange={onChangeInput}
-        >
+          list="origin"
+        />
+        <datalist id="origin">
           {getCountries().map((country) => (
             <option key={country.code} value={country.name}>
               {country.name}
             </option>
           ))}
-        </select>
+        </datalist>
         <label className={cl.form_lable} htmlFor="description">
           Description
         </label>
@@ -187,11 +190,11 @@ const AddRecipe = () => {
         {ingredientsList}
         <div className={cl.form_buttons}>
           <button className={cl.form_button} onClick={addIngredient}>
-            Add ingredient
+            Add more
           </button>
           {ingredientsCounter > 1 && (
             <button className={cl.form_button} onClick={removeIngredient}>
-              Remove ingredient
+              Remove
             </button>
           )}
         </div>
