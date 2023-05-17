@@ -102,44 +102,28 @@ const Recipe = () => {
       <h4 className={cl.recipe_author}>
         Author: {author?.firstname} {author?.lastname}
       </h4>
-      {recipeComments.length > 0 && (
-        <div className={cl.recipe_comments}>
-          {recipeComments.map((comment) => {
-            return (
-              <div key={comment.id}>
-                <p className={cl.recipe_comment_author}>
-                  {comment.authorFirstname} {comment.authorLastname}:
-                </p>
-                <p className={cl.recipe_comment}>{comment.text}</p>
-              </div>
-            )
-          })}
-          {currentUser && recipe.id && <AddComment recipe={recipe} />}
-          {!currentUser && recipe.id && (
-            <div className={cl.recipe_login}>
-              Please{' '}
-              <Link onClick={onClick} className={cl.login_link} to="/login">
-                log in
-              </Link>{' '}
-              if you want to leave a comment
+      <div className={cl.recipe_comments}>
+        {recipeComments.length > 0 && recipeComments.map((comment) => {
+          return (
+            <div key={comment.id}>
+              <p className={cl.recipe_comment_author}>
+                {comment.authorFirstname} {comment.authorLastname}:
+              </p>
+              <p className={cl.recipe_comment}>{comment.text}</p>
             </div>
-          )}
-        </div>
-      )}
-      {recipeComments.length == 0 && (
-        <div className={cl.recipe_comments}>
-          {currentUser && recipe.id && <AddComment recipe={recipe} />}
-          {!currentUser && recipe.id && (
-            <div className={cl.recipe_login}>
-              Please{' '}
-              <Link onClick={onClick} className={cl.login_link} to="/login">
-                log in
-              </Link>{' '}
-              if you want to leave a comment
-            </div>
-          )}
-        </div>
-      )}
+          )
+        })}
+        {currentUser && recipe.id && <AddComment recipe={recipe} />}
+        {!currentUser && recipe.id && (
+          <div className={cl.recipe_login}>
+            Please{' '}
+            <Link onClick={onClick} className={cl.login_link} to="/login">
+              log in
+            </Link>{' '}
+            if you want to leave a comment
+          </div>
+        )}
+      </div>
     </div>
   )
 }

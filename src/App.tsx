@@ -12,14 +12,13 @@ import {
 import { CommentType } from './types/comments'
 import { RecipeType } from './types/recipes'
 import { CurrentUserType, UserType } from './types/users'
-import Login from './components/Login'
 import AddRecipe from './components/AddRecipe'
 import ProtectedRoute from './components/ProtectedRoute'
 import cl from './styles/App.module.css'
-import Signup from './components/Signup'
 import Layout from './UI/Layout'
 import Home from './components/Home'
 import About from './components/About'
+import Authorization from './components/Authorization'
 
 function App() {
   const [recipes, setRecipes] = useState<RecipeType[]>([])
@@ -94,8 +93,8 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/recipes" element={<RecipesBlock />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/login" element={<Authorization hasAccount={true}/>} />
+                  <Route path="/signup" element={<Authorization hasAccount={false}/>} />
                   <Route path="/recipes/:recipe_id" element={<Recipe />} />
                   <Route
                     path="/add-recipe"
