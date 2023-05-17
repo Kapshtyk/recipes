@@ -19,6 +19,7 @@ import cl from './styles/App.module.css'
 import Signup from './components/Signup'
 import Layout from './UI/Layout'
 import Home from './components/Home'
+import About from './components/About'
 
 function App() {
   const [recipes, setRecipes] = useState<RecipeType[]>([])
@@ -91,6 +92,7 @@ function App() {
               <Layout>
                 <Routes>
                   <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
                   <Route path="/recipes" element={<RecipesBlock />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />

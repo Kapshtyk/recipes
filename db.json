@@ -423,7 +423,7 @@
       "origin": "France",
       "description": "A classic French soup made with potatoes and leeks",
       "instruction": "Melt butter in a pot over medium heat. Add chopped leeks and sauté until softened. Add diced potatoes, chicken broth, and thyme. Bring to a boil and reduce heat to a simmer. Cook until potatoes are tender. Use an immersion blender to puree the soup until smooth. Stir in heavy cream and salt and pepper to taste.",
-      "image": "images/potato_leek_soup.jpg",
+      "image": "images/potato-leek-soup.jpg",
       "authorId": 1,
       "ingredients": [
         {

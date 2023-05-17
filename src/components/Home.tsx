@@ -1,5 +1,6 @@
 import React from 'react'
 import cl from '../styles/Home.module.css'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   return (
@@ -16,8 +17,8 @@ const Home = () => {
         </div>
         <div className={cl.home_hero_text}>
           <p>
-            Discover a world of delicious flavours
-            and nutritious soups with our app.
+            Discover a world of delicious flavours and nutritious soups with our
+            app.
           </p>
           <p>
             Whether you are a soup lover or a culinary adventurer,
@@ -29,7 +30,8 @@ const Home = () => {
             around the world, each carefully selected to bring warmth and
             comfort to your table.
           </p>
-          <p><span className={cl.home_hero_accent}> Broth & Ladle</span> makes it
+          <p>
+            <span className={cl.home_hero_accent}> Broth & Ladle</span> makes it
             easy to share your favourite soup recipes and discover new ones to
             expand your culinary horizons.
           </p>
@@ -41,16 +43,33 @@ const Home = () => {
         <div className={cl.home_hero_overlay}></div>
       </div>
       <div className={cl.home_cards_container}>
-        <div className={cl.home_card}>
-          <h2 className={cl.home_card_header}>Find soup</h2>
-          <p className={cl.home_card_body}>You can browse through our collection of recipes and find your favourite recipes by name, by ingredient or by country of origin.</p>
-        </div>
-        <div className={cl.home_card}>
-          <h2 className={cl.home_card_header}>Add recipes</h2>
-        </div>
-        <div className={cl.home_card}>
-          <h2 className={cl.home_card_header}>More information</h2>
-        </div>
+        <Link to="/recipes">
+          <div className={cl.home_card}>
+            <h2 className={cl.home_card_header}>Find soup</h2>
+            <p className={cl.home_card_body}>
+              Here you can browse through our collection of recipes and find
+              your favourite recipes by name, by ingredient or by country of
+              origin.
+            </p>
+          </div>
+        </Link>
+        <Link to="/add-recipe">
+          <div className={cl.home_card}>
+            <h2 className={cl.home_card_header}>Add recipes</h2>
+            <p className={cl.home_card_body}>
+              Here you can add your own recipe to our recipe base so that lots
+              of people can enjoy it.
+            </p>
+          </div>
+        </Link>
+        <Link to="/about">
+          <div className={cl.home_card}>
+            <h2 className={cl.home_card_header}>More information</h2>
+            <p className={cl.home_card_body}>
+              You can find out more about the project by clicking here.
+            </p>
+          </div>
+        </Link>
       </div>
     </>
   )

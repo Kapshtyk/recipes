@@ -20,6 +20,10 @@ code {
   text-decoration: underline !important;
 }
 
+a {
+  text-decoration: none;
+}
+
 #root {
   position: relative;
   height: 100vh;

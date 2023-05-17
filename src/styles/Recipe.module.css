@@ -115,6 +115,7 @@
 
 .login_link {
   color: #333;
+  text-decoration: underline;
 }
 
 .plug {

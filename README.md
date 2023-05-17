@@ -33,14 +33,15 @@ Once the application is running, you can start browsing soup recipes. You can us
 
 ## Credits
 
-- Special thanks to [Margit Tennosaar](https://github.com/margittennosaar) for coming up with this project idea
+- Special thanks to [Margit Tennosaar](https://github.com/margittennosaar) for coming up with this project idea and teaching us how to do it
 - Thank you to the creators of [React](https://reactjs.org/), [React Router](https://reactrouter.com/), and [JSON server](https://github.com/typicode/json-server) for their valuable contributions to the web development community
-- Images used in this project were sourced from [Unsplash](https://unsplash.com/) and [Freepik](https://www.freepik.com/)
+- Images and video used in this project were sourced from [Unsplash](https://unsplash.com/) [Freepik](https://www.freepik.com/) and [Pexels](https://www.pexels.com)
 - This project uses the following font from Google Fonts: [Sigmar](https://fonts.google.com/specimen/Sigmar)
 - This project was also inspired by the work of [Jamie Oliver](https://www.jamieoliver.com/) and [Gordon Ramsay](https://www.gordonramsay.com/)
 
 ## Screenshot
 
+![desktop screenshot home](https://github.com/Kapshtak/recipes/blob/main/screenshots/home.png)
 ![desktop screenshot recipes](https://github.com/Kapshtak/recipes/blob/main/screenshots/recipes.png)
 ![desktop screenshot recipe](https://github.com/Kapshtak/recipes/blob/main/screenshots/recipe.png)
 
