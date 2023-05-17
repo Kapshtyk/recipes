@@ -6,8 +6,8 @@
   padding: 1.5rem;
   border: 1px solid #e5e5e5;
   border-radius: 1rem;
-  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.1),
-    0px 3px 1px -2px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.02);
+  box-shadow:0 3px 3px0 rgba(0, 0, 0, 0.1),
+   0 3px 1px -2px rgba(0, 0, 0, 0.05),0 2px 1px rgba(0, 0, 0, 0.02);
 }
 
 .login_title {
@@ -42,19 +42,19 @@
   margin-top: 1rem;
   border-radius: 5px;
   border: solid 0.3px #d7d7d7;
-  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.1),
-    0px 3px 1px -2px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.02);
+  box-shadow:0 3px 3px0 rgba(0, 0, 0, 0.1),
+   0 3px 1px -2px rgba(0, 0, 0, 0.05),0 2px 1px rgba(0, 0, 0, 0.02);
   transition: all 0.2s;
 }
 
 .login_submit:hover {
-  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.05),
-    0px 3px 1px -2px rgba(0, 0, 0, 0.02), 0px 2px 1px rgba(0, 0, 0, 0.01);
+  box-shadow:0 3px 3px0 rgba(0, 0, 0, 0.05),
+   0 3px 1px -2px rgba(0, 0, 0, 0.02),0 2px 1px rgba(0, 0, 0, 0.01);
 }
 
 .login_submit:active {
-  box-shadow: 0px 3px 3px 0.1px rgba(0, 0, 0, 0.15),
-    0px 3px 1px -2px rgba(0, 0, 0, 0.06), 0px 2px 1px rgba(0, 0, 0, 0.03);
+  box-shadow:0 3px 3px 0.1px rgba(0, 0, 0, 0.15),
+   0 3px 1px -2px rgba(0, 0, 0, 0.06),0 2px 1px rgba(0, 0, 0, 0.03);
 }
 
 .login_signup {

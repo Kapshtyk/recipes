@@ -22,7 +22,7 @@ const Home = () => {
           </p>
           <p>
             Whether you are a soup lover or a culinary adventurer,
-            <span className={cl.home_hero_accent}> Broth & Ladle</span> will
+            <span className={cl.home_hero_accent}> Broth &amp; Ladle</span> will
             satisfy your cravings and brighten your soup cooking experience.
           </p>
           <p>
@@ -31,7 +31,7 @@ const Home = () => {
             comfort to your table.
           </p>
           <p>
-            <span className={cl.home_hero_accent}> Broth & Ladle</span> makes it
+            <span className={cl.home_hero_accent}> Broth &amp; Ladle</span> makes it
             easy to share your favourite soup recipes and discover new ones to
             expand your culinary horizons.
           </p>

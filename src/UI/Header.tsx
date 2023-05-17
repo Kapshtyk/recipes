@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <header className={cl.header} style={{ backgroundColor }}>
       <Link className={cl.header_logo} style={{ color: color }} to="/">
-        Broth & Ladle 🥕
+        Broth &amp; Ladle 🥕
       </Link>
       <nav className={cl.nav}>
         <ul className={cl.ul}>
