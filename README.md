@@ -1,3 +1,5 @@
+![workflow](https://github.com/kapshtak/recipes/actions/workflows/sonarcloud.yml/badge.svg)
+
 # Broth & Ladle 🥕
 
 Welcome to the Broth & Ladle - Soup Recipes App! This is a React-based web application that allows you to browse and search a collection of soup recipes.
