@@ -31,9 +31,9 @@ const Home = () => {
             comfort to your table.
           </p>
           <p>
-            <span className={cl.home_hero_accent}> Broth &amp; Ladle</span> makes it
-            easy to share your favourite soup recipes and discover new ones to
-            expand your culinary horizons.
+            <span className={cl.home_hero_accent}> Broth &amp; Ladle</span>{' '}
+            makes it easy to share your favourite soup recipes and discover new
+            ones to expand your culinary horizons.
           </p>
 
           <p>

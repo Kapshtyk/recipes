@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { CurrentUserContext, UsersContext } from '../utils/context'
+import { CurrentUserContext } from '../utils/context'
 import { useNavigate } from 'react-router-dom'
 import md5 from 'md5'
 import cl from '../styles/Login.module.css'
@@ -19,7 +19,6 @@ const Signup = () => {
     email: '',
     password: ''
   })
-  const users = useContext(UsersContext)[0]
   const setCurrentUser = useContext(CurrentUserContext)[1]
   const navigate = useNavigate()
   const [error, setError] = useState('')

@@ -1,6 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
-
-import { createContext } from 'react'
+import { createContext, Dispatch, SetStateAction } from 'react'
 import { CurrentUserType, UserType } from '../types/users'
 import { CommentType } from '../types/comments'
 import { RecipeType } from '../types/recipes'

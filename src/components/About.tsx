@@ -6,9 +6,9 @@ const About = () => {
     <div className={cl.about_container}>
       <h2 className={cl.about_title}>About this project</h2>
       <p className={cl.about_paragraph}>
-        Welcome to the Broth &amp; Ladle - Soup Recipes App! This is a React-based
-        web application that allows you to browse and search a collection of
-        soup recipes.
+        Welcome to the Broth &amp; Ladle - Soup Recipes App! This is a
+        React-based web application that allows you to browse and search a
+        collection of soup recipes.
       </p>
       <h3 className={cl.about_subheading}>This project was built with:</h3>
       <ul className={cl.about_ul}>
