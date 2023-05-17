@@ -1,6 +1,4 @@
-export type UsersType = {
-  users: UserType[]
-}
+export type UsersType = UserType[]
 
 export type UserType = {
   id?: number
@@ -11,3 +9,14 @@ export type UserType = {
 }
 
 export type CurrentUserType = UserType | undefined
+
+export type AuthorizationUserDataType = {
+  firstname: string
+  lastname: string
+  email: string
+  password: string
+}
+
+export type AuthorizationType = {
+  hasAccount: boolean
+}

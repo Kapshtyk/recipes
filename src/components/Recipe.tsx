@@ -16,45 +16,44 @@ import AddComment from './AddComment'
 import cl from '../styles/Recipe.module.css'
 
 const Recipe = () => {
-  const [recipe, setRecipe] = useState<RecipeType>()
-  const recipes = useContext(RecipesContext)[0]
-  const [author, setAuthor] = useState<UserType>()
-  const users = useContext(UsersContext)[0]
+  const [recipe, setRecipe] = useState<RecipeType | undefined>()
+  const recipes = useContext(RecipesContext).recipes
+  const [author, setAuthor] = useState<UserType | undefined>()
+  const users = useContext(UsersContext).users
   const [recipeComments, setRecipeComments] = useState<CommentType[]>([])
-  const comments = useContext(CommentsContext)[0]
-  const currentUser = useContext(CurrentUserContext)[0]
-  const { recipe_id } = useParams<{ recipe_id: string }>()
+  const comments = useContext(CommentsContext).comments
+  const currentUser = useContext(CurrentUserContext).currentUser
+  const recipe_id= useParams<{ recipe_id: string }>().recipe_id
   const location = useLocation()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isRecipeLoaded, setIsRecipeLoaded] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
-      if (recipe_id) {
-        const data = recipes.filter((recipe) => {
-          if (recipe.id === +recipe_id) {
-            return recipe
-          }
-        })
+      setIsRecipeLoaded(false)
+      if (recipes && recipe_id) {
+        const data = recipes.filter(
+          (recipe: RecipeType) => recipe.id === +recipe_id
+        )
         if (data.length > 0) {
           setRecipe(data[0])
         }
-        setIsLoading(false)
       }
+      setIsRecipeLoaded(true)
     }
     fetchData()
   }, [recipe_id, recipes])
 
   useEffect(() => {
-    if (recipe) {
+    if (recipe && users && comments) {
       const userData = users.filter((user) => {
         return user.id === recipe.authorId
       })
       setAuthor(userData[0])
       const commentsData = comments
-        .filter((comment) => {
+        .filter((comment: CommentType) => {
           return comment.recipeId === recipe.id
         })
-        .map((comment) => {
+        .map((comment: CommentType) => {
           const authorData = users.find((user) => user.id === comment.authorId)
           return {
             ...comment,
@@ -70,7 +69,7 @@ const Recipe = () => {
     localStorage.setItem('redirectPath', JSON.stringify(location))
   }
 
-  if (isLoading) {
+  if (!isRecipeLoaded) {
     return <div className={cl.plug}>Loading...</div>
   }
 
@@ -88,8 +87,7 @@ const Recipe = () => {
       <details className={cl.recipe_details}>
         <summary className={cl.recipe_summary}>Ingredients</summary>
         <ul className={cl.recipe_ul}>
-          {recipe &&
-            recipe.ingredients.length > 0 &&
+          {recipe.ingredients.length > 0 &&
             recipe.ingredients.map((ingredient) => {
               return (
                 <li key={ingredient.name} className={cl.recipe_li}>
@@ -106,16 +104,17 @@ const Recipe = () => {
         Author: {author?.firstname} {author?.lastname}
       </h4>
       <div className={cl.recipe_comments}>
-        {recipeComments.length > 0 && recipeComments.map((comment) => {
-          return (
-            <div key={comment.id}>
-              <p className={cl.recipe_comment_author}>
-                {comment.authorFirstname} {comment.authorLastname}:
-              </p>
-              <p className={cl.recipe_comment}>{comment.text}</p>
-            </div>
-          )
-        })}
+        {recipeComments.length > 0 &&
+          recipeComments.map((comment) => {
+            return (
+              <div key={comment.id}>
+                <p className={cl.recipe_comment_author}>
+                  {comment.authorFirstname} {comment.authorLastname}:
+                </p>
+                <p className={cl.recipe_comment}>{comment.text}</p>
+              </div>
+            )
+          })}
         {currentUser && recipe.id && <AddComment recipe={recipe} />}
         {!currentUser && recipe.id && (
           <div className={cl.recipe_login}>

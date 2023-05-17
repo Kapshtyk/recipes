@@ -4,8 +4,8 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { CurrentUserContext } from '../utils/context'
 
 const Header = () => {
-  const currentUser = useContext(CurrentUserContext)[0]
-  const { logout } = useContext(CurrentUserContext)[2]
+  const currentUser = useContext(CurrentUserContext).currentUser
+  const logout = useContext(CurrentUserContext).logout
   const location = useLocation()
   const backgroundColor =
     location.pathname === '/' ? 'rgba(0, 0, 0, 0)' : 'rgb(255, 210, 77)'

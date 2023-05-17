@@ -2,13 +2,13 @@ import React, { useContext, useState } from 'react'
 
 import { addComment } from '../api/APIrecipes'
 import { RecipeType } from '../types/recipes'
-import { CommentsContext, CurrentUserContext  } from '../utils/context'
+import { CommentsContext, CurrentUserContext } from '../utils/context'
 
 import cl from '../styles/AddComment.module.css'
 
 const AddComment = ({ recipe }: { recipe: RecipeType }) => {
-  const { fetchComments } = useContext(CommentsContext)[2]
-  const currentUser = useContext(CurrentUserContext)[0]
+  const fetchComments = useContext(CommentsContext).fetchComments
+  const currentUser = useContext(CurrentUserContext).currentUser
   const [comment, setComment] = useState('')
 
   const onChangeInput = (

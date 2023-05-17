@@ -1,6 +1,4 @@
-export type RecipesType = {
-  recipes: RecipeType[]
-}
+export type RecipesType = RecipeType[]
 
 export type RecipeType = {
   id?: number

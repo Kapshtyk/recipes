@@ -9,26 +9,32 @@ import cl from '../styles/RecipePreview.module.css'
 const RecipesBlock = () => {
   const [search, setSearch] = useState('')
   const [country, setCountry] = useState('')
-  const recipes = useContext(RecipesContext)[0]
+  const recipes = useContext(RecipesContext).recipes
 
-  const filteredRecipesByName = recipes.filter((recipe) => {
-    return (
-      recipe.title.toLowerCase().includes(search.toLowerCase()) ||
-      recipe.ingredients.some((ingredient) =>
-        ingredient.name.toLowerCase().includes(search.toLowerCase())
+  let filteredRecipesByName
+  let filteredRecipes
+  let countries
+
+  if (recipes) {
+    filteredRecipesByName = recipes.filter((recipe) => {
+      return (
+        recipe.title.toLowerCase().includes(search.toLowerCase()) ||
+        recipe.ingredients.some((ingredient) =>
+          ingredient.name.toLowerCase().includes(search.toLowerCase())
+        )
       )
-    )
-  })
+    })
+  }
 
-  const filteredRecipes = filteredRecipesByName.filter((recipe) => {
-    if (country) {
-      return recipe.origin === country
-    } else {
-      return true
-    }
-  })
-
-  console.log(country)
+  if (filteredRecipesByName) {
+    filteredRecipes = filteredRecipesByName.filter((recipe) => {
+      if (country) {
+        return recipe.origin === country
+      } else {
+        return true
+      }
+    })
+  }
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value)
@@ -38,13 +44,15 @@ const RecipesBlock = () => {
     setCountry(event.target.value)
   }
 
-  const countries = Array.from(
-    new Set(
-      recipes.map((recipe) => {
-        return recipe.origin
-      })
-    )
-  ).sort((a, b) => a.localeCompare(b))
+  if (recipes) {
+    countries = Array.from(
+      new Set(
+        recipes.map((recipe) => {
+          return recipe.origin
+        })
+      )
+    ).sort((a, b) => a.localeCompare(b))
+  }
 
   return (
     <>
@@ -61,19 +69,26 @@ const RecipesBlock = () => {
             onChange={handleCountries}
           >
             <option value="">All countries</option>
-            {countries.map((country) => {
-              return (
-                <option key={country} value={country}>
-                  {country}
-                </option>
-              )
-            })}
+            {countries &&
+              countries.map((country) => {
+                return (
+                  <option key={country} value={country}>
+                    {country}
+                  </option>
+                )
+              })}
           </select>
         </div>
         <div className={cl.recipes_container}>
-          {filteredRecipes.map((recipe) => (
-            <RecipePreview recipe={recipe} key={recipe.id} />
-          ))}
+          {filteredRecipes &&
+            filteredRecipes.map((recipe) => (
+              <RecipePreview recipe={recipe} key={recipe.id} />
+            ))}
+          {!filteredRecipes &&
+            recipes &&
+            recipes.map((recipe) => (
+              <RecipePreview recipe={recipe} key={recipe.id} />
+            ))}
         </div>
       </div>
     </>

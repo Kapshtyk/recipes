@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { getRecipes, getUsers, getAllComments } from './api/APIrecipes'
-import { CommentType } from './types/comments'
-import { RecipeType } from './types/recipes'
-import { CurrentUserType, UserType } from './types/users'
+import { CommentsType } from './types/comments'
+import { RecipesType } from './types/recipes'
+import { CurrentUserType, UsersType } from './types/users'
 import {
   UsersContext,
   CommentsContext,
@@ -24,10 +24,10 @@ import Layout from './UI/Layout'
 import cl from './styles/App.module.css'
 
 function App() {
-  const [recipes, setRecipes] = useState<RecipeType[]>([])
-  const [users, setUsers] = useState<UserType[]>([])
-  const [comments, setComments] = useState<CommentType[]>([])
-  const [currentUser, setCurrentUser] = useState<CurrentUserType>()
+  const [recipes, setRecipes] = useState<RecipesType | null>(null)
+  const [users, setUsers] = useState<UsersType | null>(null)
+  const [comments, setComments] = useState<CommentsType | null>(null)
+  const [currentUser, setCurrentUser] = useState<CurrentUserType | null>(null)
   const [recipesLoaded, setRecipesLoaded] = useState(false)
 
   useEffect(() => {
@@ -67,7 +67,7 @@ function App() {
     )
   }
 
-  if (recipesLoaded && recipes.length === 0) {
+  if (recipesLoaded && recipes && recipes.length === 0) {
     return (
       <BrowserRouter>
         <Layout>
@@ -81,23 +81,29 @@ function App() {
 
   return (
     <BrowserRouter>
-      <UsersContext.Provider value={[users, setUsers]}>
+      <UsersContext.Provider value={{ users, setUsers }}>
         <CommentsContext.Provider
-          value={[comments, setComments, { fetchComments }]}
+          value={{ comments, setComments, fetchComments }}
         >
           <RecipesContext.Provider
-            value={[recipes, setRecipes, { fetchRecipes }]}
+            value={{ recipes, setRecipes, fetchRecipes }}
           >
             <CurrentUserContext.Provider
-              value={[currentUser, setCurrentUser, { logout }]}
+              value={{ currentUser, setCurrentUser, logout }}
             >
               <Layout>
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/recipes" element={<RecipesBlock />} />
-                  <Route path="/login" element={<Authorization hasAccount={true}/>} />
-                  <Route path="/signup" element={<Authorization hasAccount={false}/>} />
+                  <Route
+                    path="/login"
+                    element={<Authorization hasAccount={true} />}
+                  />
+                  <Route
+                    path="/signup"
+                    element={<Authorization hasAccount={false} />}
+                  />
                   <Route path="/recipes/:recipe_id" element={<Recipe />} />
                   <Route
                     path="/add-recipe"

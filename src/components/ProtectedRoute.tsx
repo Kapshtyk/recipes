@@ -6,7 +6,7 @@ import { CurrentUserContext } from '../utils/context'
 
 const ProtectedRoute = ({ children }: ProtectedRouteType) => {
   const location = useLocation()
-  const currentUser = useContext(CurrentUserContext)[0]
+  const currentUser = useContext(CurrentUserContext).currentUser
 
   if (!currentUser) {
     localStorage.setItem('redirectPath', JSON.stringify(location))

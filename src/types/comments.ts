@@ -1,6 +1,4 @@
-export type CommentsType = {
-  comments: CommentType[]
-}
+export type CommentsType = CommentType[]
 
 export type CommentType = {
   id?: number

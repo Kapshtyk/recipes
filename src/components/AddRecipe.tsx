@@ -10,8 +10,8 @@ import { getCountries } from '../utils/CountryCode'
 import cl from '../styles/AddRecipe.module.css'
 
 const AddRecipe = () => {
-  const { fetchRecipes } = useContext(RecipesContext)[2]
-  const currentUser = useContext(CurrentUserContext)[0]
+  const fetchRecipes = useContext(RecipesContext).fetchRecipes
+  const currentUser = useContext(CurrentUserContext).currentUser
   const [ingredientsCounter, setIngredientsCounter] = useState(1)
   const [recipeData, setRecipeData] = useState<RecipeType>({
     title: '',
@@ -80,7 +80,7 @@ const AddRecipe = () => {
       }
       try {
         const data = await addRecipe(recipe)
-        await Promise.resolve(fetchRecipes())
+        await Promise.resolve(fetchRecipes()).then()
         navigate(`/recipes/${data.id}`)
       } catch (err) {
         console.log(err)
