@@ -1,10 +1,13 @@
 import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { addUser } from '../api/APIrecipes'
 import { CurrentUserContext, UsersContext } from '../utils/context'
-import { useNavigate, Link } from 'react-router-dom'
+
 import md5 from 'md5'
+
 import cl from '../styles/Authorization.module.css'
 import style from '../styles/AddRecipe.module.css'
-import { addUser } from '../api/APIrecipes'
 
 type UserDataType = {
   firstname: string

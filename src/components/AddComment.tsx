@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react'
-import cl from '../styles/AddComment.module.css'
-import { CurrentUserContext, CommentsContext } from '../utils/context'
-import { RecipeType } from '../types/recipes'
+
 import { addComment } from '../api/APIrecipes'
+import { RecipeType } from '../types/recipes'
+import { CommentsContext, CurrentUserContext  } from '../utils/context'
+
+import cl from '../styles/AddComment.module.css'
 
 const AddComment = ({ recipe }: { recipe: RecipeType }) => {
   const { fetchComments } = useContext(CommentsContext)[2]

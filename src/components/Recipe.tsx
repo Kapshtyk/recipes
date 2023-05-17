@@ -1,16 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { RecipeType } from '../types/recipes'
 import { Link, useLocation, useParams } from 'react-router-dom'
-import { UserType } from '../types/users'
+
 import { CommentType } from '../types/comments'
+import { RecipeType } from '../types/recipes'
+import { UserType } from '../types/users'
 import {
   CommentsContext,
   CurrentUserContext,
   RecipesContext,
   UsersContext
 } from '../utils/context'
-import cl from '../styles/Recipe.module.css'
+
 import AddComment from './AddComment'
+
+import cl from '../styles/Recipe.module.css'
 
 const Recipe = () => {
   const [recipe, setRecipe] = useState<RecipeType>()

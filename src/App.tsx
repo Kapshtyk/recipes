@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import { getRecipes, getUsers, getAllComments } from './api/APIrecipes'
-import RecipesBlock from './components/RecipesBlock'
-import Recipe from './components/Recipe'
+import { CommentType } from './types/comments'
+import { RecipeType } from './types/recipes'
+import { CurrentUserType, UserType } from './types/users'
 import {
   UsersContext,
   CommentsContext,
   RecipesContext,
   CurrentUserContext
 } from './utils/context'
-import { CommentType } from './types/comments'
-import { RecipeType } from './types/recipes'
-import { CurrentUserType, UserType } from './types/users'
-import AddRecipe from './components/AddRecipe'
-import ProtectedRoute from './components/ProtectedRoute'
-import cl from './styles/App.module.css'
-import Layout from './UI/Layout'
-import Home from './components/Home'
+
 import About from './components/About'
 import Authorization from './components/Authorization'
+import AddRecipe from './components/AddRecipe'
+import Home from './components/Home'
+import ProtectedRoute from './components/ProtectedRoute'
+import RecipesBlock from './components/RecipesBlock'
+import Recipe from './components/Recipe'
+import Layout from './UI/Layout'
+
+import cl from './styles/App.module.css'
 
 function App() {
   const [recipes, setRecipes] = useState<RecipeType[]>([])

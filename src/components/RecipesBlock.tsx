@@ -1,7 +1,10 @@
 import React, { useContext, useState } from 'react'
-import RecipePreview from './RecipePreview'
-import cl from '../styles/RecipePreview.module.css'
+
 import { RecipesContext } from '../utils/context'
+
+import RecipePreview from './RecipePreview'
+
+import cl from '../styles/RecipePreview.module.css'
 
 const RecipesBlock = () => {
   const [search, setSearch] = useState('')

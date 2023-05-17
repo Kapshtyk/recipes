@@ -1,9 +1,12 @@
 import React from 'react'
-import { RecipeType } from '../types/recipes'
-import Image from '../UI/Image'
-import cl from '../styles/RecipePreview.module.css'
-import { getCountryCode } from '../utils/CountryCode'
 import { Link } from 'react-router-dom'
+
+import { RecipeType } from '../types/recipes'
+import { getCountryCode } from '../utils/CountryCode'
+
+import Image from '../UI/Image'
+
+import cl from '../styles/RecipePreview.module.css'
 
 const RecipePreview = ({ recipe }: { recipe: RecipeType }) => {
   const countryCode = getCountryCode(recipe.origin)
