@@ -1,41 +1,29 @@
-.login_container {
-  max-width: 400px;
-  margin: auto;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  padding: 1.5rem;
-  border: 1px solid #e5e5e5;
-  border-radius: 1rem;
-  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1), 0 3px 1px -2px rgba(0, 0, 0, 0.05),
-    0 2px 1px rgba(0, 0, 0, 0.02);
-}
-
-.login_title {
+.authorization_title {
   margin: 0;
   margin-bottom: 1rem;
   font-family: 'Sigmar', cursive;
   letter-spacing: 1px;
 }
 
-.login_form {
+.authorization_form {
   display: flex;
   flex-direction: column;
 }
 
-.login_lable {
+.authorization_lable {
   margin-bottom: 0.3rem;
   color: #333;
   font-size: 1rem;
 }
 
-.login_input {
+.authorization_input {
   margin-bottom: 0.5rem;
   height: 20px;
   border: 1px solid #e5e5e5;
   border-radius: 3px;
 }
 
-.login_submit {
+.authorization_submit {
   font-size: 0.9rem;
   width: 110px;
   height: 30px;
@@ -47,26 +35,26 @@
   transition: all 0.2s;
 }
 
-.login_submit:hover {
+.authorization_submit:hover {
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.05), 0 3px 1px -2px rgba(0, 0, 0, 0.02),
     0 2px 1px rgba(0, 0, 0, 0.01);
 }
 
-.login_submit:active {
+.authorization_submit:active {
   box-shadow: 0 3px 3px 0.1px rgba(0, 0, 0, 0.15),
     0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 2px 1px rgba(0, 0, 0, 0.03);
 }
 
-.login_signup, .login_error {
+.authorization_signup, .authorization_error {
   font-size: 14px;
   margin-top: 1rem;
 }
 
-.login_signup_link {
+.authorization_signup_link {
   color: #333;
   text-decoration: underline;
 }
 
-.login_error {
+.authorization_error {
   color: tomato;
 }

@@ -3,6 +3,7 @@ import { CurrentUserContext, UsersContext } from '../utils/context'
 import { useNavigate, Link } from 'react-router-dom'
 import md5 from 'md5'
 import cl from '../styles/Authorization.module.css'
+import style from '../styles/AddRecipe.module.css'
 import { addUser } from '../api/APIrecipes'
 
 type UserDataType = {
@@ -83,50 +84,50 @@ const Authorization = ({hasAccount}: AuthorizationType) => {
   }
 
   return (
-    <div className={cl.login_container}>
-      <h2 className={cl.login_title}>{hasAccount ? 'Login' : 'Sign up' }</h2>
-      <form className={cl.login_form} onSubmit={handleSubmit}>
-        {!hasAccount && <><label className={cl.login_lable} htmlFor="email">
+    <div className={style.form_container} style={{width: 400}}>
+      <h2 className={cl.authorization_title}>{hasAccount ? 'Login' : 'Sign up' }</h2>
+      <form className={cl.authorization_form} onSubmit={handleSubmit}>
+        {!hasAccount && <><label className={cl.authorization_lable} htmlFor="email">
           Firstname:
         </label><input
-          className={cl.login_input}
+          className={cl.authorization_input}
           type="text"
           name="firstname"
           onChange={onChangeInput}
-          required /><label className={cl.login_lable} htmlFor="email">
+          required /><label className={cl.authorization_lable} htmlFor="email">
             Lastname:
         </label><input
-          className={cl.login_input}
+          className={cl.authorization_input}
           type="text"
           name="lastname"
           onChange={onChangeInput}
           required /></>}
-        <label className={cl.login_lable} htmlFor="email">
+        <label className={cl.authorization_lable} htmlFor="email">
           Email:
         </label>
         <input
-          className={cl.login_input}
+          className={cl.authorization_input}
           type="email"
           name="email"
           onChange={onChangeInput}
           required
         />
-        <label className={cl.login_lable} htmlFor="password">
+        <label className={cl.authorization_lable} htmlFor="password">
           Password:
         </label>
         <input
-          className={cl.login_input}
+          className={cl.authorization_input}
           type="password"
           name="password"
           onChange={onChangeInput}
           required
         />
-        <button className={cl.login_submit}>Sign up</button>
+        <button className={cl.authorization_submit}>Sign up</button>
       </form>
-      {error && <span className={cl.login_error}>{error}</span>}
-      {hasAccount && <div className={cl.login_signup}>
+      {error && <span className={cl.authorization_error}>{error}</span>}
+      {hasAccount && <div className={cl.authorization_signup}>
         If you do not have an account, you can{' '}
-        <Link className={cl.login_signup_link} to="/signup">
+        <Link className={cl.authorization_signup_link} to="/signup">
           sign up here
         </Link>
       </div>}
