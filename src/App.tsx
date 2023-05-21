@@ -77,7 +77,10 @@ function App() {
       <BrowserRouter>
         <Layout>
           <div className={cl.plug}>
-            No recipe yet! Your soup could be the first!
+            No recipe yet!
+          </div>
+          <div className={cl.plug}>
+            Your soup could be the first!
           </div>
         </Layout>
       </BrowserRouter>

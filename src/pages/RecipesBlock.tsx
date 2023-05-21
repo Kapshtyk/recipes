@@ -55,7 +55,12 @@ const RecipesBlock = () => {
           }
         })
       )
-    ) //.sort((a, b) => a.localeCompare(b))
+    ).sort((a, b) => {
+      if (a && b) {
+        return a.localeCompare(b)
+      }
+      return 0
+    })
   }
 
   return (
