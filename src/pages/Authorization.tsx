@@ -8,7 +8,7 @@ import { CurrentUserContext, UsersContext } from '../utils/context'
 import md5 from 'md5'
 
 import cl from '../styles/Authorization.module.css'
-import style from '../styles/AddRecipe.module.css'
+import style from '../styles/Form.module.css'
 
 const Authorization = ({ hasAccount }: AuthorizationType) => {
   const [userData, setUserData] = useState<AuthorizationUserDataType>({
@@ -83,7 +83,7 @@ const Authorization = ({ hasAccount }: AuthorizationType) => {
   }
 
   return (
-    <div className={style.form_container} style={{ width: 400 }}>
+    <div className={style.container} style={{ width: 400 }}>
       <h2 className={cl.authorization_title}>
         {hasAccount ? 'Login' : 'Sign up'}
       </h2>

@@ -14,6 +14,7 @@ import {
 import AddComment from '../components/AddComment'
 
 import cl from '../styles/Recipe.module.css'
+import style from '../styles/Form.module.css'
 
 const Recipe = () => {
   const [recipe, setRecipe] = useState<RecipeType | undefined>()
@@ -89,7 +90,7 @@ const Recipe = () => {
 
   if (recipe && 'id' in recipe) {
     return (
-      <div className={cl.recipe_container}>
+      <div className={style.container}>
         <h1 className={cl.recipe_title}>
           {recipe.title} from {recipe.origin}
         </h1>

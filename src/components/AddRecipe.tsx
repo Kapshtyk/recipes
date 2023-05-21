@@ -8,6 +8,7 @@ import { CurrentUserContext, RecipesContext } from '../utils/context'
 import { getCountries } from '../utils/CountryCode'
 
 import cl from '../styles/AddRecipe.module.css'
+import style from '../styles/Form.module.css'
 
 const AddRecipe = () => {
   const fetchRecipes = useContext(RecipesContext).fetchRecipes
@@ -123,7 +124,7 @@ const AddRecipe = () => {
   }
 
   return (
-    <div className={cl.form_container}>
+    <div className={style.container}>
       <h2 className={cl.form_title}>Add recipe</h2>
       <form
         className={cl.form}
