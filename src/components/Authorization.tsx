@@ -34,8 +34,10 @@ const Authorization = ({ hasAccount }: AuthorizationType) => {
     if (hasAccount) {
       if (users) {
         const data = users.find((user) => {
-          if (user.password === md5(userData.password)) {
-            return user
+          if ('firstname' in user) {
+            if (user.password === md5(userData.password)) {
+              return user
+            }
           }
         })
         if (data) {

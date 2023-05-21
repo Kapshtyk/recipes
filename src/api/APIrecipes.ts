@@ -2,83 +2,75 @@ import { CommentType, CommentsType } from '../types/comments'
 import { RecipeType, RecipesType } from '../types/recipes'
 import { UsersType, UserType } from '../types/users'
 import { BASE_URL } from '../utils/constants'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
-export const getRecipes = async (): Promise<RecipesType> => {
+async function processRequest<T>(method: 'GET' | 'POST', url: string, data?: unknown): Promise<T | [] | object> {
   try {
-    const response = await axios.get(BASE_URL + 'recipes')
-    if (response.status === 200) {
+    const response: AxiosResponse<T> = await axios({ method, url, data })
+    if (response.status === 200 || response.status === 201) {
       return response.data
+    } else if (response.status === 400) {
+      console.error('Bad request')
+    } else if (response.status >= 500) {
+      console.error('Server not responding')
     } else {
-      throw new Error(`Server returned the status code ${response.status}`)
+      console.error(`Server returned the status code ${response.status}`)
+    }
+    if (method === 'GET') {
+      return [] as T[]
+    } else {
+      return { message: `Something went wrong with the POST request to ${url}` }
     }
   } catch (error) {
-    throw new Error(`There is an error: ${error}`)
+    console.error(`There is an error with the ${method} request to ${url}: ${error}`)
+  }
+  if (method === 'GET') {
+    return [] as T[]
+  } else {
+    return { message: `Something went wrong with the POST request to ${url}` }
+  }
+}
+
+export const getRecipes = async (): Promise<RecipesType> => {
+  const url = BASE_URL + 'recipes'
+  const result = await processRequest<RecipesType>('GET', url)
+  if (Array.isArray(result)) {
+    return result
+  } else {
+    return []
   }
 }
 
 export const addRecipe = async (recipe: RecipeType): Promise<RecipeType> => {
-  try {
-    const response = await axios.post(BASE_URL + 'recipes', {
-      title: recipe.title,
-      description: recipe.description,
-      instruction: recipe.instruction,
-      origin: recipe.origin,
-      authorId: recipe.authorId,
-      image: recipe.image,
-      ingredients: recipe.ingredients
-    })
-    if (response.status === 201) {
-      return response.data
-    } else if (response.status === 400) {
-      throw new Error('Bad request')
-    } else if (response.status >= 500) {
-      throw new Error('Server not responding')
-    } else {
-      throw new Error(`Server returned the status code ${response.status}`)
-    }
-  } catch (error) {
-    console.log(error)
-    throw new Error(`There is an error: ${error}`)
+  const url = BASE_URL + 'recipes'
+  const result = await processRequest<RecipeType>('POST', url, recipe)
+  if ('id' in result) {
+    return result
+  } else {
+    return {message: 'Something went wrong when adding new recipe'}
   }
 }
 
 export const addComment = async (
   comment: CommentType
 ): Promise<CommentType> => {
-  try {
-    const response = await axios.post(BASE_URL + 'comments', {
-      authorId: comment.authorId,
-      recipeId: comment.recipeId,
-      text: comment.text,
-      createdAt: comment.createdAt
-    })
-    if (response.status === 201) {
-      return response.data
-    } else if (response.status === 400) {
-      throw new Error('Bad request')
-    } else if (response.status >= 500) {
-      throw new Error('Server not responding')
-    } else {
-      throw new Error(`Server returned the status code ${response.status}`)
+  const url = BASE_URL + 'comments'
+  if ('authorId' in comment) {
+    const result = await processRequest<CommentType>('POST', url, comment)
+    if ('id' in result) {
+      return result
     }
-  } catch (error) {
-    throw new Error(`There is an error: ${error}`)
   }
+  return {message: 'Something went wrong when adding new comment'}
 }
 
 export const getAllComments = async (): Promise<CommentsType> => {
-  try {
-    const response = await axios.get(
-      BASE_URL + 'comments?_sort=createdAt&_order=desc'
-    )
-    if (response.status === 200) {
-      return response.data
-    } else {
-      throw new Error(`Server returned the status code ${response.status}`)
-    }
-  } catch (error) {
-    throw new Error(`There is an error: ${error}`)
+  const url = BASE_URL + 'comments?_sort=createdAt&_order=desc'
+  const result = await processRequest<CommentsType>('GET', url)
+  if (Array.isArray(result)) {
+    return result
+  } else {
+    return []
   }
 }
 
@@ -88,32 +80,38 @@ export const getUsers = async (): Promise<UsersType> => {
     if (response.status === 200) {
       return response.data
     } else {
-      throw new Error(`Server returned the status code ${response.status}`)
+      console.error(`Server returned the status code ${response.status}`)
+      return []
     }
   } catch (error) {
-    throw new Error(`There is an error: ${error}`)
+    console.error(`There is an error: ${error}`)
+    return []
   }
 }
 
 export const addUser = async (user: UserType): Promise<UserType> => {
-  try {
-    const response = await axios.post(BASE_URL + 'users', {
-      firstname: user.firstname,
-      lastname: user.lastname,
-      email: user.email,
-      password: user.password
-    })
-    if (response.status === 201) {
-      return response.data
-    } else if (response.status === 400) {
-      throw new Error('Bad request')
-    } else if (response.status >= 500) {
-      throw new Error('Server not responding')
-    } else {
-      throw new Error(`Server returned the status code ${response.status}`)
+  if ('firstname' in user) {
+    try {
+      const response = await axios.post(BASE_URL + 'users', {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        password: user.password
+      })
+      if (response.status === 201) {
+        return response.data
+      } else if (response.status === 400) {
+        console.error('Bad request')
+      } else if (response.status >= 500) {
+        console.error('Server not responding')
+      } else {
+        console.error(`Server returned the status code ${response.status}`)
+      }
+      return {message: 'Something went wrong when creating the user'}
+    } catch (error) {
+      console.error(`There is an error: ${error}`)
+      return {message: 'Something went wrong when creating the user'}
     }
-  } catch (error) {
-    console.log(error)
-    throw new Error(`There is an error: ${error}`)
   }
+  return {message: 'Something went wrong when creating the user'}
 }

@@ -10,10 +10,14 @@ export type RecipeType = {
   authorId: number
   ingredients: IngredientType[]
   [key: string]: string | number | IngredientType[] | undefined
-}
+} | RecipeError
 
 export type IngredientType = {
   name: string
   quantity: number
   units: string
+}
+
+export type RecipeError = {
+  message: string
 }

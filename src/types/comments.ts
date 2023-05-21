@@ -8,4 +8,8 @@ export type CommentType = {
   authorFirstname?: string
   authorLastname?: string
   createdAt: Date
+} | CommentError
+
+export type CommentError = {
+  message: string
 }

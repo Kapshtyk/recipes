@@ -6,7 +6,7 @@ export type UserType = {
   lastname: string
   email: string
   password: string
-}
+} | UserError
 
 export type CurrentUserType = UserType | undefined
 
@@ -19,4 +19,8 @@ export type AuthorizationUserDataType = {
 
 export type AuthorizationType = {
   hasAccount: boolean
+}
+
+export type UserError = {
+  message: string
 }

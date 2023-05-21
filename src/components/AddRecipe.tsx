@@ -9,19 +9,27 @@ import { getCountries } from '../utils/CountryCode'
 
 import cl from '../styles/AddRecipe.module.css'
 
+type FormData = {
+  title: string
+  origin: string
+  description: string
+  instruction: string
+  image: string
+  [key: string]: string
+}
+
 const AddRecipe = () => {
   const fetchRecipes = useContext(RecipesContext).fetchRecipes
   const currentUser = useContext(CurrentUserContext).currentUser
   const [ingredientsCounter, setIngredientsCounter] = useState(1)
-  const [recipeData, setRecipeData] = useState<RecipeType>({
+  const [formData, setFormData] = useState<FormData>({
     title: '',
     origin: '',
     description: '',
     instruction: '',
-    image: '',
-    authorId: 0,
-    ingredients: []
+    image: ''
   })
+
   const navigate = useNavigate()
   const ingredientsList: JSX.Element[] = []
 
@@ -40,8 +48,8 @@ const AddRecipe = () => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ): void => {
-    setRecipeData({
-      ...recipeData,
+    setFormData({
+      ...formData,
       [event.target.name]: event.target.value
     })
   }
@@ -50,12 +58,12 @@ const AddRecipe = () => {
     event.preventDefault()
     const ingredients = []
     for (let i = 0; i < ingredientsCounter; i++) {
-      const [name, quantity, units] = Object.keys(recipeData).filter((key) => {
+      const [name, quantity, units] = Object.keys(formData).filter((key) => {
         return key.includes('' + i)
       })
-      const ingredientName = recipeData[name]
-      const ingredientQuantity = recipeData[quantity]
-      const ingredientUnits = recipeData[units]
+      const ingredientName = formData[name]
+      const ingredientQuantity = formData[quantity]
+      const ingredientUnits = formData[units]
       if (
         typeof ingredientName === 'string' &&
         typeof ingredientQuantity === 'number' &&
@@ -68,20 +76,24 @@ const AddRecipe = () => {
         })
       }
     }
-    if (currentUser) {
+    if (currentUser && 'id' in currentUser) {
       const recipe = {
-        title: recipeData.title,
-        origin: recipeData.origin,
-        description: recipeData.description,
-        instruction: recipeData.instruction,
-        image: recipeData.image,
+        title: formData.title,
+        origin: formData.origin,
+        description: formData.description,
+        instruction: formData.instruction,
+        image: formData.image,
         authorId: currentUser.id as number,
         ingredients: ingredients
-      }
+      } as RecipeType
       try {
         const data = await addRecipe(recipe)
-        await Promise.resolve(fetchRecipes()).then()
-        navigate(`/recipes/${data.id}`)
+        if ('id' in data) {
+          await Promise.resolve(fetchRecipes())
+          navigate(`/recipes/${data.id}`)
+        } else {
+          navigate('/recipes')
+        }
       } catch (err) {
         console.log(err)
       }
