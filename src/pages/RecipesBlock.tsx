@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 
 import { RecipesContext } from '../utils/context'
 
-import RecipePreview from './RecipePreview'
+import RecipePreview from '../components/RecipePreview'
 
 import cl from '../styles/RecipePreview.module.css'
 
@@ -17,18 +17,20 @@ const RecipesBlock = () => {
 
   if (recipes) {
     filteredRecipesByName = recipes.filter((recipe) => {
-      return (
-        recipe.title.toLowerCase().includes(search.toLowerCase()) ||
-        recipe.ingredients.some((ingredient) =>
-          ingredient.name.toLowerCase().includes(search.toLowerCase())
+      if ('id' in recipe) {
+        return (
+          recipe.title.toLowerCase().includes(search.toLowerCase()) ||
+          recipe.ingredients.some((ingredient) =>
+            ingredient.name.toLowerCase().includes(search.toLowerCase())
+          )
         )
-      )
+      }
     })
   }
 
   if (filteredRecipesByName) {
     filteredRecipes = filteredRecipesByName.filter((recipe) => {
-      if (country) {
+      if (country && 'id' in recipe) {
         return recipe.origin === country
       } else {
         return true
@@ -48,10 +50,12 @@ const RecipesBlock = () => {
     countries = Array.from(
       new Set(
         recipes.map((recipe) => {
-          return recipe.origin
+          if ('id' in recipe) {
+            return recipe.origin
+          }
         })
       )
-    ).sort((a, b) => a.localeCompare(b))
+    ) //.sort((a, b) => a.localeCompare(b))
   }
 
   return (
@@ -81,14 +85,18 @@ const RecipesBlock = () => {
         </div>
         <div className={cl.recipes_container}>
           {filteredRecipes &&
-            filteredRecipes.map((recipe) => (
-              <RecipePreview recipe={recipe} key={recipe.id} />
-            ))}
+            filteredRecipes.map((recipe) => {
+              if ('id' in recipe) {
+                return <RecipePreview recipe={recipe} key={recipe.id} />
+              }
+            })}
           {!filteredRecipes &&
             recipes &&
-            recipes.map((recipe) => (
-              <RecipePreview recipe={recipe} key={recipe.id} />
-            ))}
+            recipes.map((recipe) => {
+              if ('id' in recipe) {
+                return <RecipePreview recipe={recipe} key={recipe.id} />
+              }
+            })}
         </div>
       </div>
     </>

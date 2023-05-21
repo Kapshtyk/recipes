@@ -21,7 +21,7 @@ const AddComment = ({ recipe }: { recipe: RecipeType }) => {
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (currentUser && recipe) {
+    if (currentUser && 'id' in currentUser && recipe && 'id' in recipe) {
       const commentData = {
         authorId: currentUser.id as number,
         recipeId: recipe.id as number,

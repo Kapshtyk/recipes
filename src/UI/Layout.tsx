@@ -1,11 +1,8 @@
 import React from 'react'
 import Header from './Header'
 import Footer from './Footer'
+import { LayoutType } from '../types/layout'
 import cl from '../styles/Layout.module.css'
-
-export type LayoutType = {
-  children: React.ReactNode
-}
 
 const Layout = ({ children }: LayoutType) => {
   return (
