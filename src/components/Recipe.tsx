@@ -23,7 +23,7 @@ const Recipe = () => {
   const [recipeComments, setRecipeComments] = useState<CommentType[]>([])
   const comments = useContext(CommentsContext).comments
   const currentUser = useContext(CurrentUserContext).currentUser
-  const recipe_id= useParams<{ recipe_id: string }>().recipe_id
+  const recipe_id = useParams<{ recipe_id: string }>().recipe_id
   const location = useLocation()
   const [isRecipeLoaded, setIsRecipeLoaded] = useState(false)
 
@@ -31,13 +31,11 @@ const Recipe = () => {
     async function fetchData() {
       setIsRecipeLoaded(false)
       if (recipes && recipe_id) {
-        const data = recipes.filter(
-          (recipe) => {
-            if ('id' in recipe) {
-              return recipe.id === +recipe_id
-            }
+        const data = recipes.filter((recipe) => {
+          if ('id' in recipe) {
+            return recipe.id === +recipe_id
           }
-        )
+        })
         if (data.length > 0) {
           setRecipe(data[0])
         }
@@ -73,7 +71,7 @@ const Recipe = () => {
                 ...comment,
                 authorFirstname: authorData?.firstname,
                 authorLastname: authorData?.lastname
-              }  
+              } as CommentType
             }
           }
         })
@@ -114,7 +112,12 @@ const Recipe = () => {
           </ul>
         </details>
         <h4 className={cl.recipe_author}>
-          Author: {author && 'firstname' in author && <>{author.firstname} {author.lastname}</>}
+          Author:{' '}
+          {author && 'firstname' in author && (
+            <>
+              {author.firstname} {author.lastname}
+            </>
+          )}
         </h4>
         <div className={cl.recipe_comments}>
           {recipeComments.length > 0 &&

@@ -64,7 +64,11 @@ const Header = () => {
         {currentUser && (
           <div className={cl.login_div}>
             <span className={cl.login_span} style={{ color: color }}>
-              Welcome, {currentUser && 'firstname' in currentUser && currentUser.firstname}!
+              Welcome,{' '}
+              {currentUser &&
+                'firstname' in currentUser &&
+                currentUser.firstname}
+              !
             </span>
             <span
               className={cl.logout_span}
