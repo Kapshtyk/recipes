@@ -31,7 +31,7 @@ This command will start both the React application and the JSON server at the sa
 
 ## Usage
 
-Once the application is running, you can start browsing soup recipes. You can use the search bar to find specific recipes by name or ingredient, or you can browse the list of all recipes. Click on a recipe to see its details, including a list of ingredients and instructions for making the soup. If you want to leave a comment or add a new soup, you will need to register via the registration form on the site. 
+Once the application is running, you can start browsing soup recipes. You can use the search bar to find specific recipes by name or ingredient, or you can browse the list of all recipes. Click on a recipe to see its details, including a list of ingredients and instructions for making the soup. If you want to leave a comment or add a new soup, you need to register using the fake registration form on the site (the data will be stored on your computer).
 
 ## Credits
 
