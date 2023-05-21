@@ -11,7 +11,7 @@ import {
   UsersContext
 } from '../utils/context'
 
-import AddComment from './AddComment'
+import AddComment from '../components/AddComment'
 
 import cl from '../styles/Recipe.module.css'
 
@@ -147,7 +147,7 @@ const Recipe = () => {
       </div>
     )
   }
-  return <div>Recipe not found</div>
+  return <div className={cl.plug}>Recipe not found</div>
 }
 
 export default Recipe

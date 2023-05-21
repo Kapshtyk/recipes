@@ -23,3 +23,12 @@ export type IngredientType = {
 export type RecipeError = {
   message: string
 }
+
+export type FormDataType = {
+  title: string
+  origin: string
+  description: string
+  instruction: string
+  image: string
+  [key: string]: string
+}

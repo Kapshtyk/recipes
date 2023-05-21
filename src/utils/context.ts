@@ -1,4 +1,4 @@
-import { createContext, Dispatch, SetStateAction } from 'react'
+import { createContext } from 'react'
 import { CurrentUserType, UsersType } from '../types/users'
 import { CommentsType } from '../types/comments'
 import { RecipesType } from '../types/recipes'
@@ -6,6 +6,7 @@ import { RecipesType } from '../types/recipes'
 export interface IUserContext {
   readonly users: UsersType | null
   readonly setUsers: (users: UsersType) => void
+  readonly fetchUsers: () => void
 }
 
 interface ICommentsContext {
@@ -28,7 +29,8 @@ interface ICurrentUser {
 
 export const UsersContext = createContext<IUserContext>({
   users: null,
-  setUsers: () => null
+  setUsers: () => null,
+  fetchUsers: () => null
 })
 
 export const CommentsContext = createContext<ICommentsContext>({

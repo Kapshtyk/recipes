@@ -18,6 +18,7 @@ const Authorization = ({ hasAccount }: AuthorizationType) => {
     password: ''
   })
   const users = useContext(UsersContext).users
+  const fetchUsers = useContext(UsersContext).fetchUsers
   const setCurrentUser = useContext(CurrentUserContext).setCurrentUser
   const navigate = useNavigate()
   const [error, setError] = useState('')
@@ -64,6 +65,7 @@ const Authorization = ({ hasAccount }: AuthorizationType) => {
           email: userData.email,
           password: md5(userData.password)
         }).then((data) => {
+          fetchUsers()
           setCurrentUser(data)
           if (redirectPath) {
             localStorage.removeItem('redirectPath')
@@ -72,9 +74,9 @@ const Authorization = ({ hasAccount }: AuthorizationType) => {
             navigate('/')
           }
         })
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message)
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message)
         }
       }
     }

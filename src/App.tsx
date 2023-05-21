@@ -12,13 +12,13 @@ import {
   CurrentUserContext
 } from './utils/context'
 
-import About from './components/About'
-import Authorization from './components/Authorization'
+import About from './pages/About'
+import Authorization from './pages/Authorization'
 import AddRecipe from './components/AddRecipe'
-import Home from './components/Home'
-import ProtectedRoute from './components/ProtectedRoute'
-import RecipesBlock from './components/RecipesBlock'
-import Recipe from './components/Recipe'
+import Home from './pages/Home'
+import ProtectedRoute from './utils/ProtectedRoute'
+import RecipesBlock from './pages/RecipesBlock'
+import Recipe from './pages/Recipe'
 import Layout from './UI/Layout'
 
 import cl from './styles/App.module.css'
@@ -53,6 +53,11 @@ function App() {
     })
   }
 
+  const fetchUsers = () => {
+    getUsers().then((data) => {
+      setUsers(data)
+    })
+  }
   const logout = () => {
     setCurrentUser(undefined)
   }
@@ -81,7 +86,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <UsersContext.Provider value={{ users, setUsers }}>
+      <UsersContext.Provider value={{ users, setUsers, fetchUsers }}>
         <CommentsContext.Provider
           value={{ comments, setComments, fetchComments }}
         >

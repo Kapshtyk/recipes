@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 
 import { ProtectedRouteType } from '../types/protecredRoute'
-import { CurrentUserContext } from '../utils/context'
+import { CurrentUserContext } from './context'
 
 const ProtectedRoute = ({ children }: ProtectedRouteType) => {
   const location = useLocation()

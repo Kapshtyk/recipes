@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 
 import { RecipesContext } from '../utils/context'
 
-import RecipePreview from './RecipePreview'
+import RecipePreview from '../components/RecipePreview'
 
 import cl from '../styles/RecipePreview.module.css'
 

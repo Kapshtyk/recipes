@@ -3,26 +3,17 @@ import { JSX } from 'react/jsx-runtime'
 import { useNavigate } from 'react-router-dom'
 
 import { addRecipe } from '../api/APIrecipes'
-import { RecipeType } from '../types/recipes'
+import { FormDataType, RecipeType } from '../types/recipes'
 import { CurrentUserContext, RecipesContext } from '../utils/context'
 import { getCountries } from '../utils/CountryCode'
 
 import cl from '../styles/AddRecipe.module.css'
 
-type FormData = {
-  title: string
-  origin: string
-  description: string
-  instruction: string
-  image: string
-  [key: string]: string
-}
-
 const AddRecipe = () => {
   const fetchRecipes = useContext(RecipesContext).fetchRecipes
   const currentUser = useContext(CurrentUserContext).currentUser
   const [ingredientsCounter, setIngredientsCounter] = useState(1)
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<FormDataType>({
     title: '',
     origin: '',
     description: '',
@@ -94,8 +85,8 @@ const AddRecipe = () => {
         } else {
           navigate('/recipes')
         }
-      } catch (err) {
-        console.log(err)
+      } catch (error) {
+        console.error(error)
       }
     }
   }
