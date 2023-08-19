@@ -1,39 +1,39 @@
 import { Injectable } from '@nestjs/common'
-import { InjectModel } from '@nestjs/sequelize'
-import { User } from './users.model'
+import { InjectModel } from '@nestjs/mongoose'
+import { User } from './schemas/users.schema'
 import { CreateUserDto } from './dto/create-user.dto'
+import { Model } from 'mongoose'
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User) private userRepository: typeof User) {}
+  constructor(@InjectModel(User.name) private userRepository: Model<User>) {}
 
   async createUser(dto: CreateUserDto): Promise<User> {
     const user = await this.userRepository.create(dto)
-    console.log(user)
+    return user
+  }
+
+  async getOne(id: number): Promise<User> {
+    const user = await this.userRepository.findById(id)
     return user
   }
 
   async getAllUsers(): Promise<User[]> {
-    const users = await this.userRepository.findAll()
+    const users = await this.userRepository.find()
     return users
   }
 
   async removeUser(id: number): Promise<{ message: string }> {
-    const user = await this.userRepository.findOne({
-      where: {
-        id
-      }
-    })
-    await user.destroy()
-    return { message: 'User deleted' }
+    await this.userRepository.findByIdAndRemove(id)
+    return { message: 'User was deleted' }
   }
 
-  async getOne(id: number): Promise<User> {
-    const user = await this.userRepository.findOne({
-      where: {
-        id
-      }
-    })
+  async getUserByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.findOne({ email })
     return user
+  }
+
+  async clear() {
+    await this.userRepository.deleteMany({})
   }
 }
