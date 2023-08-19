@@ -19,7 +19,29 @@ export const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState,
   reducers: {},
-  extraReducers: {
+  extraReducers: (builder) => {
+    builder
+      .addCase(checkCredentials.pending.type, (state) => {
+        state.isLoading = true
+      })
+
+      .addCase(
+        checkCredentials.fulfilled.type,
+        (state, action: PayloadAction<CurrentUserState>) => {
+          state.isLoading = false
+          state.error = ''
+          state.currentUser = action.payload.currentUser
+        }
+      )
+      .addCase(
+        checkCredentials.rejected.type,
+        (state, action: PayloadAction<string>) => {
+          state.isLoading = false
+          state.error = action.payload
+        }
+      )
+  }
+  /* extraReducers: {
     [checkCredentials.pending.type]: (state) => {
       state.isLoading = true
     },
@@ -38,7 +60,7 @@ export const currentUserSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     }
-  }
+  } */
 })
 
 export default currentUserSlice.reducer

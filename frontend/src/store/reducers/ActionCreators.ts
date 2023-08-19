@@ -3,8 +3,6 @@ import axios from 'axios'
 
 import { IUser } from '../../models/IUser'
 import { BASE_URL } from '../../utils/constants'
-import { AppDispatch } from '../store'
-import { userSlice } from './usersSlice'
 
 /* export const fetchUsers2 = () => async (dispatch: AppDispatch) => {
   try {

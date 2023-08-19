@@ -13,7 +13,9 @@ const App = () => {
 
 
   return (
-    <div>
+    <div style={{
+      padding: '20px',
+    }}>
       {isLoading && <h1>Loading...</h1>}
       {error && <h1>{error}</h1>}
       {JSON.stringify(users)}
