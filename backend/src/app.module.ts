@@ -4,6 +4,8 @@ import { ConfigModule } from '@nestjs/config'
 import { RolesModule } from './roles/roles.module'
 import { MongooseModule } from '@nestjs/mongoose'
 import { AuthModule } from './auth/auth.module'
+import { RecipesModule } from './recipes/recipes.module'
+import { IngredientsModule } from './ingredients/ingredients.module'
 
 @Module({
   controllers: [],
@@ -16,7 +18,9 @@ import { AuthModule } from './auth/auth.module'
     MongooseModule.forRoot(process.env.MONGO_URL),
     UsersModule,
     RolesModule,
-    AuthModule
+    AuthModule,
+    RecipesModule,
+    IngredientsModule
   ]
 })
 export class AppModule {}

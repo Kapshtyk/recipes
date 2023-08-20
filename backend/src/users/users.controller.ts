@@ -28,7 +28,7 @@ export class UsersController {
   @ApiResponse({ status: 200, type: User })
   @Get(':id')
   getOne(@Param('id') id: number) {
-    return this.usersService.getOne(id)
+    return this.usersService.getOneUser(id)
   }
 
   @ApiOperation({ summary: 'Get all users' })

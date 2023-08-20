@@ -13,7 +13,7 @@ export class UsersService {
     return user
   }
 
-  async getOne(id: number): Promise<User> {
+  async getOneUser(id: number): Promise<User> {
     const user = await this.userRepository.findById(id)
     return user
   }
