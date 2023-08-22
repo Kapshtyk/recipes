@@ -48,6 +48,9 @@ export class Recipe {
 
   @Prop([{ type: SchemaTypes.ObjectId, ref: 'IngredientRecipe' }])
   ingredients: Types.ObjectId[]
+
+  @Prop({ type: SchemaTypes.ObjectId, ref: 'User' })
+  author: Types.ObjectId
 }
 
 export const RecipeSchema = SchemaFactory.createForClass(Recipe)

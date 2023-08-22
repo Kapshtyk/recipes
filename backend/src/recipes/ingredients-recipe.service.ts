@@ -9,10 +9,13 @@ import { Recipe } from './schemas/recipe.schema'
 export class IngredientRecipesService {
   constructor(
     @InjectModel(IngredientRecipe.name)
-    private ingredientRecipeRepository: Model<IngredientRecipe>,
+    private ingredientRecipeRepository: Model<IngredientRecipe>
   ) {}
 
-  async createIngredientRecipe(ingredient: AddIngredientsToRecipeDto, recipe: Recipe): Promise<IngredientRecipe> {
+  async createIngredientRecipe(
+    ingredient: AddIngredientsToRecipeDto,
+    recipe: Recipe
+  ): Promise<IngredientRecipe> {
     const ingredientRecipe = await this.ingredientRecipeRepository.create({
       ingredient: ingredient.ingredient,
       quantity: ingredient.quantity,
@@ -20,5 +23,4 @@ export class IngredientRecipesService {
     })
     return ingredientRecipe
   }
-
 }

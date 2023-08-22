@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { HydratedDocument, SchemaTypes, Types } from 'mongoose'
 
-
 export type IngredientRecipeDocument = HydratedDocument<IngredientRecipe>
 
 @Schema()
@@ -19,12 +18,10 @@ export class IngredientRecipe {
 export const IngredientRecipeSchema =
   SchemaFactory.createForClass(IngredientRecipe)
 
-
 IngredientRecipeSchema.set('toJSON', {
-    transform: (doc, ret) => {
-      ret.id = ret._id
-      delete ret._id
-      delete ret.__v
-    }
-  })
-  
+  transform: (doc, ret) => {
+    ret.id = ret._id
+    delete ret._id
+    delete ret.__v
+  }
+})

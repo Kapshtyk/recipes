@@ -13,10 +13,14 @@ import {
   IngredientRecipeSchema
 } from './schemas/ingredient-recipe.schema'
 import { IngredientRecipesService } from './ingredients-recipe.service'
+import { JwtModule } from '@nestjs/jwt'
+import { ConfigService } from '@nestjs/config'
+import { UsersService } from 'src/users/users.service'
+import { User, UserSchema } from 'src/users/schemas/users.schema'
 
 @Module({
   controllers: [RecipesController],
-  providers: [RecipesService, IngredientRecipesService],
+  providers: [RecipesService, IngredientRecipesService, UsersService],
   imports: [
     IngredientsModule,
     MongooseModule.forFeature([{ name: Recipe.name, schema: RecipeSchema }]),
@@ -25,7 +29,16 @@ import { IngredientRecipesService } from './ingredients-recipe.service'
     ]),
     MongooseModule.forFeature([
       { name: IngredientRecipe.name, schema: IngredientRecipeSchema }
-    ])
+    ]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    JwtModule.registerAsync({
+      useFactory: (configService: ConfigService) => {
+        return {
+          secret: process.env.JWT_SECRET
+        }
+      },
+      inject: [ConfigService]
+    })
   ]
 })
 export class RecipesModule {}

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException
+} from '@nestjs/common'
 import { CreateRecipeDto } from './dto/create-recipe.dto'
 import { UpdateRecipeDto } from './dto/update-recipe.dto'
 import { InjectModel } from '@nestjs/mongoose'
@@ -9,7 +13,7 @@ import { IngredientsService } from 'src/ingredients/ingredients.service'
 import { CreateRecipeIngredientDto } from './dto/create-recipe-ingredient.dto'
 import { AddIngredientsToRecipeDto } from './dto/add-ingredients-to-recipe.dto'
 import { IngredientRecipesService } from './ingredients-recipe.service'
-import { add } from 'lodash'
+import { User } from 'src/users/schemas/users.schema'
 
 @Injectable()
 export class RecipesService {
@@ -21,42 +25,70 @@ export class RecipesService {
     private ingredientRecipeService: IngredientRecipesService
   ) {}
 
-  async createRecipe(createRecipeDto: CreateRecipeDto): Promise<Recipe> {
+  async createRecipe(
+    createRecipeDto: CreateRecipeDto,
+    user: User | null
+  ): Promise<Recipe> {
     await this.clear()
+
+    if (!user) {
+      throw new UnauthorizedException()
+    }
+    console.log(user)
     const recipe = await this.recipeRepository.create({
       title: createRecipeDto.title,
       description: createRecipeDto.description,
       origin: createRecipeDto.origin,
       instructions: createRecipeDto.instructions,
-      image: createRecipeDto.image
+      image: createRecipeDto.image,
+      author: user._id
     })
     const updatedIngredients = await this.addIngredientsToDatabase(
       createRecipeDto.ingredients
     )
-    const ingredientsRecipe = await this.addIngredientsToRecipe(recipe, updatedIngredients)
-    recipe.set('ingredients', ingredientsRecipe.map(ingredient => ingredient._id))
+    const ingredientsRecipe = await this.addIngredientsToRecipe(
+      recipe,
+      updatedIngredients
+    )
+    recipe.set(
+      'ingredients',
+      ingredientsRecipe.map((ingredient) => ingredient._id)
+    )
     await recipe.save()
 
     return recipe
   }
 
-  findAll() {
-    return `This action returns all recipes`
+  findAll(): Promise<Recipe[]> {
+    const recipes = this.recipeRepository
+      .find()
+      .populate({
+        path: 'ingredients',
+        populate: [
+          { path: 'ingredient', model: 'Ingredient', select: 'name units' }
+        ]
+      })
+      .populate('author', 'username email')
+      .exec()
+    return recipes
   }
 
   findOne(id: string) {
-    const recipe = this.recipeRepository.findById(id).populate({
-      path: 'ingredients',
-      populate: [
-        { path: 'ingredient', model: 'Ingredient', select: 'name units' }
-      ]
-    })
-    .exec();
+    const recipe = this.recipeRepository
+      .findById(id)
+      .populate({
+        path: 'ingredients',
+        populate: [
+          { path: 'ingredient', model: 'Ingredient', select: 'name units' }
+        ]
+      })
+      .populate('author', 'username email')
+      .exec()
 
     if (!recipe) {
-      throw new NotFoundException(`Recipe with id ${id} not found`);
+      throw new NotFoundException(`Recipe with id ${id} not found`)
     }
-  
+
     return recipe
   }
 
@@ -79,20 +111,26 @@ export class RecipesService {
     const updatedIngredients = []
 
     for (const ingredient of ingredients) {
-     const existingIngredient =
+      const existingIngredient =
         await this.ingredientsService.findIngredientByNameAndUnits(
           ingredient.name,
           ingredient.units
         )
 
       if (existingIngredient) {
-        updatedIngredients.push({ingredient: existingIngredient, quantity: ingredient.quantity})
+        updatedIngredients.push({
+          ingredient: existingIngredient,
+          quantity: ingredient.quantity
+        })
       } else {
         const newIngredient = await this.ingredientsService.createIngredient({
           name: ingredient.name,
           units: ingredient.units
         })
-        updatedIngredients.push({ingredient: newIngredient, quantity: ingredient.quantity})
+        updatedIngredients.push({
+          ingredient: newIngredient,
+          quantity: ingredient.quantity
+        })
       }
     }
     return updatedIngredients
@@ -108,7 +146,11 @@ export class RecipesService {
       if (addedIngredient.includes(ingredient.ingredient.id)) {
         continue
       }
-      const ingredientRecipe = await this.ingredientRecipeService.createIngredientRecipe(ingredient, recipe)
+      const ingredientRecipe =
+        await this.ingredientRecipeService.createIngredientRecipe(
+          ingredient,
+          recipe
+        )
       ingredientRecipes.push(ingredientRecipe)
       addedIngredient.push(ingredient.ingredient.id)
     }

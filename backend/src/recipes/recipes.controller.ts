@@ -5,19 +5,28 @@ import {
   Body,
   Patch,
   Param,
-  Delete
+  Delete,
+  UseGuards,
+  Req
 } from '@nestjs/common'
 import { RecipesService } from './recipes.service'
 import { CreateRecipeDto } from './dto/create-recipe.dto'
 import { UpdateRecipeDto } from './dto/update-recipe.dto'
+import { AuthGuard } from 'src/auth/auth.guard'
+import { Request } from 'express'
 
 @Controller('recipes')
 export class RecipesController {
   constructor(private readonly recipesService: RecipesService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
-  create(@Body() createRecipeDto: CreateRecipeDto) {
-    return this.recipesService.createRecipe(createRecipeDto)
+  create(@Req() req: Request, @Body() createRecipeDto: CreateRecipeDto) {
+    let user = null
+    if ('user' in req) {
+      user = req.user
+    }
+    return this.recipesService.createRecipe(createRecipeDto, user)
   }
 
   @Get()
