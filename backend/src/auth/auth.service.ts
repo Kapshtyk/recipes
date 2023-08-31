@@ -5,10 +5,11 @@ import {
   UnauthorizedException
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
+import { compare, hash } from 'bcryptjs'
 import { CreateUserDto } from 'src/users/dto/create-user.dto'
+import { User, UserDocument } from 'src/users/schemas/users.schema'
 import { UsersService } from 'src/users/users.service'
-import { hash, compare } from 'bcryptjs'
-import { User } from 'src/users/schemas/users.schema'
+
 import { LoginUserDto } from './dto/login-user.dto'
 
 @Injectable()
@@ -23,7 +24,7 @@ export class AuthService {
     return this.generateToken(user)
   }
 
-  async registration(dto: CreateUserDto) {
+  async registration(dto: CreateUserDto): Promise<{ token: string }> {
     // TODO: delete this
     await this.userService.clear()
     const candidate = await this.userService.getUserByEmail(dto.email)
@@ -41,14 +42,14 @@ export class AuthService {
     return this.generateToken(user)
   }
 
-  async generateToken(user: User) {
+  async generateToken(user: UserDocument): Promise<{ token: string }> {
     const payload = { email: user.email, username: user.username, id: user._id }
     return {
       token: this.jwtService.sign(payload)
     }
   }
 
-  private async validateUser(dto: LoginUserDto) {
+  private async validateUser(dto: LoginUserDto): Promise<UserDocument> {
     const user = await this.userService.getUserByEmail(dto.email)
     const passwordEquals = await compare(dto.password, user.password)
     if (user && passwordEquals) {

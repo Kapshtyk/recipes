@@ -1,25 +1,23 @@
 import React, { useEffect } from 'react'
 
-import { useAppDispatch, useAppSelector } from './hooks/redux'
-import { fetchUsers } from './store/reducers/ActionCreators'
+import { useAppDispatch } from './hooks/redux'
+import { fetchRecipes, fetchUsers } from './store/reducers/ActionCreators'
+
+import RecipesList from './components/RecipesList'
 
 const App = () => {
-  const { users, isLoading, error } = useAppSelector(state => state.userReducer)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(fetchUsers())
+    dispatch(fetchRecipes())
   }, [dispatch])
 
 
   return (
-    <div style={{
-      padding: '20px',
-    }}>
-      {isLoading && <h1>Loading...</h1>}
-      {error && <h1>{error}</h1>}
-      {JSON.stringify(users)}
-    </div>
+    <>
+      <RecipesList />
+    </>
   )
 }
 

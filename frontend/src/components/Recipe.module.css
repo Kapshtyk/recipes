@@ -1,0 +1,19 @@
+.recipe_container {
+  @apply m-3 max-w-[600px] bg-white rounded-lg shadow-lg md:flex;
+}
+
+.recipe_heading {
+  @apply text-2xl font-bold text-center;
+}
+
+.recipe_image_container {
+  @apply md:shrink-0 rounded-tl-lg rounded-tr-lg md:rounded-tr-none md:rounded-bl-lg overflow-hidden;
+}
+
+.recipe_image {
+  @apply h-48 w-full object-cover md:h-full md:w-60
+}
+
+.recipe_data_container {
+  @apply p-4 flex flex-col justify-between;
+}

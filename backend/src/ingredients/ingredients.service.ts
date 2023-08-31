@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
+
 import { CreateIngredientDto } from './dto/create-ingredient.dto'
 import { UpdateIngredientDto } from './dto/update-ingredient.dto'
-import { InjectModel } from '@nestjs/mongoose'
 import { Ingredient } from './schemas/ingredient.schema'
-import { Model } from 'mongoose'
 
 @Injectable()
 export class IngredientsService {
@@ -51,11 +52,7 @@ export class IngredientsService {
         name,
         units
       })
-      .select('_id')
-    if (ingredient) {
-      ingredient.id = String(ingredient._id)
-      delete ingredient._id
-    }
+      .exec()
     return ingredient
   }
 }

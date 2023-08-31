@@ -7,10 +7,11 @@ import {
   Param,
   Post
 } from '@nestjs/common'
-import { UsersService } from './users.service'
-import { CreateUserDto } from './dto/create-user.dto'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+
+import { CreateUserDto } from './dto/create-user.dto'
 import { User } from './schemas/users.schema'
+import { UsersService } from './users.service'
 
 @ApiTags('Users')
 @Controller('users')

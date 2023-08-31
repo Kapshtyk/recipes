@@ -1,15 +1,11 @@
-import { ApiProperty } from '@nestjs/swagger'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { ApiProperty } from '@nestjs/swagger'
 import { HydratedDocument } from 'mongoose'
 
 export type IngredientDocument = HydratedDocument<Ingredient>
 
 @Schema()
 export class Ingredient {
-  @ApiProperty({ example: '1', description: 'Id' })
-  @Prop({ unique: true })
-  id: string
-
   @ApiProperty({ example: 'Flour', description: 'Name' })
   @Prop({
     required: true,
@@ -23,17 +19,9 @@ export class Ingredient {
   @Prop({
     required: true,
     minlength: 1,
-    maxlength: 5
+    maxlength: 20
   })
   units: string
 }
 
 export const IngredientSchema = SchemaFactory.createForClass(Ingredient)
-
-IngredientSchema.set('toJSON', {
-  transform: (doc, ret) => {
-    ret.id = ret._id
-    delete ret._id
-    delete ret.__v
-  }
-})

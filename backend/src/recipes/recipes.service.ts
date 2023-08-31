@@ -3,17 +3,26 @@ import {
   NotFoundException,
   UnauthorizedException
 } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
+import { IngredientsService } from 'src/ingredients/ingredients.service'
+import {
+  Ingredient,
+  IngredientDocument
+} from 'src/ingredients/schemas/ingredient.schema'
+import { UserDocument } from 'src/users/schemas/users.schema'
+
+import { CreateRecipeIngredientDto } from './dto/create-recipe-ingredient.dto'
 import { CreateRecipeDto } from './dto/create-recipe.dto'
 import { UpdateRecipeDto } from './dto/update-recipe.dto'
-import { InjectModel } from '@nestjs/mongoose'
-import { Recipe } from './schemas/recipe.schema'
-import { Model } from 'mongoose'
-import { Ingredient } from 'src/ingredients/schemas/ingredient.schema'
-import { IngredientsService } from 'src/ingredients/ingredients.service'
-import { CreateRecipeIngredientDto } from './dto/create-recipe-ingredient.dto'
-import { AddIngredientsToRecipeDto } from './dto/add-ingredients-to-recipe.dto'
 import { IngredientRecipesService } from './ingredients-recipe.service'
-import { User } from 'src/users/schemas/users.schema'
+import { IngredientRecipeDocument } from './schemas/ingredient-recipe.schema'
+import { Recipe, RecipeDocument } from './schemas/recipe.schema'
+
+interface IRecipeIngredients {
+  ingredient: IngredientDocument
+  quantity: number
+}
 
 @Injectable()
 export class RecipesService {
@@ -27,14 +36,12 @@ export class RecipesService {
 
   async createRecipe(
     createRecipeDto: CreateRecipeDto,
-    user: User | null
-  ): Promise<Recipe> {
-    await this.clear()
-
+    user: UserDocument | null
+  ): Promise<RecipeDocument> {
     if (!user) {
       throw new UnauthorizedException()
     }
-    console.log(user)
+    console.log(createRecipeDto)
     const recipe = await this.recipeRepository.create({
       title: createRecipeDto.title,
       description: createRecipeDto.description,
@@ -55,11 +62,10 @@ export class RecipesService {
       ingredientsRecipe.map((ingredient) => ingredient._id)
     )
     await recipe.save()
-
     return recipe
   }
 
-  findAll(): Promise<Recipe[]> {
+  findAll(): Promise<RecipeDocument[]> {
     const recipes = this.recipeRepository
       .find()
       .populate({
@@ -73,7 +79,7 @@ export class RecipesService {
     return recipes
   }
 
-  findOne(id: string) {
+  findOne(id: string): Promise<RecipeDocument> {
     const recipe = this.recipeRepository
       .findById(id)
       .populate({
@@ -92,24 +98,10 @@ export class RecipesService {
     return recipe
   }
 
-  update(id: number, updateRecipeDto: UpdateRecipeDto) {
-    return `This action updates a #${id} recipe`
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} recipe`
-  }
-
-  // TODO: remove this method
-  async clear() {
-    await this.recipeRepository.deleteMany({})
-  }
-
   private async addIngredientsToDatabase(
     ingredients: CreateRecipeIngredientDto[]
-  ) {
+  ): Promise<IRecipeIngredients[]> {
     const updatedIngredients = []
-
     for (const ingredient of ingredients) {
       const existingIngredient =
         await this.ingredientsService.findIngredientByNameAndUnits(
@@ -137,9 +129,9 @@ export class RecipesService {
   }
 
   private async addIngredientsToRecipe(
-    recipe: Recipe,
-    ingredients: AddIngredientsToRecipeDto[]
-  ) {
+    recipe: RecipeDocument,
+    ingredients: IRecipeIngredients[]
+  ): Promise<IngredientRecipeDocument[]> {
     const addedIngredient = []
     const ingredientRecipes = []
     for (const ingredient of ingredients) {
@@ -155,5 +147,78 @@ export class RecipesService {
       addedIngredient.push(ingredient.ingredient.id)
     }
     return ingredientRecipes
+  }
+
+  async update(id: string, updateRecipeDto: UpdateRecipeDto) {
+    const recipe = await this.recipeRepository.findById(id)
+    if (!recipe) {
+      throw new NotFoundException(`Recipe with id ${id} not found`)
+    }
+
+    let updatedRepice
+
+    if (updateRecipeDto.ingredients) {
+      const currentIngredientsRecpie =
+        await this.ingredientRecipeService.getIngredientsRecipeByRecipe(recipe)
+
+      const updatedIngredients = await this.addIngredientsToDatabase(
+        updateRecipeDto.ingredients
+      )
+      const updatedIngredientsRecipes = []
+      for (const ingredient of updatedIngredients) {
+        const ingredientRecipe =
+          await this.ingredientRecipeService.getIngredientsRecipeByIngredient(
+            ingredient.ingredient
+          )
+        if (ingredientRecipe) {
+          updatedIngredientsRecipes.push(
+            await this.ingredientRecipeService.updateIngredientRecipe(
+              ingredientRecipe,
+              ingredient.quantity
+            )
+          )
+        } else {
+          updatedIngredientsRecipes.push(
+            await this.ingredientRecipeService.createIngredientRecipe(
+              ingredient,
+              recipe
+            )
+          )
+        }
+      }
+
+      console.log(updatedIngredientsRecipes)
+      console.log(currentIngredientsRecpie)
+
+      for (const ingredientRecipe of currentIngredientsRecpie) {
+        console.log(
+          updatedIngredientsRecipes
+            .map((ingredientRecipe) => ingredientRecipe._id)
+            .includes(ingredientRecipe)
+        )
+      }
+
+      updatedRepice = await this.recipeRepository.findByIdAndUpdate(id, {
+        ...updateRecipeDto,
+        ingredients: updatedIngredientsRecipes.map(
+          (ingredient) => ingredient._id
+        )
+      })
+    } else {
+      updatedRepice = await this.recipeRepository.findByIdAndUpdate(
+        id,
+        updateRecipeDto
+      )
+    }
+    return updatedRepice
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} recipe`
+  }
+
+  // TODO: remove this method
+  async clear() {
+    await this.recipeRepository.deleteMany({})
   }
 }

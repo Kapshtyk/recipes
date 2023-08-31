@@ -1,7 +1,8 @@
-import { NestFactory } from '@nestjs/core'
-import { AppModule } from './App.module'
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
+import { NestFactory } from '@nestjs/core'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+
+import { AppModule } from './App.module'
 
 async function bootstrap() {
   const PORT = process.env.PORT || 5001

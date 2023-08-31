@@ -1,22 +1,23 @@
 import { Module } from '@nestjs/common'
-import { RecipesService } from './recipes.service'
-import { RecipesController } from './recipes.controller'
+import { ConfigService } from '@nestjs/config'
+import { JwtModule } from '@nestjs/jwt'
 import { MongooseModule } from '@nestjs/mongoose'
-import { Recipe, RecipeSchema } from './schemas/recipe.schema'
+import { User, UserSchema } from 'src/users/schemas/users.schema'
+import { UsersService } from 'src/users/users.service'
+
 import { IngredientsModule } from '../ingredients/ingredients.module'
 import {
   Ingredient,
   IngredientSchema
 } from '../ingredients/schemas/ingredient.schema'
+import { IngredientRecipesService } from './ingredients-recipe.service'
+import { RecipesController } from './recipes.controller'
+import { RecipesService } from './recipes.service'
 import {
   IngredientRecipe,
   IngredientRecipeSchema
 } from './schemas/ingredient-recipe.schema'
-import { IngredientRecipesService } from './ingredients-recipe.service'
-import { JwtModule } from '@nestjs/jwt'
-import { ConfigService } from '@nestjs/config'
-import { UsersService } from 'src/users/users.service'
-import { User, UserSchema } from 'src/users/schemas/users.schema'
+import { Recipe, RecipeSchema } from './schemas/recipe.schema'
 
 @Module({
   controllers: [RecipesController],

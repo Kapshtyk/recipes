@@ -1,19 +1,20 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
-  Req
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+  UseGuards
 } from '@nestjs/common'
-import { RecipesService } from './recipes.service'
+import { Request } from 'express'
+import { AuthGuard } from 'src/auth/auth.guard'
+
 import { CreateRecipeDto } from './dto/create-recipe.dto'
 import { UpdateRecipeDto } from './dto/update-recipe.dto'
-import { AuthGuard } from 'src/auth/auth.guard'
-import { Request } from 'express'
+import { RecipesService } from './recipes.service'
 
 @Controller('recipes')
 export class RecipesController {
@@ -41,7 +42,7 @@ export class RecipesController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateRecipeDto: UpdateRecipeDto) {
-    return this.recipesService.update(+id, updateRecipeDto)
+    return this.recipesService.update(id, updateRecipeDto)
   }
 
   @Delete(':id')
