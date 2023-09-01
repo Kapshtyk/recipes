@@ -4,6 +4,8 @@ import { useAppDispatch } from './hooks/redux'
 import { fetchRecipes, fetchUsers } from './store/reducers/ActionCreators'
 
 import RecipesList from './components/RecipesList'
+import Header from './components/Header/Header'
+import HeroRecipe from './components/HeroRecipe/HeroRecipe'
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -16,6 +18,8 @@ const App = () => {
 
   return (
     <>
+      <Header />
+      <HeroRecipe />
       <RecipesList />
     </>
   )

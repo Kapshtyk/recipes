@@ -1,0 +1,31 @@
+.header {
+  @apply h-[80px] w-full relative;
+}
+
+.first_layer {
+  @apply bg-orange-500 w-full h-[80px] absolute top-0 left-0;
+}
+
+.second_layer {
+  @apply bg-orange-400 w-full h-[80px] absolute top-0 left-0 rounded-tr-100px shadow-[0px_-11px_7px_2px_rgba(0,0,0,0.3)];
+}
+
+.third_layer {
+  @apply bg-orange-300 w-11/12 h-[80px] absolute top-0 left-0 rounded-tr-100px shadow-[0px_-10px_7px_2px_rgba(0,0,0,0.3)];
+}
+
+.fourth_layer {
+  @apply bg-orange-200 w-10/12 h-[80px] absolute top-0 left-0 rounded-tr-100px shadow-[0px_-9px_7px_2px_rgba(0,0,0,0.3)];
+}
+
+.fifth_layer {
+  @apply bg-orange-100 w-9/12 h-[80px] absolute top-0 left-0 rounded-tr-100px shadow-[0px_-8px_7px_2px_rgba(0,0,0,0.3)];
+}
+
+.header_content {
+  @apply w-8/12 h-[80px] pl-5 flex items-center justify-between absolute top-0 left-0;
+}
+
+.header_title {
+  @apply text-5xl font-light;
+}
