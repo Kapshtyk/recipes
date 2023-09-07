@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
-import { IngredientsService } from 'src/ingredients/ingredients.service'
-import { IngredientDocument } from 'src/ingredients/schemas/ingredient.schema'
 
 import { AddIngredientsToRecipeDto } from './dto/add-ingredients-to-recipe.dto'
 import {
@@ -46,15 +44,16 @@ export class IngredientRecipesService {
     return { message: 'IngredientRecipe was deleted' }
   }
 
-  async getIngredientsRecipeByIngredient(
-    ingredient: IngredientDocument
-  ): Promise<IngredientRecipeDocument | null> {
-    const ingredientRecipe = await this.ingredientRecipeRepository
-      .findOne({
-        ingredient
+  async removeIngredientRecipeByRecipe(
+    recipe: RecipeDocument
+  ): Promise<object> {
+    const ingredientRecipes = await this.getIngredientsRecipeByRecipe(recipe)
+    await Promise.all(
+      ingredientRecipes.map(async (ingredientRecipe) => {
+        await this.removeIngredientRecipe(ingredientRecipe)
       })
-      .exec()
-    return ingredientRecipe
+    )
+    return { message: 'IngredientRecipes were deleted' }
   }
 
   async getIngredientsRecipeByRecipe(

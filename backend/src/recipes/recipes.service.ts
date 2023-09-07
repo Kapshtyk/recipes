@@ -36,12 +36,8 @@ export class RecipesService {
 
   async createRecipe(
     createRecipeDto: CreateRecipeDto,
-    user: UserDocument | null
+    user: UserDocument
   ): Promise<RecipeDocument> {
-    if (!user) {
-      throw new UnauthorizedException()
-    }
-    console.log(createRecipeDto)
     const recipe = await this.recipeRepository.create({
       title: createRecipeDto.title,
       description: createRecipeDto.description,
@@ -98,6 +94,68 @@ export class RecipesService {
     return recipe
   }
 
+  async updateRecipe(
+    id: string,
+    updateRecipeDto: UpdateRecipeDto,
+    user: UserDocument
+  ) {
+    const recipe = await this.recipeRepository.findById(id)
+    if (!recipe) {
+      throw new NotFoundException(`Recipe with id ${id} not found`)
+    }
+
+    if (recipe.author.toString() !== user._id.toString()) {
+      throw new UnauthorizedException(
+        `User with id ${user._id} is not the author of recipe with id ${id}`
+      )
+    }
+
+    let updatedRepice
+
+    if (updateRecipeDto.ingredients) {
+      await this.ingredientRecipeService.removeIngredientRecipeByRecipe(recipe)
+
+      const updatedIngredients = await this.addIngredientsToDatabase(
+        updateRecipeDto.ingredients
+      )
+
+      const updatedIngredientsRecipes = await this.addIngredientsToRecipe(
+        recipe,
+        updatedIngredients
+      )
+
+      updatedRepice = await this.recipeRepository.findByIdAndUpdate(id, {
+        ...updateRecipeDto,
+        ingredients: updatedIngredientsRecipes.map(
+          (ingredient) => ingredient._id
+        )
+      })
+    } else {
+      updatedRepice = await this.recipeRepository.findByIdAndUpdate(
+        id,
+        updateRecipeDto
+      )
+    }
+    return updatedRepice
+  }
+
+  async removeRecipe(id: string, user: UserDocument) {
+    const recipe = await this.recipeRepository.findById(id)
+    if (!recipe) {
+      throw new NotFoundException(`Recipe with id ${id} not found`)
+    }
+
+    if (recipe.author.toString() !== user._id.toString()) {
+      throw new UnauthorizedException(
+        `User with id ${user._id} is not the author of recipe with id ${id}`
+      )
+    }
+    await this.recipeRepository.findByIdAndDelete(id)
+    await this.ingredientRecipeService.removeIngredientRecipeByRecipe(recipe)
+
+    return { message: `Recipe with id ${id} deleted` }
+  }
+
   private async addIngredientsToDatabase(
     ingredients: CreateRecipeIngredientDto[]
   ): Promise<IRecipeIngredients[]> {
@@ -147,78 +205,5 @@ export class RecipesService {
       addedIngredient.push(ingredient.ingredient.id)
     }
     return ingredientRecipes
-  }
-
-  async update(id: string, updateRecipeDto: UpdateRecipeDto) {
-    const recipe = await this.recipeRepository.findById(id)
-    if (!recipe) {
-      throw new NotFoundException(`Recipe with id ${id} not found`)
-    }
-
-    let updatedRepice
-
-    if (updateRecipeDto.ingredients) {
-      const currentIngredientsRecpie =
-        await this.ingredientRecipeService.getIngredientsRecipeByRecipe(recipe)
-
-      const updatedIngredients = await this.addIngredientsToDatabase(
-        updateRecipeDto.ingredients
-      )
-      const updatedIngredientsRecipes = []
-      for (const ingredient of updatedIngredients) {
-        const ingredientRecipe =
-          await this.ingredientRecipeService.getIngredientsRecipeByIngredient(
-            ingredient.ingredient
-          )
-        if (ingredientRecipe) {
-          updatedIngredientsRecipes.push(
-            await this.ingredientRecipeService.updateIngredientRecipe(
-              ingredientRecipe,
-              ingredient.quantity
-            )
-          )
-        } else {
-          updatedIngredientsRecipes.push(
-            await this.ingredientRecipeService.createIngredientRecipe(
-              ingredient,
-              recipe
-            )
-          )
-        }
-      }
-
-      console.log(updatedIngredientsRecipes)
-      console.log(currentIngredientsRecpie)
-
-      for (const ingredientRecipe of currentIngredientsRecpie) {
-        console.log(
-          updatedIngredientsRecipes
-            .map((ingredientRecipe) => ingredientRecipe._id)
-            .includes(ingredientRecipe)
-        )
-      }
-
-      updatedRepice = await this.recipeRepository.findByIdAndUpdate(id, {
-        ...updateRecipeDto,
-        ingredients: updatedIngredientsRecipes.map(
-          (ingredient) => ingredient._id
-        )
-      })
-    } else {
-      updatedRepice = await this.recipeRepository.findByIdAndUpdate(
-        id,
-        updateRecipeDto
-      )
-    }
-    return updatedRepice
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} recipe`
-  }
-
-  // TODO: remove this method
-  async clear() {
-    await this.recipeRepository.deleteMany({})
   }
 }

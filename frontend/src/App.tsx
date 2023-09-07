@@ -19,7 +19,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <HeroRecipe />
+      {/* <HeroRecipe /> */}
       <RecipesList />
     </>
   )

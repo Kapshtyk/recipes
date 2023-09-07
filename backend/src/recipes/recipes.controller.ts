@@ -11,10 +11,15 @@ import {
 } from '@nestjs/common'
 import { Request } from 'express'
 import { AuthGuard } from 'src/auth/auth.guard'
+import { UserDocument } from 'src/users/schemas/users.schema'
 
 import { CreateRecipeDto } from './dto/create-recipe.dto'
 import { UpdateRecipeDto } from './dto/update-recipe.dto'
 import { RecipesService } from './recipes.service'
+
+interface IRequestWithUser extends Request {
+  user?: UserDocument
+}
 
 @Controller('recipes')
 export class RecipesController {
@@ -22,12 +27,11 @@ export class RecipesController {
 
   @UseGuards(AuthGuard)
   @Post()
-  create(@Req() req: Request, @Body() createRecipeDto: CreateRecipeDto) {
-    let user = null
-    if ('user' in req) {
-      user = req.user
-    }
-    return this.recipesService.createRecipe(createRecipeDto, user)
+  create(
+    @Req() req: IRequestWithUser,
+    @Body() createRecipeDto: CreateRecipeDto
+  ) {
+    return this.recipesService.createRecipe(createRecipeDto, req.user)
   }
 
   @Get()
@@ -40,13 +44,19 @@ export class RecipesController {
     return this.recipesService.findOne(id)
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRecipeDto: UpdateRecipeDto) {
-    return this.recipesService.update(id, updateRecipeDto)
+  update(
+    @Req() req: IRequestWithUser,
+    @Param('id') id: string,
+    @Body() updateRecipeDto: UpdateRecipeDto
+  ) {
+    return this.recipesService.updateRecipe(id, updateRecipeDto, req.user)
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.recipesService.remove(+id)
+  remove(@Req() req: IRequestWithUser, @Param('id') id: string) {
+    return this.recipesService.removeRecipe(id, req.user)
   }
 }
