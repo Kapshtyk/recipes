@@ -27,12 +27,12 @@ export class IngredientsService {
     return ingredients
   }
 
-  async getOneIngredient(id: number): Promise<Ingredient> {
+  async getOneIngredient(id: string): Promise<Ingredient> {
     const ingredient = await this.ingredientRepository.findById(id)
     return ingredient
   }
 
-  async updateIngredient(id: number, updateIngredientDto: UpdateIngredientDto) {
+  async updateIngredient(id: string, updateIngredientDto: UpdateIngredientDto) {
     const updatedIngredient = await this.ingredientRepository.findByIdAndUpdate(
       id,
       updateIngredientDto,
@@ -41,7 +41,7 @@ export class IngredientsService {
     return updatedIngredient
   }
 
-  async removeIngredient(id: number) {
+  async removeIngredient(id: string) {
     await this.ingredientRepository.findByIdAndRemove(id)
     return { message: 'Ingredient was deleted' }
   }
@@ -54,5 +54,18 @@ export class IngredientsService {
       })
       .exec()
     return ingredient
+  }
+
+  async findIngredientsByQuery(query: string) {
+    console.log(query)
+    const ingredients = await this.ingredientRepository
+      .find({
+        name: {
+          $regex: query,
+          $options: 'i'
+        }
+      })
+      .exec()
+    return ingredients
   }
 }

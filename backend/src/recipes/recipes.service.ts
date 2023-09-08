@@ -124,16 +124,21 @@ export class RecipesService {
         updatedIngredients
       )
 
-      updatedRepice = await this.recipeRepository.findByIdAndUpdate(id, {
-        ...updateRecipeDto,
-        ingredients: updatedIngredientsRecipes.map(
-          (ingredient) => ingredient._id
-        )
-      })
+      updatedRepice = await this.recipeRepository.findByIdAndUpdate(
+        id,
+        {
+          ...updateRecipeDto,
+          ingredients: updatedIngredientsRecipes.map(
+            (ingredient) => ingredient._id
+          )
+        },
+        { new: true }
+      )
     } else {
       updatedRepice = await this.recipeRepository.findByIdAndUpdate(
         id,
-        updateRecipeDto
+        updateRecipeDto,
+        { new: true }
       )
     }
     return updatedRepice

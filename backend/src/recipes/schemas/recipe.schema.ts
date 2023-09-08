@@ -1,12 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { ApiProperty } from '@nestjs/swagger'
 import { HydratedDocument, SchemaTypes, Types } from 'mongoose'
 
 export type RecipeDocument = HydratedDocument<Recipe>
 
 @Schema()
 export class Recipe {
-  @ApiProperty({ example: 'Pasta', description: 'Title' })
   @Prop({
     required: true,
     minlength: 3,
@@ -14,25 +12,16 @@ export class Recipe {
   })
   title: string
 
-  @ApiProperty({ example: 'Italy', description: 'Origin' })
   @Prop({
     required: true
   })
   origin: string
 
-  @ApiProperty({
-    example: 'Pasta with tomato sauce',
-    description: 'Description'
-  })
   @Prop({
     required: true
   })
   description: string
 
-  @ApiProperty({
-    example: 'Cook pasta, add sauce',
-    description: 'Instructions'
-  })
   @Prop({
     required: true
   })
@@ -41,7 +30,6 @@ export class Recipe {
   @Prop({
     required: false
   })
-  @ApiProperty({ example: 'https://www.image.com', description: 'Image' })
   image: string
 
   @Prop([{ type: SchemaTypes.ObjectId, ref: 'IngredientRecipe' }])
