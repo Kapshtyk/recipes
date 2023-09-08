@@ -7,7 +7,7 @@ import {
 import { JwtService } from '@nestjs/jwt'
 import { compare, hash } from 'bcryptjs'
 import { CreateUserDto } from 'src/users/dto/create-user.dto'
-import { User, UserDocument } from 'src/users/schemas/users.schema'
+import { UserDocument } from 'src/users/schemas/users.schema'
 import { UsersService } from 'src/users/users.service'
 
 import { LoginUserDto } from './dto/login-user.dto'
@@ -24,7 +24,7 @@ export class AuthService {
     return this.generateToken(user)
   }
 
-  async registration(dto: CreateUserDto): Promise<{ token: string }> {
+  async registration(dto: CreateUserDto): Promise<UserDocument> {
     // TODO: delete this
     await this.userService.clear()
     const candidate = await this.userService.getUserByEmail(dto.email)
@@ -39,7 +39,8 @@ export class AuthService {
       ...dto,
       password: hashPassword
     })
-    return this.generateToken(user)
+
+    return user
   }
 
   async generateToken(user: UserDocument): Promise<{ token: string }> {

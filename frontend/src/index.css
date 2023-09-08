@@ -18,15 +18,6 @@ code {
     monospace;
 }
 
-.active {
-  text-decoration: underline !important;
-}
-
-a {
-  text-decoration: none;
-}
-
 #root {
-  position: relative;
-  height: 100vh;
+  @apply relative h-screen;
 }

@@ -1,7 +1,11 @@
 export interface IUser {
-  id?: number
-  firstname: string
-  lastname: string
+  username: string
   email: string
   password: string
+  _id?: string
+  __v?: number
+}
+
+export interface IToken {
+  token: string
 }
