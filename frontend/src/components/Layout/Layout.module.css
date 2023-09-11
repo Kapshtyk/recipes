@@ -1,0 +1,3 @@
+.outlet {
+  @apply flex flex-col xl:w-[1200px] mx-auto items-center;
+}

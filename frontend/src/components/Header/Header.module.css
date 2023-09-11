@@ -27,5 +27,5 @@
 }
 
 .header_title {
-  @apply text-5xl font-light;
+  @apply text-2xl sm:text-4xl font-light;
 }
