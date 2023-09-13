@@ -24,9 +24,9 @@ export class AuthService {
     return this.generateToken(user)
   }
 
-  async registration(dto: CreateUserDto): Promise<UserDocument> {
+  async registration(dto: CreateUserDto): Promise<Partial<UserDocument>> {
     // TODO: delete this
-    await this.userService.clear()
+    /* await this.userService.clear() */
     const candidate = await this.userService.getUserByEmail(dto.email)
     if (candidate) {
       throw new HttpException(

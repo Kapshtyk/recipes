@@ -1,22 +1,54 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
-import { IFormValues, useForm } from '../../hooks/useForm'
-import InputElement from '../InputComponent'
+import { IForm } from '.'
+import { IFormValuesAndErrors, useForm } from '../../hooks'
+import { InputElement } from '../InputElement'
 import styles from './Form.module.css'
-import { IFormProps } from './interfaces'
 
+const Form: React.FC<IForm> = ({
+  inputElements,
+  title,
+  noValidate,
+  onSubmit,
+  submissionErrors,
+  validators
+}) => {
+  const [isValid, setIsValid] = useState(false)
+  const initialValues: IFormValuesAndErrors = {}
+  const [validationAndsubmissionErrors, setValidationAndsubmissionErrors] =
+    useState({} as IFormValuesAndErrors)
 
-const Form: React.FC<IFormProps> = ({ inputElements, title, noValidate, onSubmit }) => {
-  const initialValues: IFormValues = {}
   inputElements.forEach((element) => {
     initialValues[element.name] = element.value
   })
 
-  const { values, handleChange } = useForm(initialValues)
+  const {
+    values,
+    handleChange,
+    handleTouch,
+    errors: validationErrors
+  } = useForm({ initialValues, validators })
+
+  useEffect(() => {
+    setIsValid(Object.keys(validationErrors).length > 0)
+  }, [validationErrors])
+
+  useEffect(() => {
+    setValidationAndsubmissionErrors({
+      ...submissionErrors,
+      ...validationErrors
+    })
+  }, [submissionErrors, validationErrors])
+
+  const checkIfErrorsExist =
+    validationAndsubmissionErrors &&
+    Object.keys(validationAndsubmissionErrors).length > 0
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    onSubmit(e, values)
+    if (!checkIfErrorsExist) {
+      onSubmit(e, values)
+    }
   }
 
   return (
@@ -29,6 +61,9 @@ const Form: React.FC<IFormProps> = ({ inputElements, title, noValidate, onSubmit
       {inputElements.map((element, index) => (
         <Fragment key={index}>
           <InputElement
+            style={{
+              borderColor: validationErrors[element.name] && 'rgb(249 115 22)'
+            }}
             inputStyles={styles.input}
             labelStyles={styles.label}
             containerStyles={styles.input_container}
@@ -37,15 +72,23 @@ const Form: React.FC<IFormProps> = ({ inputElements, title, noValidate, onSubmit
             type={element.type}
             placeholder={element.label}
             value={values[element.name]}
+            onBlur={() => handleTouch(element.name)}
             onChange={(e) => handleChange(element.name, e.target.value)}
           />
         </Fragment>
       ))}
-      <button type="submit" className={styles.button}>
+      {checkIfErrorsExist && (
+        <ul className={styles.error}>
+          {Object.keys(validationAndsubmissionErrors).map((key) => {
+            return <li key={key}>{validationAndsubmissionErrors[key]}</li>
+          })}
+        </ul>
+      )}
+      <button disabled={isValid} type="submit" className={styles.button}>
         Submit
       </button>
     </form>
   )
 }
 
-export default Form
+export { Form }
