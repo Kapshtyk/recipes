@@ -5,11 +5,13 @@ export interface IForm {
   title?: string
   noValidate?: boolean
   onSubmit: (e: React.FormEvent<HTMLFormElement>, values: object) => void
-  submissionErrors?: { [key: string]: string }
+  submittingErrors?: { [key: string]: string }
   validators?: {
     [key: string]: (
       value: string,
       values: { [key: string]: string }
     ) => string | null
   }
+  wide?: boolean
+  label: string
 }

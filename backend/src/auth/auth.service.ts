@@ -27,10 +27,13 @@ export class AuthService {
   async registration(dto: CreateUserDto): Promise<Partial<UserDocument>> {
     // TODO: delete this
     /* await this.userService.clear() */
-    const candidate = await this.userService.getUserByEmail(dto.email)
-    if (candidate) {
+    const candidateEmail = await this.userService.getUserByEmail(dto.email)
+    const candidateUsername = await this.userService.getUserByUsername(
+      dto.username
+    )
+    if (candidateEmail || candidateUsername) {
       throw new HttpException(
-        'User with this email already exists',
+        'User with this userdata already exists',
         HttpStatus.BAD_REQUEST
       )
     }

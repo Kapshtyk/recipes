@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
 
+import { setCurrentUser } from './features/auth/authSlice'
 import { IUser } from './models/IUser'
 import router from './router/router'
-import { setCurrentUser } from './store/user/currentUserSlice'
 import { APP_NAME } from './utils/constants'
+import { useAppDispatch } from './hooks'
 
 const App = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
     const currentUser = localStorage.getItem(`${APP_NAME}CurrentUser`)
     if (currentUser !== null) {

@@ -1,80 +1,99 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { Form } from '../components/Form'
-import { IUser } from '../models/IUser'
-import { addUserToLocalstorageAndStore } from '../store/user/actionCreators'
 import {
   useLoginUserMutation,
   useRegisterUserMutation
-} from '../store/user/userAPI'
+} from '../app/services/auth'
+import { Form } from '../components/Form'
+import { addUserToLocalstorageAndStore } from '../features/auth/authSlice'
+import { IUser } from '../models/IUser'
 import { SIGN_UP_INPUT_ELEMENTS } from '../utils/constants'
 import { authValidators } from '../validators/authValidators'
 
 const SignUp = () => {
-  const [registerUser, { error: regError }] = useRegisterUserMutation()
-  const [loginUser] = useLoginUserMutation()
+  const navigate = useNavigate()
+
+  const [
+    registerUser,
+    { data: regData, error: regError, reset: resetRegisterUser }
+  ] = useRegisterUserMutation()
+
+  const [
+    loginUser,
+    {
+      data: loginData,
+      isSuccess: loginIsSuccess,
+      error: loginError,
+      reset: resetLoginUser
+    }
+  ] = useLoginUserMutation()
+
   const [error, setError] = useState({})
 
-  const onSubmit = async (
-    e: React.FormEvent<HTMLFormElement>,
-    values: Partial<IUser>
-  ) => {
-    setError({})
-    const user = await registerUser(values)
-  }
-
   useEffect(() => {
-    console.log(regError)
+    handleErrors(regError)
   }, [regError])
 
-  /* const handleErrors = (e: unknown) => {
-    if (
-      e &&
-      typeof e === 'object' &&
-      'data' in e &&
-      e.data &&
-      typeof e.data === 'object' &&
-      'message' in e.data &&
-      Array.isArray(e.data.message)
-    ) {
-      setError(e.data.message)
-    } else if (
-      e &&
-      typeof e === 'object' &&
-      'message' in e) {
-      console.log(e.message)
-      setError({ message: e.message })
-    }
-  }
+  useEffect(() => {
+    handleErrors(loginError)
+  }, [loginError])
 
-  const onSubmit = async (
+  useEffect(() => {
+    if (loginIsSuccess && loginData) {
+      addUserToLocalstorageAndStore({
+        _id: regData?._id,
+        email: regData?.email,
+        username: regData?.username,
+        token: loginData?.token
+      })
+    }
+  }, [loginIsSuccess, loginData])
+
+  const onSubmit = (
     e: React.FormEvent<HTMLFormElement>,
     values: Partial<IUser>
   ) => {
-    setError({})
-    try {
-      const user = await registerUser(values).unwrap()
-      if ('_id' in user) {
-        try {
-          const { token } = await loginUser({
-            email: user.email,
-            password: 'brokenpassword' //values.password
-          }).unwrap()
-          addUserToLocalstorageAndStore({
-            ...user,
-            token
+    e.preventDefault()
+    setError(() => ({}))
+    registerUser(values)
+      .unwrap()
+      .then(() => {
+        loginUser({ email: values.email, password: values.password })
+          .then(() => {
+            resetRegisterUser()
+            resetLoginUser()
+            navigate('/')
           })
-        } catch (e) {
-          handleErrors(e)
-        }
+          .catch((e) => {
+            handleErrors(e)
+          })
+      })
+      .catch((e) => {
+        handleErrors(e)
+      })
+  }
+
+  const handleErrors = (e: unknown) => {
+    if (regError || loginError) {
+      if (
+        e &&
+        typeof e === 'object' &&
+        'data' in e &&
+        typeof e.data === 'object' &&
+        e.data &&
+        'message' in e.data &&
+        typeof e.data.message === 'string'
+      ) {
+        setError({ ...error, message: e.data.message })
+      } else if (e && typeof e === 'object' && 'message' in e) {
+        console.log(e.message)
+        setError({ ...error, message: e.message })
       } else {
-        console.log(user)
-        handleErrors(user)
+        console.error('unhandled exception: ', e)
       }
-    } catch (e) {
-      handleErrors(e)
     }
-  } */
+  }
 
   return (
     <Form
@@ -82,8 +101,9 @@ const SignUp = () => {
       title={'Sign up'}
       inputElements={SIGN_UP_INPUT_ELEMENTS}
       noValidate={true}
-      submissionErrors={error}
+      submittingErrors={error}
       validators={authValidators}
+      label='Sign up'
     />
   )
 }

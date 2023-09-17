@@ -1,0 +1,55 @@
+.recipe_container {
+  @apply w-11/12 h-full m-auto border border-gray-100 rounded-md shadow-md flex flex-col items-start;
+}
+
+.recipe_image_container {
+  @apply relative w-full h-56 overflow-hidden rounded-t-md;
+}
+
+.recipe_image {
+  @apply absolute top-0 left-0 w-full h-full object-cover z-10;
+}
+
+.recipe_header {
+  @apply p-3 font-normal text-gray-800 text-lg flex justify-start w-full;
+}
+
+.recipe_description {
+  @apply px-3 pb-3 flex justify-start w-full font-light text-sm;
+}
+
+.recipe_flag_container {
+  @apply absolute top-3 right-3 w-20 flex justify-center rounded-md overflow-hidden z-20 shadow-[5px_5px_7px_2px_rgba(0,0,0,0.3)] hover:shadow-[5px_5px_8px_3px_rgba(0,0,0,0.3)];
+}
+
+.recipe_flag_description {
+  @apply absolute top-0 right-0 bg-white h-full w-full text-gray-800 text-sm font-light justify-center opacity-0 items-center hover:opacity-75 flex z-50 transition-all duration-300 ease-in-out;
+}
+
+.recipe_author {
+  @apply px-3 pb-3 flex justify-start items-center w-full font-light text-sm;
+}
+
+.recipe_button_done {
+  @apply w-36
+    flex
+    justify-center
+    items-center
+    bg-white
+    hover:text-orange-300
+    active:text-orange-200
+    font-extrabold
+    py-2
+    px-4
+    rounded-md
+    text-orange-500
+    m-3
+    transition-all
+    duration-300
+    ease-in-out
+    focus:outline-orange-300
+    border-orange-500
+    hover:border-orange-300
+    active:border-orange-200
+    border;
+}

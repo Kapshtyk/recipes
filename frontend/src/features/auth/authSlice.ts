@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { IToken, IUser } from '../../models/IUser'
+import { IUser } from '../../models/IUser'
+import { APP_NAME } from '../../utils/constants'
 
 const initialState: Partial<IUser> = {
   username: '',
@@ -28,3 +29,13 @@ const currentUserSlice = createSlice({
 export const { setCurrentUser, clearCurrentUser } = currentUserSlice.actions
 
 export default currentUserSlice.reducer
+
+export const addUserToLocalstorageAndStore = (user: Partial<IUser>) => {
+  localStorage.setItem(`${APP_NAME}CurrentUser`, JSON.stringify(user))
+  setCurrentUser(user)
+}
+
+export const removeUserFromLocalstorageAndStore = () => {
+  localStorage.removeItem(`${APP_NAME}CurrentUser`)
+  clearCurrentUser()
+}

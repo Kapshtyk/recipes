@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import * as express from 'express'
 
 import { AppModule } from './App.module'
 
@@ -21,6 +22,7 @@ async function bootstrap() {
     origin: '*'
   })
   app.useGlobalPipes(new ValidationPipe())
+  app.use(express.json({ limit: '10mb' }))
   await app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
 }
 

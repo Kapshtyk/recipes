@@ -34,6 +34,11 @@ export class UsersService {
     return user
   }
 
+  async getUserByUsername(username: string): Promise<UserDocument> {
+    const user = await this.userRepository.findOne({ username })
+    return user
+  }
+
   async clear() {
     await this.userRepository.deleteMany({})
   }
