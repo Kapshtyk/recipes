@@ -17,7 +17,7 @@ const InputElement: React.FC<IInput> = ({
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(true)
 
   useEffect(() => {
-    if (value.length > 0) {
+    if (value && value.length > 0) {
       setLabelVisibility(true)
     } else {
       setLabelVisibility(false)

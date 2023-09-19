@@ -1,24 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Form } from '../components/Form'
-import { IRecipe, IRecipeForm } from '../models/IRecipe'
 import { useCreateRecipeMutation } from '../app/services/recipes'
+import { Form } from '../components/Form'
+import { IInput } from '../components/InputElement'
 import { useAppSelector } from '../hooks'
-
+import { IIngredientForm, IRecipeForm } from '../models/IRecipe'
 
 const AddRecipe = () => {
-  const currentUser = useAppSelector(state => state.auth)
-
-  useEffect(() => {
-    console.log(currentUser)
-  }, [currentUser])
+  const currentUser = useAppSelector((state) => state.auth)
 
   const [
     createRecipe,
     { data: recipeData, error: recipeError, reset: recipeReser }
   ] = useCreateRecipeMutation()
 
-  const inputElements = [
+  const initialFields = [
     {
       name: 'title',
       type: 'text',
@@ -29,12 +25,6 @@ const AddRecipe = () => {
       name: 'description',
       type: 'text',
       label: 'Description',
-      value: ''
-    },
-    {
-      name: 'ingredients',
-      type: 'text',
-      label: 'Ingredients',
       value: ''
     },
     {
@@ -58,18 +48,79 @@ const AddRecipe = () => {
     }
   ]
 
+  const [ingredients, setIngredients] = useState(1)
+  const [inputElements, setInputElements] = useState<IInput[]>(initialFields)
+
+  const generateFields = () => {
+    const fields = [...inputElements]
+    fields.push({
+      name: `name${ingredients}`,
+      type: 'text',
+      label: 'Ingredient name',
+      value: ''
+    })
+    fields.push({
+      name: `units${ingredients}`,
+      type: 'text',
+      label: 'Units',
+      value: ''
+    })
+    fields.push({
+      name: `quantity${ingredients}`,
+      type: 'number',
+      label: 'Quantity',
+      value: ''
+    })
+    return fields
+  }
+
+  useEffect(() => {
+    setInputElements(generateFields())
+  }, [])
+
+  useEffect(() => {
+    setInputElements(generateFields())
+  }, [ingredients])
+
   const onSubmit = async (
     e: React.FormEvent<HTMLFormElement>,
-    values: Partial<IRecipeForm>
+    values: IRecipeForm
   ) => {
     e.preventDefault()
-    await createRecipe({ ...values, author: currentUser, ingredients: [{ name: 'test', quantity: 1, units: 'kg' }] })
+    const ingredientsObjects: IIngredientForm[] = []
 
+    for (let index = 1; index <= ingredients; index++) {
+      const ingredient: IIngredientForm = {
+        name: values[`name${index}` as keyof IRecipeForm] as string,
+        quantity: values[`quantity${index}` as keyof IRecipeForm] as number,
+        units: values[`units${index}` as keyof IRecipeForm] as string
+      }
+      ingredientsObjects.push(ingredient)
+    }
+
+    const recipeData: IRecipeForm = {
+      title: values.title,
+      origin: values.origin,
+      description: values.description,
+      instructions: values.instructions,
+      image: values.image,
+      ingredients: ingredientsObjects,
+      author: currentUser
+    }
+
+    await createRecipe(recipeData)
   }
 
   return (
     <div>
-      <Form inputElements={inputElements} onSubmit={onSubmit} wide={true} title='Add new recipe' label='Add recipe' />
+      <Form
+        inputElements={inputElements}
+        onSubmit={onSubmit}
+        wide={true}
+        title="Add new recipe"
+        label="Add recipe"
+        additionalHandler={() => setIngredients(ingredients + 1)}
+      />
     </div>
   )
 }

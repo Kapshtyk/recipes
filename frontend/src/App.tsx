@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom'
 
 import { setCurrentUser } from './features/auth/authSlice'
+import { useAppDispatch } from './hooks'
 import { IUser } from './models/IUser'
 import router from './router/router'
 import { APP_NAME } from './utils/constants'
-import { useAppDispatch } from './hooks'
 
 const App = () => {
   const dispatch = useAppDispatch()

@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { IRecipe } from '../../models/IRecipe'
+import { Button } from '../../ui/Button'
 import Icons from '../../ui/icons'
 import { getCountryCode } from '../../utils/CountryCode'
 import styles from './RecipePreview.module.css'
-import { Button } from '../../ui/Button'
 
 export const RecipePreview: React.FC<IRecipe> = ({
   title,

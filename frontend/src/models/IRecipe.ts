@@ -14,13 +14,13 @@ export interface IRecipe {
 
 export interface IIRecipeIngredient {
   _id?: string
-  ingredient: IIngredient
+  ingredient: string
   quantity: number
   recipe: string
   __v: number
 }
 
-export interface IIngredient {
+export interface IIngredientForm {
   name: string
   units: string
   quantity: number
@@ -32,6 +32,6 @@ export interface IRecipeForm {
   description: string
   instructions: string
   image: string
-  ingredients: IIngredient[]
+  ingredients: IIngredientForm[]
   author: Partial<IUser>
 }

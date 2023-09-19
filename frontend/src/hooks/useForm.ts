@@ -31,6 +31,7 @@ export function useForm({ initialValues, validators }: IForm): IUseForm {
   const [touched, setTouched] = useState<ITouchedFields>({})
 
   useEffect(() => {
+    console.log(values)
     checkValues()
   }, [values, touched])
 

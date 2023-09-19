@@ -1,6 +1,9 @@
 import React from 'react'
 
+import { IIngredientForm } from '../../models/IRecipe'
+
 export interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
+  id?: string
   label: string
   name: string
   value: string

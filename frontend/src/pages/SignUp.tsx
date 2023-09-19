@@ -102,8 +102,8 @@ const SignUp = () => {
       inputElements={SIGN_UP_INPUT_ELEMENTS}
       noValidate={true}
       submittingErrors={error}
-      validators={authValidators}
-      label='Sign up'
+      /* validators={authValidators} */
+      label="Sign up"
     />
   )
 }

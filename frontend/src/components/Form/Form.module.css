@@ -7,14 +7,20 @@
 }
 
 .input_container {
-  @apply flex relative flex-col w-full sm:flex-row justify-center sm:items-center;
+  @apply relative grid grid-cols-3 w-full sm:flex-row justify-center gap-3 sm:items-center;
 }
 
-.input {
+.input,
+.multi_input {
   @apply relative font-light my-3 p-3 border border-gray-300 rounded-md sm:w-[300px] focus:outline-orange-300 focus:-outline-offset-1 focus:outline-2;
 }
 
-.input::placeholder, .dropzone_lable {
+.multi_input {
+  @apply w-[260px];
+}
+
+.input::placeholder,
+.dropzone_lable {
   @apply font-light text-zinc-400;
 }
 
@@ -31,11 +37,11 @@
 }
 
 .dropzone {
-  @apply  my-3 flex flex-col items-center justify-center w-full h-24 border border-dashed rounded-md border-gray-300 cursor-pointer;
+  @apply my-3 flex flex-col items-center justify-center w-full h-24 border border-dashed rounded-md border-gray-300 cursor-pointer;
 }
 
 .dropzone_inner {
-  @apply  grid p-2 grid-flow-row-dense grid-cols-3 grid-rows-1 gap-2 items-center justify-between w-full h-full overflow-hidden focus:outline-orange-300 focus:-outline-offset-1 focus:outline-2;
+  @apply grid p-2 grid-flow-row-dense grid-cols-3 grid-rows-1 gap-2 items-center justify-between w-full h-full overflow-hidden focus:outline-orange-300 focus:-outline-offset-1 focus:outline-2;
 }
 
 .dropzone_lable {
@@ -46,7 +52,8 @@
   @apply sm:w-[600px] md:w-[750px] lg:w-[900px];
 }
 
-.wide_input, .wide_dropzone {
+.wide_input,
+.wide_dropzone {
   @apply sm:w-[540px] md:w-[690px] lg:w-[840px];
 }
 

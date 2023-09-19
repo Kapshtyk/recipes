@@ -23,7 +23,7 @@
 }
 
 .recipe_flag_description {
-  @apply absolute top-0 right-0 bg-white h-full w-full text-gray-800 text-sm font-light justify-center opacity-0 items-center hover:opacity-75 flex z-50 transition-all duration-300 ease-in-out;
+  @apply absolute p-1 top-0 right-0 bg-white h-full w-full text-gray-800 text-xs font-light justify-center text-center opacity-0 items-center hover:opacity-75 flex z-50 transition-all duration-300 ease-in-out;
 }
 
 .recipe_author {

@@ -22,7 +22,7 @@ async function bootstrap() {
     origin: '*'
   })
   app.useGlobalPipes(new ValidationPipe())
-  app.use(express.json({ limit: '10mb' }))
+  app.use(express.json({ limit: '2mb' }))
   await app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
 }
 
