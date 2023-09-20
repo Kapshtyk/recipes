@@ -26,5 +26,43 @@ const SIGN_UP_INPUT_ELEMENTS = [
     value: ''
   }
 ]
+const CREARE_RECIPE_INPUT_ELEMENTS = [
+  {
+    name: 'title',
+    type: 'text',
+    label: 'Title',
+    value: ''
+  },
+  {
+    name: 'description',
+    type: 'text',
+    label: 'Description',
+    value: ''
+  },
+  {
+    name: 'origin',
+    type: 'text',
+    label: 'Origin',
+    value: ''
+  },
+  {
+    name: 'instructions',
+    type: 'textarea',
+    label: 'Instructions',
+    value: ''
+  },
+  {
+    name: 'photo',
+    type: 'file',
+    label: 'Photo',
+    value: '',
+    accept: 'image/*'
+  }
+]
 
-export { APP_NAME, BASE_URL, SIGN_UP_INPUT_ELEMENTS }
+export {
+  APP_NAME,
+  BASE_URL,
+  CREARE_RECIPE_INPUT_ELEMENTS,
+  SIGN_UP_INPUT_ELEMENTS
+}

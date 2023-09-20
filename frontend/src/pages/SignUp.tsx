@@ -5,7 +5,7 @@ import {
   useLoginUserMutation,
   useRegisterUserMutation
 } from '../app/services/auth'
-import { Form } from '../components/Form'
+import { Form } from '../components/Form/'
 import { addUserToLocalstorageAndStore } from '../features/auth/authSlice'
 import { IUser } from '../models/IUser'
 import { SIGN_UP_INPUT_ELEMENTS } from '../utils/constants'
@@ -102,7 +102,7 @@ const SignUp = () => {
       inputElements={SIGN_UP_INPUT_ELEMENTS}
       noValidate={true}
       submittingErrors={error}
-      /* validators={authValidators} */
+      validators={authValidators}
       label="Sign up"
     />
   )

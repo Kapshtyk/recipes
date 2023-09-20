@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
-import { IInput } from '.'
-import Icons from '../../ui/icons'
+import Icons from '../../../ui/icons'
+import styles from '../styles/Form.module.css'
+import { IInput } from '../types'
 
 const InputElement: React.FC<IInput> = ({
   name,
   label,
   type,
   value,
-  inputStyles,
-  labelStyles,
-  containerStyles,
+  wide,
+  validationErrors,
   ...rest
 }) => {
   const [lableVisibility, setLabelVisibility] = useState<boolean>(false)
@@ -29,28 +29,30 @@ const InputElement: React.FC<IInput> = ({
       setPasswordVisibility(false)
     }
   }, [type])
-  //TODO: add textarea
+
+
 
   return (
-    <div className={containerStyles}>
+    <div className={styles.input_container}>
       <label
         style={{ display: lableVisibility ? 'block' : 'none' }}
-        className={labelStyles}
+        className={`${styles.label} ${wide && styles.wide_label}`}
         htmlFor={name}
       >
         {label}
       </label>
       <input
-        className={inputStyles}
+        className={`${styles.input} ${wide && styles.wide_input}  ${validationErrors && styles.error_input}`}
         id={name}
         type={passwordVisibility ? type : 'password'}
         {...rest}
+        step={type === 'number' ? 0.01 : undefined}
       ></input>
       {type === 'password' && (
         <button
           style={{
             position: 'absolute',
-            right: '25px'
+            right: '50px'
           }}
           type="button"
           tabIndex={-1}

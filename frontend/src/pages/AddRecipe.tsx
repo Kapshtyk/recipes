@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 
 import { useCreateRecipeMutation } from '../app/services/recipes'
 import { Form } from '../components/Form'
-import { IInput } from '../components/InputElement'
+import { IInput } from '../components/Form/types'
 import { useAppSelector } from '../hooks'
 import { IIngredientForm, IRecipeForm } from '../models/IRecipe'
+import { CREARE_RECIPE_INPUT_ELEMENTS } from '../utils/constants'
+
 
 const AddRecipe = () => {
   const currentUser = useAppSelector((state) => state.auth)
@@ -14,49 +16,16 @@ const AddRecipe = () => {
     { data: recipeData, error: recipeError, reset: recipeReser }
   ] = useCreateRecipeMutation()
 
-  const initialFields = [
-    {
-      name: 'title',
-      type: 'text',
-      label: 'Title',
-      value: ''
-    },
-    {
-      name: 'description',
-      type: 'text',
-      label: 'Description',
-      value: ''
-    },
-    {
-      name: 'instructions',
-      type: 'textarea',
-      label: 'Instructions',
-      value: ''
-    },
-    {
-      name: 'origin',
-      type: 'text',
-      label: 'Origin',
-      value: ''
-    },
-    {
-      name: 'photo',
-      type: 'file',
-      label: 'Photo',
-      value: '',
-      accept: 'image/*'
-    }
-  ]
 
   const [ingredients, setIngredients] = useState(1)
-  const [inputElements, setInputElements] = useState<IInput[]>(initialFields)
+  const [inputElements, setInputElements] = useState<IInput[]>(CREARE_RECIPE_INPUT_ELEMENTS)
 
   const generateFields = () => {
     const fields = [...inputElements]
     fields.push({
       name: `name${ingredients}`,
       type: 'text',
-      label: 'Ingredient name',
+      label: 'Ingredient',
       value: ''
     })
     fields.push({
@@ -73,10 +42,6 @@ const AddRecipe = () => {
     })
     return fields
   }
-
-  useEffect(() => {
-    setInputElements(generateFields())
-  }, [])
 
   useEffect(() => {
     setInputElements(generateFields())
@@ -120,6 +85,7 @@ const AddRecipe = () => {
         title="Add new recipe"
         label="Add recipe"
         additionalHandler={() => setIngredients(ingredients + 1)}
+        additionalHandlerLabel="Add ingredient"
       />
     </div>
   )

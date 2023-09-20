@@ -23,17 +23,22 @@ interface IUseForm {
   errors: IFormValuesAndErrors
   handleChange: (name: string, value: string) => void
   handleTouch: (name: string) => void
+  isFormTouched: boolean
 }
 
 export function useForm({ initialValues, validators }: IForm): IUseForm {
   const [values, setValues] = useState<IFormValuesAndErrors>(initialValues)
   const [errors, setErrors] = useState<IFormValuesAndErrors>({})
-  const [touched, setTouched] = useState<ITouchedFields>({})
+  const [isFieldTouched, setIsFieldTouched] = useState<ITouchedFields>({})
+  const [isFormTouched, setIsFormTouched] = useState<boolean>(false)
 
   useEffect(() => {
-    console.log(values)
+    setValues({ ...initialValues })
+  }, [initialValues])
+
+  useEffect(() => {
     checkValues()
-  }, [values, touched])
+  }, [isFieldTouched])
 
   const checkValues = () => {
     const newErrors: IFormValuesAndErrors = {}
@@ -42,7 +47,7 @@ export function useForm({ initialValues, validators }: IForm): IUseForm {
       const value = values[key]
       const validator = validators && validators[key]
 
-      if (touched[key] && validator) {
+      if (isFieldTouched[key] && validator) {
         const error = validator(value, values)
         if (error && typeof error === 'string') {
           newErrors[key] = error
@@ -54,17 +59,22 @@ export function useForm({ initialValues, validators }: IForm): IUseForm {
   }
 
   const handleChange = (name: string, value: string) => {
+    setIsFormTouched(true)
     setValues((prevValues) => ({ ...prevValues, [name]: value }))
   }
 
   const handleTouch = (name: string) => {
-    setTouched((prevTouched) => ({ ...prevTouched, [name]: true }))
+    setIsFieldTouched((prevIsFieldTouched) => ({
+      ...prevIsFieldTouched,
+      [name]: true
+    }))
   }
 
   return {
     values,
     errors,
     handleChange,
-    handleTouch
+    handleTouch,
+    isFormTouched
   }
 }

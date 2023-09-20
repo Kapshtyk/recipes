@@ -1,20 +1,13 @@
 import React, { useState } from 'react'
 import { FileWithPath, useDropzone } from 'react-dropzone'
 
-interface IProps {
-  onUpload: (data: string) => void
-  zoneStyles?: string
-  innerZoneStyles?: string
-  labelStyles?: string
-  accept?: string
-}
+import styles from '../styles/Form.module.css'
+import { IDropZone } from '../types/interfaces'
 
-const FileDropzone: React.FC<IProps> = ({
+const FileDropzone: React.FC<IDropZone> = ({
   onUpload,
-  zoneStyles,
-  innerZoneStyles,
-  labelStyles,
-  accept = 'image/*'
+  accept = 'image/*',
+  wide
 }) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
@@ -52,13 +45,15 @@ const FileDropzone: React.FC<IProps> = ({
   }
 
   return (
-    <section className={zoneStyles}>
-      <div {...getRootProps({ className: `${innerZoneStyles}` })}>
+    <section className={`${styles.dropzone} ${wide && styles.wide_dropzone}`}>
+      <div {...getRootProps({ className: `${styles.dropzone_inner}` })}>
         <input {...getInputProps()} />
-        <p className={labelStyles}>
+        <p
+          className={`${styles.dropzone_lable} ${wide && styles.wide_dropzone_lable}`}
+        >
           {error
             ? error
-            : 'Drag and drop image here or click to upload it (1 mb max)'}
+            : 'Drag and drop image here or click to upload it (1mb max)'}
         </p>
         {image && (
           <img
