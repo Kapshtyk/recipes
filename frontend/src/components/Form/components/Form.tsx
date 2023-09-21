@@ -19,11 +19,14 @@ const Form: React.FC<IForm> = ({
   wide,
   label,
   additionalHandler,
-  additionalHandlerLabel
+  additionalHandlerLabel,
+  setValues
 }) => {
+
   const [isValid, setIsValid] = useState(false)
   const [validationAndsubmissionErrors, setValidationAndsubmissionErrors] =
     useState({} as IFormValuesAndErrors)
+
   const initialValues = useMemo(() => {
     const values: IFormValuesAndErrors = {}
     inputElements.forEach((element) => {
@@ -31,6 +34,7 @@ const Form: React.FC<IForm> = ({
     })
     return values
   }, [inputElements])
+
   const [image, setImage] = useState<string | null>(null)
 
   const {
@@ -40,6 +44,12 @@ const Form: React.FC<IForm> = ({
     errors: validationErrors,
     isFormTouched
   } = useForm({ initialValues, validators })
+
+  useEffect(() => {
+    if (setValues) {
+      setValues(values)
+    }
+  }, [values])
 
   useEffect(() => {
     if (isFormTouched) {

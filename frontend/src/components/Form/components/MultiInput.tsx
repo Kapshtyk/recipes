@@ -22,7 +22,6 @@ const MultiInput: React.FC<IMultiInput> = ({
   onBlur,
   onChange
 }) => {
-  console.log(elements)
   return (
     <fieldset className={`${styles.input_container}`}>
       {elements.map((element, index) => (
