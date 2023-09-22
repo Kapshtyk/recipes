@@ -13,7 +13,6 @@ const TextAreaElement: React.FC<ITextArea> = ({
 }) => {
   const [lableVisibility, setLabelVisibility] = useState<boolean>(false)
 
-
   useEffect(() => {
     if (value && value.length > 0) {
       setLabelVisibility(true)
@@ -32,7 +31,9 @@ const TextAreaElement: React.FC<ITextArea> = ({
         {label}
       </label>
       <textarea
-        className={`${styles.text_area} ${wide && styles.wide_text_area}  ${validationErrors && styles.error_input}`}
+        className={`${styles.text_area} ${wide && styles.wide_text_area}  ${
+          validationErrors && styles.error_input
+        }`}
         id={name}
         {...rest}
       ></textarea>

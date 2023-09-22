@@ -1,22 +1,26 @@
 import React, { useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom'
 
-import { setCurrentUser } from './features/auth/authSlice'
-import { useAppDispatch } from './hooks'
-import { IUser } from './models/IUser'
 import router from './router/router'
-import { APP_NAME } from './utils/constants'
+import { selectCurrentUser, clearCurrentUser } from './features/auth/authSlice'
+import { useAppSelector, useAppDispatch } from './hooks'
+
+import jwt_decode, { JwtPayload } from 'jwt-decode'
 
 const App = () => {
+  const auth = useAppSelector(selectCurrentUser)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    const currentUser = localStorage.getItem(`${APP_NAME}CurrentUser`)
-    if (currentUser !== null) {
-      const user = JSON.parse(currentUser) as Partial<IUser>
-      dispatch(setCurrentUser(user))
+    if (auth && auth.token) {
+      const decoded: JwtPayload = jwt_decode(auth.token) as JwtPayload
+      const currentTime = Date.now() / 1000
+      if (decoded && 'exp' in decoded && decoded.exp && decoded.exp < currentTime) {
+        console.log('Token expired')
+        dispatch(clearCurrentUser())
+      }
     }
-  }, [])
+  }, [auth])
 
   return <RouterProvider router={router} />
 }

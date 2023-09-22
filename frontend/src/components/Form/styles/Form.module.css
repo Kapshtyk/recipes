@@ -58,13 +58,13 @@
 .wide_form {
   @apply sm:w-[600px] md:w-[750px] lg:w-[900px];
 }
-    
+
 .wide_label {
   @apply -top-1 right-1 sm:right-8;
 }
 
 .multi_input {
-  @apply w-full
+  @apply w-full;
 }
 
 .addition_button {

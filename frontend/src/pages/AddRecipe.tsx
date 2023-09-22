@@ -7,7 +7,6 @@ import { useAppSelector } from '../hooks'
 import { IIngredientForm, IRecipeForm } from '../models/IRecipe'
 import { CREARE_RECIPE_INPUT_ELEMENTS } from '../utils/constants'
 
-
 const AddRecipe = () => {
   const currentUser = useAppSelector((state) => state.auth)
 
@@ -16,9 +15,10 @@ const AddRecipe = () => {
     { data: recipeData, error: recipeError, reset: recipeReser }
   ] = useCreateRecipeMutation()
 
-
   const [ingredients, setIngredients] = useState(1)
-  const [inputElements, setInputElements] = useState<IInput[]>(CREARE_RECIPE_INPUT_ELEMENTS)
+  const [inputElements, setInputElements] = useState<IInput[]>(
+    CREARE_RECIPE_INPUT_ELEMENTS
+  )
 
   const generateFields = () => {
     const fields = [...inputElements]

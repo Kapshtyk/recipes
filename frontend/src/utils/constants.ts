@@ -26,6 +26,20 @@ const SIGN_UP_INPUT_ELEMENTS = [
     value: ''
   }
 ]
+export const SIGN_IN_INPUT_ELEMENTS = [
+  {
+    name: 'email',
+    label: 'Email',
+    type: 'email',
+    value: ''
+  },
+  {
+    name: 'password',
+    label: 'Password',
+    type: 'password',
+    value: ''
+  }
+]
 const CREARE_RECIPE_INPUT_ELEMENTS = [
   {
     name: 'title',

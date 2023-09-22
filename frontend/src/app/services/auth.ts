@@ -14,6 +14,7 @@ export const usersApi = createApi({
         method: 'POST',
         body: credentials
       }),
+      //TODO: fix it
       invalidatesTags: ['currentUser']
     }),
     loginUser: builder.mutation<IToken, Partial<IUser>>({

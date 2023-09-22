@@ -49,7 +49,9 @@ const FileDropzone: React.FC<IDropZone> = ({
       <div {...getRootProps({ className: `${styles.dropzone_inner}` })}>
         <input {...getInputProps()} />
         <p
-          className={`${styles.dropzone_lable} ${wide && styles.wide_dropzone_lable}`}
+          className={`${styles.dropzone_lable} ${
+            wide && styles.wide_dropzone_lable
+          }`}
         >
           {error
             ? error

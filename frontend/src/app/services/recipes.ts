@@ -3,12 +3,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 import { IRecipe, IRecipeForm } from '../../models/IRecipe'
 import { APP_NAME, BASE_URL } from '../../utils/constants'
 
-const currentUser = localStorage.getItem(`${APP_NAME}CurrentUser`)
-let token = ''
-
-if (currentUser) {
-  token = JSON.parse(currentUser).token
-}
 export const recipesApi = createApi({
   reducerPath: 'recipesApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
@@ -25,7 +19,8 @@ export const recipesApi = createApi({
         method: 'POST',
         body,
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${localStorage.getItem(`${APP_NAME}-token`)}
+          `
         }
       }),
       invalidatesTags: ['recipes']

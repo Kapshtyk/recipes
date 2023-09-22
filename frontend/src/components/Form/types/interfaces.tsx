@@ -34,7 +34,8 @@ export interface IDropZone {
   wide?: boolean
 }
 
-export interface ITextArea extends React.InputHTMLAttributes<HTMLTextAreaElement> {
+export interface ITextArea
+  extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   label: string
   wide?: boolean
   value: string

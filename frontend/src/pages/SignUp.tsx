@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import {
-  useLoginUserMutation,
-  useRegisterUserMutation
-} from '../app/services/auth'
+import { useRegisterUserMutation, useLoginUserMutation } from '../app/services/auth'
 import { Form } from '../components/Form/'
-import { addUserToLocalstorageAndStore } from '../features/auth/authSlice'
+import { setCurrentUser } from '../features/auth/authSlice'
+import { useAppDispatch } from '../hooks'
 import { IUser } from '../models/IUser'
 import { SIGN_UP_INPUT_ELEMENTS } from '../utils/constants'
 import { authValidators } from '../validators/authValidators'
 
 const SignUp = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const [
     registerUser,
@@ -40,13 +39,15 @@ const SignUp = () => {
   }, [loginError])
 
   useEffect(() => {
-    if (loginIsSuccess && loginData) {
-      addUserToLocalstorageAndStore({
-        _id: regData?._id,
-        email: regData?.email,
-        username: regData?.username,
-        token: loginData?.token
-      })
+    if (loginIsSuccess && loginData && regData) {
+      dispatch(
+        setCurrentUser({
+          _id: regData._id,
+          email: regData.email,
+          username: regData.username,
+          token: loginData.token
+        })
+      )
     }
   }, [loginIsSuccess, loginData])
 
@@ -65,11 +66,11 @@ const SignUp = () => {
             resetLoginUser()
             navigate('/')
           })
-          .catch((e) => {
+          .catch((e: unknown) => {
             handleErrors(e)
           })
       })
-      .catch((e) => {
+      .catch((e: unknown) => {
         handleErrors(e)
       })
   }

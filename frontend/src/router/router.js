@@ -6,7 +6,9 @@ import { RecipeDetails } from '../components/Recipe'
 import { RecipesList } from '../components/RecipesList'
 import AddRecipe from '../pages/AddRecipe'
 import Homepage from '../pages/Homepage'
+import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
+import PrivateRoutes from './PrivateRoutes'
 
 const router = createBrowserRouter([
   {
@@ -15,7 +17,15 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Homepage /> },
       { path: '/signup', element: <SignUp /> },
-      { path: '/create', element: <AddRecipe /> },
+      { path: '/signin', element: <SignIn /> },
+      {
+        path: '/create',
+        element: (
+          <PrivateRoutes>
+            <AddRecipe />
+          </PrivateRoutes>
+        )
+      },
       { path: '/recipes', element: <RecipesList /> },
       { path: '/recipes/:id', element: <RecipeDetails /> }
     ]

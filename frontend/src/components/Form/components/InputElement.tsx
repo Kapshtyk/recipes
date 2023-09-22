@@ -30,8 +30,6 @@ const InputElement: React.FC<IInput> = ({
     }
   }, [type])
 
-
-
   return (
     <div className={styles.input_container}>
       <label
@@ -42,7 +40,9 @@ const InputElement: React.FC<IInput> = ({
         {label}
       </label>
       <input
-        className={`${styles.input} ${wide && styles.wide_input}  ${validationErrors && styles.error_input}`}
+        className={`${styles.input} ${wide && styles.wide_input}  ${
+          validationErrors && styles.error_input
+        }`}
         id={name}
         type={passwordVisibility ? type : 'password'}
         {...rest}
