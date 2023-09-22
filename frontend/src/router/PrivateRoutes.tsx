@@ -1,15 +1,22 @@
-import React from 'react'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 
 import { selectCurrentUser } from '../features/auth/authSlice'
-import { useAppSelector } from '../hooks'
+import { useAppDispatch, useAppSelector } from '../hooks'
 
-const PrivateRoutes = () => {
+interface IPrivateRoutes {
+  children: React.ReactNode
+}
+
+const PrivateRoutes: IPrivateRoutes = (children) => {
   const auth = useAppSelector(selectCurrentUser)
-  if (auth) {
-    return auth.token ? <Outlet /> : <Navigate to="/login" />
+  console.log(auth)
+  if (auth && auth.token) {
+    return <Outlet />
+  } else {
+    <Navigate to="/signin" />
   }
-
 }
 
 export default PrivateRoutes

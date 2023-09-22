@@ -24,12 +24,11 @@ const AddRecipe = () => {
   const [values, setValues] = useState<IValues>({})
 
   useEffect(() => {
-    const sss = [...inputElements]
-
-    sss.forEach((element) => {
+    const currentElements = [...inputElements]
+    currentElements.forEach((element) => {
       element.value = values[element.name]
     })
-    setInputElements(sss)
+    setInputElements(currentElements)
   }, [ingredients])
 
   const generateFields = () => {

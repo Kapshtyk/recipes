@@ -16,7 +16,6 @@ const App = () => {
       const decoded: JwtPayload = jwt_decode(auth.token) as JwtPayload
       const currentTime = Date.now() / 1000
       if (decoded && 'exp' in decoded && decoded.exp && decoded.exp < currentTime) {
-        console.log('Token expired')
         dispatch(clearCurrentUser())
       }
     }

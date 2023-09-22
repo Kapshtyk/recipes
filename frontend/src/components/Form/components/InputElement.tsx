@@ -40,9 +40,7 @@ const InputElement: React.FC<IInput> = ({
         {label}
       </label>
       <input
-        className={`${styles.input} ${wide && styles.wide_input}  ${
-          validationErrors && styles.error_input
-        }`}
+        className={`${styles.input} ${wide && styles.wide_input}  ${validationErrors && styles.error_input}`}
         id={name}
         type={passwordVisibility ? type : 'password'}
         {...rest}
@@ -52,7 +50,8 @@ const InputElement: React.FC<IInput> = ({
         <button
           style={{
             position: 'absolute',
-            right: '12px'
+            right: '10px',
+            opacity: 0.5,
           }}
           type="button"
           tabIndex={-1}
