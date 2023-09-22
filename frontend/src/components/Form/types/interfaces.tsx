@@ -16,6 +16,7 @@ export interface IForm {
   label: string
   additionalHandler?: () => void
   additionalHandlerLabel?: string
+  setValues?: React.Dispatch<React.SetStateAction<any>>
 }
 
 export interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {

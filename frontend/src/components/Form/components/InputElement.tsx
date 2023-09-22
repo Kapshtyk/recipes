@@ -13,16 +13,16 @@ const InputElement: React.FC<IInput> = ({
   validationErrors,
   ...rest
 }) => {
-  const [lableVisibility, setLabelVisibility] = useState<boolean>(false)
+  /* const [lableVisibility, setLabelVisibility] = useState<boolean>(false) */
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(true)
 
-  useEffect(() => {
-    if (value && value.length > 0) {
-      setLabelVisibility(true)
-    } else {
-      setLabelVisibility(false)
-    }
-  }, [value])
+  /*  useEffect(() => {
+     if (value && value.length > 0) {
+       setLabelVisibility(true)
+     } else {
+       setLabelVisibility(false)
+     }
+   }, []) */
 
   useEffect(() => {
     if (type === 'password') {
@@ -33,7 +33,7 @@ const InputElement: React.FC<IInput> = ({
   return (
     <div className={styles.input_container}>
       <label
-        style={{ display: lableVisibility ? 'block' : 'none' }}
+        style={{ display: (value && value.length != 0) ? 'block' : 'none' }}
         className={`${styles.label} ${wide && styles.wide_label}`}
         htmlFor={name}
       >
@@ -52,7 +52,7 @@ const InputElement: React.FC<IInput> = ({
         <button
           style={{
             position: 'absolute',
-            right: '50px'
+            right: '12px'
           }}
           type="button"
           tabIndex={-1}
