@@ -1,27 +1,37 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { useCreateRecipeMutation } from '../app/services/recipes'
 import { Form } from '../components/Form'
 import { IInput } from '../components/Form/types'
-import { useAppSelector } from '../hooks'
 import { IIngredientForm, IRecipeForm } from '../models/IRecipe'
 import { CREARE_RECIPE_INPUT_ELEMENTS } from '../utils/constants'
+import { recipeValidators } from '../validators'
+import { handleErrors } from '../utils/handleErrors'
 
 interface IValues {
-  [key: string]: string;
+  [key: string]: string
 }
 
 const AddRecipe = () => {
-  const currentUser = useAppSelector((state) => state.auth)
-
-  const [
-    createRecipe,
-    { data: recipeData, error: recipeError, reset: recipeReser }
-  ] = useCreateRecipeMutation()
-
+  const [createRecipe, { data: recipeData, error: recipeError }] = useCreateRecipeMutation()
   const [ingredients, setIngredients] = useState(1)
   const [inputElements, setInputElements] = useState<IInput[]>(CREARE_RECIPE_INPUT_ELEMENTS)
   const [values, setValues] = useState<IValues>({})
+  const navigate = useNavigate()
+  const [error, setError] = useState({})
+
+  useEffect(() => {
+    if (recipeError) {
+      handleErrors(recipeError, error, setError)
+    }
+  }, [recipeError])
+
+  useEffect(() => {
+    if (recipeData) {
+      navigate(`/recipes/${recipeData._id}`)
+    }
+  }, [recipeData])
 
   useEffect(() => {
     const currentElements = [...inputElements]
@@ -58,17 +68,14 @@ const AddRecipe = () => {
     setInputElements(generateFields())
   }, [ingredients])
 
-  const onSubmit = async (
-    e: React.FormEvent<HTMLFormElement>,
-    values: IRecipeForm
-  ) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>, values: IRecipeForm) => {
     e.preventDefault()
     const ingredientsObjects: IIngredientForm[] = []
 
     for (let index = 1; index <= ingredients; index++) {
       const ingredient: IIngredientForm = {
         name: values[`name${index}` as keyof IRecipeForm] as string,
-        quantity: values[`quantity${index}` as keyof IRecipeForm] as number,
+        quantity: values[`quantity${index}` as keyof IRecipeForm] as unknown as number,
         units: values[`units${index}` as keyof IRecipeForm] as string
       }
       ingredientsObjects.push(ingredient)
@@ -80,11 +87,10 @@ const AddRecipe = () => {
       description: values.description,
       instructions: values.instructions,
       image: values.image,
-      ingredients: ingredientsObjects,
-      author: currentUser
+      ingredients: ingredientsObjects
     }
 
-    await createRecipe(recipeData)
+    createRecipe(recipeData)
   }
 
   return (
@@ -95,6 +101,8 @@ const AddRecipe = () => {
         wide={true}
         title="Add new recipe"
         label="Add recipe"
+        noValidate={true}
+        validators={recipeValidators}
         additionalHandler={() => setIngredients(ingredients + 1)}
         additionalHandlerLabel="Add ingredient"
         setValues={setValues}

@@ -74,9 +74,13 @@ const CREARE_RECIPE_INPUT_ELEMENTS = [
   }
 ]
 
-export {
-  APP_NAME,
-  BASE_URL,
-  CREARE_RECIPE_INPUT_ELEMENTS,
-  SIGN_UP_INPUT_ELEMENTS
-}
+const ADD_COMMENT_INPUT_ELEMENTS = [
+  {
+    name: 'comment',
+    type: 'textarea',
+    label: 'Comment',
+    value: ''
+  }
+]
+
+export { APP_NAME, BASE_URL, CREARE_RECIPE_INPUT_ELEMENTS, SIGN_UP_INPUT_ELEMENTS, ADD_COMMENT_INPUT_ELEMENTS }

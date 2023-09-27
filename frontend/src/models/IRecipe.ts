@@ -14,7 +14,7 @@ export interface IRecipe {
 
 export interface IIRecipeIngredient {
   _id?: string
-  ingredient: string
+  ingredient: IIngredient
   quantity: number
   recipe: string
   __v: number
@@ -33,5 +33,10 @@ export interface IRecipeForm {
   instructions: string
   image: string
   ingredients: IIngredientForm[]
-  author: Partial<IUser>
+}
+
+export interface IIngredient {
+  _id: string
+  name: string
+  units: string
 }

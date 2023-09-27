@@ -3,14 +3,7 @@ import React, { useEffect, useState } from 'react'
 import styles from '../styles/Form.module.css'
 import { ITextArea } from '../types'
 
-const TextAreaElement: React.FC<ITextArea> = ({
-  name,
-  label,
-  value,
-  wide,
-  validationErrors,
-  ...rest
-}) => {
+const TextAreaElement: React.FC<ITextArea> = ({ name, label, value, wide, validationErrors, ...rest }) => {
   const [lableVisibility, setLabelVisibility] = useState<boolean>(false)
 
   useEffect(() => {
@@ -31,9 +24,7 @@ const TextAreaElement: React.FC<ITextArea> = ({
         {label}
       </label>
       <textarea
-        className={`${styles.text_area} ${wide && styles.wide_text_area}  ${
-          validationErrors && styles.error_input
-        }`}
+        className={`${styles.text_area} ${wide && styles.wide_text_area}  ${validationErrors && styles.error_input}`}
         id={name}
         {...rest}
       ></textarea>

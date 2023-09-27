@@ -57,7 +57,6 @@ export class IngredientsService {
   }
 
   async findIngredientsByQuery(query: string) {
-    console.log(query)
     const ingredients = await this.ingredientRepository
       .find({
         name: {

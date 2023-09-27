@@ -9,13 +9,12 @@ interface IPrivateRoutes {
   children: React.ReactNode
 }
 
-const PrivateRoutes: IPrivateRoutes = (children) => {
+const PrivateRoutes = (children: JSX.Element) => {
   const auth = useAppSelector(selectCurrentUser)
-  console.log(auth)
   if (auth && auth.token) {
     return <Outlet />
   } else {
-    <Navigate to="/signin" />
+    ;<Navigate to="/signin" />
   }
 }
 

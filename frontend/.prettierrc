@@ -4,7 +4,7 @@
   "semi": false,
   "singleQuote": true,
   "trailingComma": "none",
-  "printWidth": 80,
+  "printWidth": 130,
   "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrder": [
     "^(next/(.*)$)|^(next$)",

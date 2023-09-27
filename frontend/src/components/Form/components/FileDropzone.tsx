@@ -4,11 +4,7 @@ import { FileWithPath, useDropzone } from 'react-dropzone'
 import styles from '../styles/Form.module.css'
 import { IDropZone } from '../types/interfaces'
 
-const FileDropzone: React.FC<IDropZone> = ({
-  onUpload,
-  accept = 'image/*',
-  wide
-}) => {
+const FileDropzone: React.FC<IDropZone> = ({ onUpload, accept = 'image/*', wide }) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
       const file = acceptedFiles[0]
@@ -48,22 +44,10 @@ const FileDropzone: React.FC<IDropZone> = ({
     <section className={`${styles.dropzone} ${wide && styles.wide_dropzone}`}>
       <div {...getRootProps({ className: `${styles.dropzone_inner}` })}>
         <input {...getInputProps()} />
-        <p
-          className={`${styles.dropzone_lable} ${
-            wide && styles.wide_dropzone_lable
-          }`}
-        >
-          {error
-            ? error
-            : 'Drag and drop image here or click to upload it (1mb max)'}
+        <p className={`${styles.dropzone_lable} ${wide && styles.wide_dropzone_lable}`}>
+          {error ? error : 'Drag and drop image here or click to upload it (1mb max)'}
         </p>
-        {image && (
-          <img
-            className="justify-self-end w-[100px]"
-            src={image}
-            alt="preview"
-          />
-        )}
+        {image && <img className="justify-self-end w-[100px]" src={image} alt="preview" />}
       </div>
     </section>
   )

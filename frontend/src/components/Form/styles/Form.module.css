@@ -1,5 +1,5 @@
 .form {
-  @apply flex flex-col items-center justify-center p-4 w-[360px] m-4 border border-gray-100 rounded-md shadow-md;
+  @apply flex flex-col items-center justify-center p-4 w-[360px] my-4 border border-gray-100 rounded-md shadow-md;
 }
 
 .title {
@@ -7,7 +7,7 @@
 }
 
 .input_container {
-  @apply relative flex flex-row justify-center gap-2 w-full sm:flex-row sm:items-center;
+  @apply relative flex flex-row justify-center gap-2 w-full sm:items-center;
 }
 
 .input,
@@ -59,6 +59,10 @@
   @apply sm:w-[600px] md:w-[750px] lg:w-[900px];
 }
 
+.full_form {
+  @apply w-full;
+}
+
 .wide_label {
   @apply -top-1 right-1 sm:right-8;
 }
@@ -89,4 +93,12 @@
     hover:border-orange-300
     active:border-orange-200
     border;
+}
+
+.input_autofill_container {
+  @apply absolute w-full top-14 left-0 p-3 bg-white border border-gray-300 rounded-md;
+}
+
+.input_autofill_items {
+  @apply font-light my-2 p-3 hover:bg-slate-200 cursor-pointer rounded-md;
 }

@@ -1,42 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useRegisterUserMutation, useLoginUserMutation } from '../app/services/auth'
+import { useLoginUserMutation, useRegisterUserMutation } from '../app/services/auth'
 import { Form } from '../components/Form/'
 import { setCurrentUser } from '../features/auth/authSlice'
 import { useAppDispatch } from '../hooks'
 import { IUser } from '../models/IUser'
 import { SIGN_UP_INPUT_ELEMENTS } from '../utils/constants'
-import { authValidators } from '../validators/authValidators'
+import { handleErrors } from '../utils/handleErrors'
+import { signupValidators } from '../validators'
 
 const SignUp = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const [values, setValues] = useState({} as IUser)
+  const [registerUser, { data: regData, isSuccess: regSuccess, error: regError }] = useRegisterUserMutation()
 
-  const [
-    registerUser,
-    { data: regData, error: regError, reset: resetRegisterUser }
-  ] = useRegisterUserMutation()
-
-  const [
-    loginUser,
-    {
-      data: loginData,
-      isSuccess: loginIsSuccess,
-      error: loginError,
-      reset: resetLoginUser
-    }
-  ] = useLoginUserMutation()
+  const [loginUser, { data: loginData, isSuccess: loginIsSuccess, error: loginError }] = useLoginUserMutation()
 
   const [error, setError] = useState({})
 
   useEffect(() => {
-    handleErrors(regError)
+    if (regError) {
+      handleErrors(regError, error, setError)
+    }
   }, [regError])
 
   useEffect(() => {
-    handleErrors(loginError)
+    if (loginError) {
+      handleErrors(loginError, error, setError)
+    }
   }, [loginError])
+
+  useEffect(() => {
+    if (regSuccess && regData) {
+      loginUser({ email: values.email, password: values.password })
+    }
+  }, [regData, regSuccess])
 
   useEffect(() => {
     if (loginIsSuccess && loginData && regData) {
@@ -48,52 +48,14 @@ const SignUp = () => {
           token: loginData.token
         })
       )
+      navigate('/')
     }
   }, [loginIsSuccess, loginData])
 
-  const onSubmit = (
-    e: React.FormEvent<HTMLFormElement>,
-    values: Partial<IUser>
-  ) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>, values: Partial<IUser>) => {
     e.preventDefault()
     setError(() => ({}))
     registerUser(values)
-      .unwrap()
-      .then(() => {
-        loginUser({ email: values.email, password: values.password })
-          .then(() => {
-            resetRegisterUser()
-            resetLoginUser()
-            navigate('/')
-          })
-          .catch((e: unknown) => {
-            handleErrors(e)
-          })
-      })
-      .catch((e: unknown) => {
-        handleErrors(e)
-      })
-  }
-
-  const handleErrors = (e: unknown) => {
-    if (regError || loginError) {
-      if (
-        e &&
-        typeof e === 'object' &&
-        'data' in e &&
-        typeof e.data === 'object' &&
-        e.data &&
-        'message' in e.data &&
-        typeof e.data.message === 'string'
-      ) {
-        setError({ ...error, message: e.data.message })
-      } else if (e && typeof e === 'object' && 'message' in e) {
-        console.log(e.message)
-        setError({ ...error, message: e.message })
-      } else {
-        console.error('unhandled exception: ', e)
-      }
-    }
   }
 
   return (
@@ -103,8 +65,9 @@ const SignUp = () => {
       inputElements={SIGN_UP_INPUT_ELEMENTS}
       noValidate={true}
       submittingErrors={error}
-      validators={authValidators}
+      validators={signupValidators}
       label="Sign up"
+      setValues={setValues}
     />
   )
 }

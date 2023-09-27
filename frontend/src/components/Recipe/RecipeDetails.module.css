@@ -1,0 +1,47 @@
+.container {
+  @apply sm:w-9/12 lg:w-7/12 xl:w-6/12 m-auto sm:mt-3 sm:border border-gray-100 sm:rounded-md sm:shadow-md flex flex-col;
+}
+
+.image_container {
+  @apply sm:w-9/12 lg:w-7/12 xl:w-6/12 overflow-hidden rounded-t-md;
+}
+
+.image {
+  @apply w-full h-auto sm:rounded-t-md;
+}
+
+.data_container {
+  @apply p-4;
+}
+
+.instructions {
+  @apply before:content-['🥘']  before:mr-3;
+}
+
+.summary {
+  @apply list-none text-2xl font-bold text-gray-800 mt-3 mb-2 cursor-pointer before:inline-block before:content-['🌽'] before:rotate-90 before:mr-3 transition-all ease-in-out duration-1000; 
+}
+
+.ingredients_container {
+  @apply flex flex-wrap;
+}
+
+details[open] .summary {
+  @apply before:rotate-180;
+}
+
+.ingredients_items {
+  @apply w-3/6 lg:w-4/12 font-light;
+}
+
+.ingredients_units {
+  @apply font-extralight;
+}
+
+.description_container {
+  @apply border-l-4 border-gray-200 pl-2;
+}
+
+q {
+  @apply font-light italic;
+}

@@ -7,7 +7,6 @@ export type IngredientDocument = HydratedDocument<Ingredient>
 export class Ingredient {
   @Prop({
     required: true,
-    unique: true,
     minlength: 3,
     maxlength: 20
   })

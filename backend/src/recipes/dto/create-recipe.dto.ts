@@ -27,7 +27,6 @@ export class CreateRecipeDto {
   instructions: string
 
   @ApiProperty({ description: 'Recipe image', example: 'https://example.com' })
-  @IsNotEmpty()
   image: string
 
   @ApiProperty({

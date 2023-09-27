@@ -19,12 +19,9 @@ const router = createBrowserRouter([
       { path: '/signup', element: <SignUp /> },
       { path: '/signin', element: <SignIn /> },
       {
-        path: '/create',
-        element: (
-          <PrivateRoutes>
-            <AddRecipe />
-          </PrivateRoutes>
-        )
+        element: <PrivateRoutes />,
+        children: [{ path: '/create', element: <AddRecipe /> }],
+        fallback: <SignIn />
       },
       { path: '/recipes', element: <RecipesList /> },
       { path: '/recipes/:id', element: <RecipeDetails /> }

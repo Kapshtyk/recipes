@@ -53,3 +53,7 @@
     active:border-orange-200
     border;
 }
+
+.recipe_details_container {
+  @apply w-full h-full flex flex-col items-start;
+}

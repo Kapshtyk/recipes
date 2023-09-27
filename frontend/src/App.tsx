@@ -1,11 +1,10 @@
+import jwt_decode, { JwtPayload } from 'jwt-decode'
 import React, { useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom'
 
+import { clearCurrentUser, selectCurrentUser } from './features/auth/authSlice'
+import { useAppDispatch, useAppSelector } from './hooks'
 import router from './router/router'
-import { selectCurrentUser, clearCurrentUser } from './features/auth/authSlice'
-import { useAppSelector, useAppDispatch } from './hooks'
-
-import jwt_decode, { JwtPayload } from 'jwt-decode'
 
 const App = () => {
   const auth = useAppSelector(selectCurrentUser)

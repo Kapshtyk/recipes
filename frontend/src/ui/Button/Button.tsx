@@ -13,31 +13,11 @@ interface IIButton extends React.HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean
 }
 
-export const Button: React.FC<IIButton> = ({
-  children,
-  styles,
-  label,
-  disabled = false,
-  type = 'button',
-  ...rest
-}) => {
+export const Button: React.FC<IIButton> = ({ children, styles, label, disabled = false, type = 'button', ...rest }) => {
   return (
-    <button
-      disabled={disabled}
-      type={type}
-      className={styles?.button ? styles.button : defaultStyles.button}
-      {...rest}
-    >
+    <button disabled={disabled} type={type} className={styles?.button ? styles.button : defaultStyles.button} {...rest}>
       {children}
-      <span
-        className={
-          styles?.button_label
-            ? styles.button_label
-            : defaultStyles.button_label
-        }
-      >
-        {label}
-      </span>
+      <span className={styles?.button_label ? styles.button_label : defaultStyles.button_label}>{label}</span>
     </button>
   )
 }

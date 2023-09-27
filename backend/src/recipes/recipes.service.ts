@@ -1,9 +1,12 @@
 import {
+  HttpException,
+  HttpStatus,
   Injectable,
   NotFoundException,
   UnauthorizedException
 } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
+import { createWriteStream } from 'fs'
 import { Model } from 'mongoose'
 import { IngredientsService } from 'src/ingredients/ingredients.service'
 import {
@@ -38,6 +41,26 @@ export class RecipesService {
     createRecipeDto: CreateRecipeDto,
     user: UserDocument
   ): Promise<RecipeDocument> {
+    if (createRecipeDto.image) {
+      try {
+        const imageExtension = createRecipeDto.image.split(';')[0].split('/')[1]
+        const imagePath = `static/images/${Date.now()}.${imageExtension}`
+        const writeStream = createWriteStream(imagePath)
+        const base64Data = createRecipeDto.image.replace(
+          /^data:image\/\w+;base64,/,
+          ''
+        )
+        writeStream.write(Buffer.from(base64Data, 'base64'))
+        writeStream.end()
+
+        createRecipeDto.image = imagePath
+      } catch (e) {
+        throw new HttpException(
+          'Invalid image',
+          HttpStatus.INTERNAL_SERVER_ERROR
+        )
+      }
+    }
     const recipe = await this.recipeRepository.create({
       title: createRecipeDto.title,
       description: createRecipeDto.description,

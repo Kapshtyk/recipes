@@ -1,32 +1,8 @@
 import { useEffect, useState } from 'react'
 
-export interface IFormValuesAndErrors {
-  [key: string]: string
-}
+import { IFormValuesAndErrors, ITouchedFields, IUseFormProps, IUseFormReturn } from '../types'
 
-interface ITouchedFields {
-  [key: string]: boolean
-}
-
-interface IForm {
-  initialValues: IFormValuesAndErrors
-  validators?: {
-    [key: string]: (
-      value: string,
-      values: IFormValuesAndErrors
-    ) => string | null
-  }
-}
-
-interface IUseForm {
-  values: IFormValuesAndErrors
-  errors: IFormValuesAndErrors
-  handleChange: (name: string, value: string) => void
-  handleTouch: (name: string) => void
-  isFormTouched: boolean
-}
-
-export function useForm({ initialValues, validators }: IForm): IUseForm {
+export function useForm({ initialValues, validators }: IUseFormProps): IUseFormReturn {
   const [values, setValues] = useState<IFormValuesAndErrors>(initialValues)
   const [errors, setErrors] = useState<IFormValuesAndErrors>({})
   const [isFieldTouched, setIsFieldTouched] = useState<ITouchedFields>({})
@@ -45,7 +21,7 @@ export function useForm({ initialValues, validators }: IForm): IUseForm {
 
     Object.keys(values).forEach((key) => {
       const value = values[key]
-      const validator = validators && validators[key]
+      const validator = validators && validators[key.replace(/\d+$/g, '')]
 
       if (isFieldTouched[key] && validator) {
         const error = validator(value, values)

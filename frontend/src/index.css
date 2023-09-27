@@ -11,6 +11,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 input:-webkit-autofill,
@@ -23,10 +24,29 @@ input:-webkit-autofill:active {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 #root {
   @apply relative h-screen;
+}
+
+h1 {
+  @apply text-3xl font-bold text-gray-800 mt-4 mb-3 ;
+}
+
+h2 {
+  @apply text-2xl font-bold text-gray-800 mt-3 mb-2;
+}
+
+h3 {
+  @apply text-xl font-normal text-gray-800 mt-2 mb-1;
+}
+
+h4 {
+  @apply font-normal text-gray-800;
+}
+
+p {
+  @apply font-light text-gray-800 my-1;
 }

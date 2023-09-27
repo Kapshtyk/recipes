@@ -1,19 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
-import {
-  FLUSH,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-  REHYDRATE,
-  persistReducer,
-  persistStore
-} from 'redux-persist'
+import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import authReducer from '../features/auth/authSlice'
 import { usersApi } from './services/auth'
+import { ingredientsApi } from './services/ingredients'
 import { recipesApi } from './services/recipes'
 
 const persistConfig = {
@@ -26,6 +18,7 @@ export const store = configureStore({
   reducer: {
     [usersApi.reducerPath]: usersApi.reducer,
     [recipesApi.reducerPath]: recipesApi.reducer,
+    [ingredientsApi.reducerPath]: ingredientsApi.reducer,
     auth: persistReducer<any, any>(persistConfig, authReducer)
   },
   middleware: (getDefaultMiddleware) =>
@@ -36,6 +29,7 @@ export const store = configureStore({
     })
       .concat(usersApi.middleware)
       .concat(recipesApi.middleware)
+      .concat(ingredientsApi.middleware)
 })
 setupListeners(store.dispatch)
 

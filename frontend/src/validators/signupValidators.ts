@@ -1,4 +1,4 @@
-export const authValidators = {
+export const signupValidators = {
   username: (value: string) => {
     if (!value) {
       return 'Username is required'
