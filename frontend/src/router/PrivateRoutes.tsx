@@ -14,7 +14,7 @@ const PrivateRoutes = (children: JSX.Element) => {
   if (auth && auth.token) {
     return <Outlet />
   } else {
-    ;<Navigate to="/signin" />
+    <Navigate to="/signin" />
   }
 }
 

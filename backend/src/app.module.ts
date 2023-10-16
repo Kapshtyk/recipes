@@ -9,6 +9,7 @@ import { IngredientsModule } from './ingredients/ingredients.module'
 import { RecipesModule } from './recipes/recipes.module'
 import { RolesModule } from './roles/roles.module'
 import { UsersModule } from './users/users.module'
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   controllers: [],
@@ -27,7 +28,8 @@ import { UsersModule } from './users/users.module'
     RolesModule,
     AuthModule,
     RecipesModule,
-    IngredientsModule
+    IngredientsModule,
+    CommentsModule
   ]
 })
 export class AppModule {}
